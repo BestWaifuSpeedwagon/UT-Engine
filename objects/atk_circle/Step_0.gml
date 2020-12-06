@@ -1,7 +1,10 @@
 /// @description Insérez la description ici
 // Vous pouvez écrire votre code dans cet éditeur
-dir += random(rotSpd)-rotSpd/2;
-image_angle = dir;
+p1.set(x, y);
+p2.set(x+16, y+16);
 
-x += cos(dir) * spd;
-y += sin(dir) * spd;
+theta = dir;
+image_angle = -radtodeg(dir);
+
+x += cos(dir)*2;
+y += sin(dir)*2;

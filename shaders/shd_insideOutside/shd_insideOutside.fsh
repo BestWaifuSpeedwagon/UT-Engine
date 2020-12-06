@@ -2,7 +2,7 @@ varying vec2 v_vTexcoord;
 varying vec4 v_vColour;
 varying vec3 v_vPosition;
 
-uniform bool inside;
+uniform bool inside; //True means you only show inside, and false outside
 uniform vec4 box; //Coordinates of the box (x: x1, y: y1, z: x2, w: y2)
 
 void main()

@@ -19,3 +19,50 @@ function startBattle(monster, karma)
 	
 	room = rm_battle;
 }
+
+function pointInRectangleRotated(px, py, x1, y1, x2, y2, ox, oy, theta)
+{
+	/* 
+		Checking if a point is inside a rotated rectangle is the same as
+		rotating both backwards, then checking if the point is inside the
+		normal rectangle.
+		We already have the normal rectangle, so we only rotate the point around the 
+		origin.
+	*/
+	
+	var p = new Point(px-x1-ox, py-y1-oy); //Relative origin
+	p.rotate(-theta);
+	
+	return p.x > x1 && p.x < x2 && p.y > y1 && p.y < y2;
+}
+
+function pointDirection(x1, y1, x2, y2)
+{
+	return arctan2(y2 - y1, x2 - x1);
+}
+
+function drawRectangleRotated(x1, y1, x2, y2, ox, oy, theta)
+{
+	// p1 o---------o p2
+	//	  |			|
+	//	  |		 	|
+	//	  |			|
+	// p3 o---------o p4
+	
+	var _ox = ox + x1, //Relative origin
+		_oy = oy + y1;
+	
+	var p1 = new Point(x1-_ox, y1-_oy),
+		p2 = new Point(x2-_ox, y1-_oy),
+		p3 = new Point(x1-_ox, y2-_oy),
+		p4 = new Point(x2-_ox, y2-_oy);
+	p1.rotate(theta);
+	p2.rotate(theta);
+	p3.rotate(theta);
+	p4.rotate(theta);
+	
+	draw_line(p1.x+_ox, p1.y+_oy, p2.x+_ox, p2.y+_oy);
+	draw_line(p1.x+_ox, p1.y+_oy, p3.x+_ox, p3.y+_oy);
+	draw_line(p3.x+_ox, p3.y+_oy, p4.x+_ox, p4.y+_oy);
+	draw_line(p2.x+_ox, p2.y+_oy, p4.x+_ox, p4.y+_oy);
+}

@@ -11,6 +11,8 @@ switch(color)
 	case GREEN:
 		_c = c_green;
 		break;
+	default:
+		_c = c_red;
 }
 
-draw_sprite_ext(sprite_index, inv % 6 < 3 ? 0 : 1, x, y, 1, 1, 0, _c, 1.0); //1 frame on 2 every 6 step
+draw_sprite_ext(sprite_index, inv % 20 < 10 ? 0 : 1, x, y, 1, 1, 0, _c, 1.0); //1 frame on 2 every 6 step

@@ -1,7 +1,9 @@
 /// @description Variables
 color = RED;
 
-x = obj_soul.box.x + obj_soul.box.w/2;
-y = obj_soul.box.y + obj_soul.box.h/2;
+x = obj_soul.box.cx;
+y = obj_soul.box.cy;
 
 inv = 0; //Invicibility time
+
+visible = false;

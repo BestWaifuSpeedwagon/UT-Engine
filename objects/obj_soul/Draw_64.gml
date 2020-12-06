@@ -8,11 +8,9 @@ draw_set_color(c_white);
 draw_set_font(fnt_menu);
 
 #region Box
-draw_set_color(c_black);
-draw_rectangle(box.x, box.y, box.x+box.w, box.y+box.h, false);
 draw_set_color(c_white);
 for(i = 0; i < 4; i++)
-	draw_rectangle(box.x + i, box.y + i, box.x+box.w - i, box.y+box.h - i, true);
+	draw_rectangle(box.x + i, box.y + i, box.x2 - i, box.y2 - i, true);
 #endregion
 #region Heart / Text
 if(!inBattle)

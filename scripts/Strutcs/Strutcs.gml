@@ -94,3 +94,24 @@ function Item(_name, _effect, _desc) constructor
 	effect = _effect;
 	description = _desc;
 }
+
+function Point(_x, _y) constructor
+{
+	x = _x;
+	y = _y;
+	
+	function rotate(theta)
+	{
+		var _x = x*cos(theta)-y*(sin(theta));
+		var _y = x*sin(theta)+y*cos(theta);
+		
+		x = _x;
+		y = _y;
+	}
+	
+	function set(_x, _y)
+	{
+		x = _x;
+		y = _y;
+	}
+}

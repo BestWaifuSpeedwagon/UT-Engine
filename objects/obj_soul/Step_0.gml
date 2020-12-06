@@ -70,7 +70,9 @@ if(!inBattle)
 							dialogue.messages = [ "* You eat the " + _item.name + ".\n* " + _m ];
 							dialogue.reset();
 							
-							startCombat();
+							ds_list_delete(obj_stat.items, substate[0]);
+							
+							waitingForDialogue = true;
 						}
 						break;
 				}
@@ -114,6 +116,13 @@ else
 	if(currentAttack(time))
 	{
 		inBattle = false;
+		
+		obj_heartmove.visible = false;
+		
+		with(obj_attack)
+		{
+			instance_destroy();
+		}
 	}
 	time++;
 }
@@ -129,4 +138,8 @@ box.y = min(388, 320 + box.h/2) - box.h;
 
 box.x2 = box.x + box.w;
 box.y2 = box.y + box.h;
+
+box.cx = box.x + box.w/2;
+box.cy = box.y + box.h/2;
+
 #endregion

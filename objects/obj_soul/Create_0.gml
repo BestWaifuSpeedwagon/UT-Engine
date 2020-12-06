@@ -1,22 +1,10 @@
 /// @description Insérez la description ici
+//UI
 state = 0;
-
-substate = [ NULL, NULL]; //Substate, subsubstate, subsubsubstate, etc...
+substate = [ NULL, NULL ]; //Substate, subsubstate, subsubsubstate, etc...
 
 inBattle = false;
 waitingForDialogue = false; //True when your waiting for the dialogue to finish
-
-
-karma = ct_argument.karma;
-kr = obj_stat.hp;
-
-
-monster = ct_argument.monster; //Array of obj_monster instances
-monsterAmount = array_length(monster);
-
-//Attack Variables
-currentAttack = undefined;
-time = 0;
 
 box = 
 {
@@ -26,9 +14,23 @@ box =
 	h: 0,
 	wantedW: 575,
 	wantedH: 140,
-	x2: 32.5,
-	y2: 248
+	x2: 32.5, //Convenience
+	y2: 248,
+	cx: 32.5,
+	cy: 248
 }
+
+//Battle Variables
+monster = ct_argument.monster; //Array of obj_monster instances
+monsterAmount = array_length(monster);
+
+karma = ct_argument.karma;
+kr = obj_stat.hp;
+
+currentAttack = undefined;
+time = 0;
+
+instance_create_layer(0, 0, "Instances", obj_heartmove);
 
 function getDialogue()
 {
@@ -51,7 +53,9 @@ function startCombat() //Start the combat event, _type either FIGHT, ACT, ITEM o
 	time = 0;
 	currentAttack = monster[ irandom(monsterAmount-1) ].attackOrder();
 	
-	instance_create_layer(0, 0, "Instances", obj_heartmove);
+	obj_heartmove.visible = true;
+	obj_heartmove.x = box.cx;
+	obj_heartmove.y = box.cy;
 }
 
 dialogue = new Dialogue( [ getDialogue() ], false );
