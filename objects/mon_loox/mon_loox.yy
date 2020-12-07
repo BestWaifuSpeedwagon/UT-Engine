@@ -29,8 +29,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Monsters",
-    "path": "folders/Objects/Battle/Monsters.yy",
+    "name": "Ruins",
+    "path": "folders/Monsters/Ruins.yy",
   },
   "resourceVersion": "1.0",
   "name": "mon_loox",

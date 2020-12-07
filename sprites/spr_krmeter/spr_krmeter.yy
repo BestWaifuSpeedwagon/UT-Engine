@@ -69,7 +69,7 @@
   ],
   "parent": {
     "name": "HUD",
-    "path": "folders/Sprites/Battle/HUD.yy",
+    "path": "folders/Battle/HUD.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_krmeter",

@@ -77,7 +77,11 @@ if(!inBattle)
 						break;
 				}
 			
-				if(_x) substate[0] = NULL;
+				if(_x)
+				{
+					dialogue.reset();
+					substate[0] = NULL;
+				}
 			}
 			else
 			{

@@ -25,7 +25,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Attacks",
-    "path": "folders/Objects/Battle/Attacks.yy",
+    "path": "folders/Attacks.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_attack",

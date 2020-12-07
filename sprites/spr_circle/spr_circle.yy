@@ -73,7 +73,7 @@
   ],
   "parent": {
     "name": "Attack Sprites",
-    "path": "folders/Sprites/Battle/Attack Sprites.yy",
+    "path": "folders/Battle/Attack Sprites.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_circle",

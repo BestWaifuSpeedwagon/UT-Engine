@@ -15,10 +15,10 @@ acts = [
 attacks = [
 	function(t)
 	{
-		//obj_soul.box.wantedW = 100;
-		//obj_soul.box.wantedH = 100;
+		obj_soul.box.wantedW = 100;
+		obj_soul.box.wantedH = 100;
 		
-		if(t % 30 == 0)
+		if(t % 60 == 0)
 		{
 			repeat(2)
 				instance_create_layer(choose(obj_soul.box.x, obj_soul.box.x2), choose(obj_soul.box.y, obj_soul.box.y2), "Attacks", atk_circle);

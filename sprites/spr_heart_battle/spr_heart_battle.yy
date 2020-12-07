@@ -73,7 +73,7 @@
   ],
   "parent": {
     "name": "Soul",
-    "path": "folders/Sprites/Battle/Soul.yy",
+    "path": "folders/Battle/Soul.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_heart_battle",

@@ -69,7 +69,7 @@
   ],
   "parent": {
     "name": "Monster Sprites",
-    "path": "folders/Sprites/Battle/Monster Sprites.yy",
+    "path": "folders/Battle/Monster Sprites.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_loox",

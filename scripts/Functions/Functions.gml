@@ -20,6 +20,7 @@ function startBattle(monster, karma)
 	room = rm_battle;
 }
 
+// /!\ ox and oy are relative to x1 and y1
 function pointInRectangleRotated(px, py, x1, y1, x2, y2, ox, oy, theta)
 {
 	/* 
@@ -32,6 +33,7 @@ function pointInRectangleRotated(px, py, x1, y1, x2, y2, ox, oy, theta)
 	
 	var p = new Point(px-x1-ox, py-y1-oy); //Relative origin
 	p.rotate(-theta);
+	p.add(x1+ox, y1+oy)
 	
 	return p.x > x1 && p.x < x2 && p.y > y1 && p.y < y2;
 }
@@ -41,6 +43,7 @@ function pointDirection(x1, y1, x2, y2)
 	return arctan2(y2 - y1, x2 - x1);
 }
 
+// /!\ ox and oy are relative to x1 and y1
 function drawRectangleRotated(x1, y1, x2, y2, ox, oy, theta)
 {
 	// p1 o---------o p2
@@ -61,8 +64,13 @@ function drawRectangleRotated(x1, y1, x2, y2, ox, oy, theta)
 	p3.rotate(theta);
 	p4.rotate(theta);
 	
-	draw_line(p1.x+_ox, p1.y+_oy, p2.x+_ox, p2.y+_oy);
-	draw_line(p1.x+_ox, p1.y+_oy, p3.x+_ox, p3.y+_oy);
-	draw_line(p3.x+_ox, p3.y+_oy, p4.x+_ox, p4.y+_oy);
-	draw_line(p2.x+_ox, p2.y+_oy, p4.x+_ox, p4.y+_oy);
+	p1.add(_ox, _oy);
+	p2.add(_ox, _oy);
+	p3.add(_ox, _oy);
+	p4.add(_ox, _oy);
+	
+	draw_line(p1.x, p1.y, p2.x, p2.y);
+	draw_line(p1.x, p1.y, p3.x, p3.y);
+	draw_line(p3.x, p3.y, p4.x, p4.y);
+	draw_line(p2.x, p2.y, p4.x, p4.y);
 }

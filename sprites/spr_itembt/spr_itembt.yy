@@ -73,7 +73,7 @@
   ],
   "parent": {
     "name": "Buttons",
-    "path": "folders/Sprites/Battle/Buttons.yy",
+    "path": "folders/Battle/Buttons.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_itembt",

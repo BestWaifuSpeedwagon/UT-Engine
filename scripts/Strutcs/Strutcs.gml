@@ -114,4 +114,21 @@ function Point(_x, _y) constructor
 		x = _x;
 		y = _y;
 	}
+	
+	/*
+		Either add another point or _x and _y
+	*/
+	function add()
+	{
+		if(argument_count == 1)
+		{
+			x += argument[0].x;
+			y += argument[0].y;
+		}
+		else
+		{
+			x += argument[0];
+			y += argument[1];
+		}
+	}
 }

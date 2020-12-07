@@ -69,7 +69,7 @@
   ],
   "parent": {
     "name": "SpeechBubbles",
-    "path": "folders/Sprites/Battle/SpeechBubbles.yy",
+    "path": "folders/Battle/SpeechBubbles.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_blconabove_0",

@@ -73,7 +73,7 @@
   ],
   "parent": {
     "name": "Battle",
-    "path": "folders/Sprites/Battle.yy",
+    "path": "folders/Battle.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_testScreenshot",

@@ -2,7 +2,7 @@
 event_inherited();
 
 dir = pointDirection(x, y, obj_heartmove.x, obj_heartmove.y);
-dir += irandom(10)-5;
+dir += random(pi/2)-pi/4;
 
 damage = 4;
 
