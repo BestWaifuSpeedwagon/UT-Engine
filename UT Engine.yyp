@@ -1,5 +1,6 @@
 {
   "resources": [
+    {"id":{"name":"snd_voice","path":"sounds/snd_voice/snd_voice.yy",},"order":0,},
     {"id":{"name":"spr_blconsm_shrt_0","path":"sprites/spr_blconsm_shrt_0/spr_blconsm_shrt_0.yy",},"order":1,},
     {"id":{"name":"Functions","path":"scripts/Functions/Functions.yy",},"order":1,},
     {"id":{"name":"spr_target","path":"sprites/spr_target/spr_target.yy",},"order":3,},
@@ -15,6 +16,7 @@
     {"id":{"name":"spr_battlebg_0","path":"sprites/spr_battlebg_0/spr_battlebg_0.yy",},"order":4,},
     {"id":{"name":"Strutcs","path":"scripts/Strutcs/Strutcs.yy",},"order":0,},
     {"id":{"name":"spr_battlebg_1","path":"sprites/spr_battlebg_1/spr_battlebg_1.yy",},"order":5,},
+    {"id":{"name":"spr_a","path":"sprites/spr_a/spr_a.yy",},"order":0,},
     {"id":{"name":"spr_blcontinyabove_0","path":"sprites/spr_blcontinyabove_0/spr_blcontinyabove_0.yy",},"order":5,},
     {"id":{"name":"spr_krmeter","path":"sprites/spr_krmeter/spr_krmeter.yy",},"order":2,},
     {"id":{"name":"obj_soul","path":"objects/obj_soul/obj_soul.yy",},"order":0,},
@@ -33,6 +35,7 @@
     {"id":{"name":"shd_insideOutside","path":"shaders/shd_insideOutside/shd_insideOutside.yy",},"order":0,},
     {"id":{"name":"obj_stat","path":"objects/obj_stat/obj_stat.yy",},"order":1,},
     {"id":{"name":"spr_blconsm2_0","path":"sprites/spr_blconsm2_0/spr_blconsm2_0.yy",},"order":2,},
+    {"id":{"name":"snd_text","path":"sounds/snd_text/snd_text.yy",},"order":0,},
     {"id":{"name":"fnt_battle_hud","path":"fonts/fnt_battle_hud/fnt_battle_hud.yy",},"order":2,},
     {"id":{"name":"obj_monster","path":"objects/obj_monster/obj_monster.yy",},"order":0,},
     {"id":{"name":"spr_testScreenshot","path":"sprites/spr_testScreenshot/spr_testScreenshot.yy",},"order":11,},

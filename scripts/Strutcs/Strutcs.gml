@@ -1,5 +1,5 @@
 ///Holds all of the structs
-function Dialogue(_messages, _border) constructor
+function Dialogue(_messages, _border, _voice) constructor
 {
 	messages = _messages;
 	current = ""; //Holds the current string
@@ -17,6 +17,9 @@ function Dialogue(_messages, _border) constructor
 	font = fnt_dialogue; //Font draw - MODIFY PROPERTY
 	
 	t = 2;
+	tVoice = 3;
+	
+	voice = _voice;
 	
 	border = _border;
 	
@@ -30,6 +33,13 @@ function Dialogue(_messages, _border) constructor
 		
 		if(pos <= string_length(messages[_id]))
 		{
+			if(tVoice > 0) tVoice--;
+			else
+			{
+				audio_play_sound(voice, 1, false);
+				tVoice = choose(2, 3, 4);
+			}
+			
 			if(t > 0) //Countdown before adding string
 			{
 				t--;

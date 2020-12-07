@@ -49,6 +49,7 @@ function startCombat() //Start the combat event, _type either FIGHT, ACT, ITEM o
 	
 	inBattle = true;
 	dialogue.messages = [ getDialogue() ];
+	dialogue.reset();
 	
 	time = 0;
 	currentAttack = monster[ irandom(monsterAmount-1) ].attackOrder();
@@ -58,7 +59,7 @@ function startCombat() //Start the combat event, _type either FIGHT, ACT, ITEM o
 	obj_heartmove.y = box.cy;
 }
 
-dialogue = new Dialogue( [ getDialogue() ], false );
+dialogue = new Dialogue( [ getDialogue() ], false, snd_text );
 dialogue.passable = false;
 
 dialogue.x = box.x + 16;
