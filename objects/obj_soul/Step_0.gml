@@ -2,10 +2,16 @@
 var _z = keyboard_check_pressed(ord("Z"));
 var _x = keyboard_check_pressed(ord("X"));
 
+var _hKey = keyboard_check_pressed(vk_right)-keyboard_check_pressed(vk_left),
+	_vKey = keyboard_check_pressed(vk_down)-keyboard_check_pressed(vk_up);
+
 if(!inBattle)
 {
 	box.wantedW = 575;
 	box.wantedH = 140;
+	
+	if(_z) audio_play_sound(snd_select, 1, false);
+	if(_hKey != 0 || _vKey != 0) audio_play_sound(snd_squeak, 1, false);
 	
 	if(waitingForDialogue)
 	{
@@ -18,13 +24,13 @@ if(!inBattle)
 			startCombat();
 		}
 	}
-	else
+	else if(!waitingForDamage)
 	{
 		if(substate[0] == NULL)
 		{
 			dialogue.update();
 			
-			state += keyboard_check_pressed(vk_right)-keyboard_check_pressed(vk_left);
+			state += _hKey;
 			state = clamp(state, 0, 3);
 		
 			if(_z) substate[0] = 0;
@@ -37,23 +43,29 @@ if(!inBattle)
 				{
 					case ACT: //ACT acts like SPARE for selecting monster
 					case SPARE:
-						substate[0] += keyboard_check_pressed(vk_down)-keyboard_check_pressed(vk_up);
+						substate[0] += _vKey;
 						substate[0] = clamp(substate[0], 0, monsterAmount-1);
 						
 						if(_z) substate[1] = 0;
 						break;
 					case FIGHT:
-						substate[0] += keyboard_check_pressed(vk_down)-keyboard_check_pressed(vk_up);
+						substate[0] += _vKey;
 						substate[0] = clamp(substate[0], 0, monsterAmount-1);
 					
 						if(_z) 
 						{
 							monster[ substate[0] ].fightCount++;
-							startCombat();
+							waitingForDamage = true;
+							ct_argument = 
+							{
+								monster: monster[ substate[0] ]
+							}
+							instance_create_layer(0, 0, "Instances", obj_target);
 						}
 						break;
 					case ITEM:
-						substate[0] += keyboard_check_pressed(vk_right) - keyboard_check_pressed(vk_left) + keyboard_check_pressed(vk_down)*2 - keyboard_check_pressed(vk_up)*2;
+						//Horizontal + Vertical choosing
+						substate[0] += _hKey + _vKey*2;
 						substate[0] = clamp(substate[0], 0, array_length(obj_stat.items));
 					
 						if(_z)
@@ -90,7 +102,7 @@ if(!inBattle)
 					case FIGHT:
 						break;
 					case ACT:
-						substate[1] += keyboard_check_pressed(vk_right) - keyboard_check_pressed(vk_left) + keyboard_check_pressed(vk_down)*2 - keyboard_check_pressed(vk_up)*2;
+						substate[1] += _hKey + _vKey*2;
 						substate[1] = clamp(substate[1], 0, array_length(monster[substate[0]].acts));
 						
 						if(_z)

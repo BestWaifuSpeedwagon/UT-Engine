@@ -3,6 +3,7 @@
 maxHp = 100;
 hp = 100;
 name = "";
+def = 1;
 
 count = 0; //Number of "rounds"
 fightCount = 0; //Number of "rounds" where you attacked

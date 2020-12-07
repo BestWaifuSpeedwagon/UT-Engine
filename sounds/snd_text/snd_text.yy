@@ -13,8 +13,8 @@
   "soundFile": "snd_text.wav",
   "duration": 1.719286,
   "parent": {
-    "name": "Sounds",
-    "path": "folders/Sounds.yy",
+    "name": "Voices",
+    "path": "folders/Sounds/Voices.yy",
   },
   "resourceVersion": "1.0",
   "name": "snd_text",

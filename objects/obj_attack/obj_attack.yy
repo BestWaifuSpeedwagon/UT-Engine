@@ -24,8 +24,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Attacks",
-    "path": "folders/Attacks.yy",
+    "name": "Monsters",
+    "path": "folders/Monsters.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_attack",

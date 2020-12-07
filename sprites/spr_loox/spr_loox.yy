@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"0fb9805c-8efc-4121-8711-45b42e268709","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Monster Sprites",
-    "path": "folders/Battle/Monster Sprites.yy",
+    "name": "Sprites",
+    "path": "folders/Monsters/Ruins/Sprites.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_loox",

@@ -19,6 +19,8 @@ name = "shit"
 lv = 1;
 hp = 20;
 maxHp = 20;
+atk = 0;
+def = 0;
 items = ds_list_create(); //DS list of items
 ds_list_add(items, new Item( "Yum!", 10, "Delicious bun!" ));
 

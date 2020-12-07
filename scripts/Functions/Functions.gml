@@ -4,7 +4,7 @@ function startBattle(monster, karma)
 	var _monsterInstances = [];
 	for(i = 0; i < _l; i++)
 	{
-		_monsterInstances[i] = instance_create_depth((i+1)/(_l+1) * 640, 0, 10, monster[i]);
+		_monsterInstances[i] = instance_create_depth((i+1)/(_l+1) * 640, 60, 10, monster[i]);
 	}
 	
 	//Allows setting arguments before create

@@ -19,7 +19,7 @@ if(!inBattle)
 	{
 		dialogue.draw();
 	}
-	else
+	else if(!waitingForDamage)
 	{
 		var _hx; //Heart x
 		var _hy; //Heart y
@@ -52,6 +52,26 @@ if(!inBattle)
 				switch(state)
 				{
 					case FIGHT:
+						var _maxw = 0;
+						
+						for(i = 0; i < monsterAmount; i++)
+						{
+							draw_text(box.x + 64, box.y + 24 + 32*i, monster[i].name);
+							
+							_maxw = max(_maxw, string_width(monster[i].name));
+						}
+						
+						for(i = 0; i < monsterAmount; i++)
+						{
+							var _x = box.x + 86 + _maxw,
+								_y = box.y + 24 + 32*i;
+							
+							draw_healthbar(_x, _y+6, _x+80, _y+26, monster[i].hp/monster[i].maxHp * 100, c_red, c_lime, c_lime, 0, true, false);
+						}
+						_hx = box.x + 40; //+ 64 - 16 - 8
+						_hy = box.y + 40 + 32*substate[0];
+						
+						break;
 					case ACT:
 					case SPARE:
 						for(i = 0; i < monsterAmount; i++)
@@ -76,6 +96,7 @@ if(!inBattle)
 							
 							draw_text(_x, _y, obj_stat.items[| i].name);
 						}
+						break;
 				}
 			}
 			else

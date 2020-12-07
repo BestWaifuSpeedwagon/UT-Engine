@@ -5,6 +5,7 @@ substate = [ NULL, NULL ]; //Substate, subsubstate, subsubsubstate, etc...
 
 inBattle = false;
 waitingForDialogue = false; //True when your waiting for the dialogue to finish
+waitingForDamage = false; //Waiting for the hit, then the slice then the damage
 
 box = 
 {

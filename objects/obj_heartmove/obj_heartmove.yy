@@ -28,8 +28,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Battle",
-    "path": "folders/Objects/Battle.yy",
+    "name": "Objects",
+    "path": "folders/Battle/Objects.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_heartmove",

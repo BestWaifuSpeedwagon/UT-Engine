@@ -15,6 +15,4 @@ switch(color)
 		_c = c_red;
 }
 
-//draw_sprite_ext(sprite_index, inv % 20 < 10 ? 0 : 1, x, y, 1, 1, 0, _c, 1.0); //1 frame on 2 every 6 step
-draw_set_color(_c);
-draw_point(x+8, y+8);
+draw_sprite_ext(sprite_index, inv % 20 < 10 ? 0 : 1, x, y, 1, 1, 0, _c, 1.0); //1 frame on 2 every 6 step

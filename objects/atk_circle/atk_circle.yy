@@ -30,8 +30,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Misc",
-    "path": "folders/Attacks/Misc.yy",
+    "name": "Attacks",
+    "path": "folders/Monsters/Ruins/Attacks.yy",
   },
   "resourceVersion": "1.0",
   "name": "atk_circle",
