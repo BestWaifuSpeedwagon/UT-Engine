@@ -1,37 +1,28 @@
 /// @description Move bar and calculate damage
-if(keyboard_check_pressed(ord("Z")))
+if(keyboard_check_pressed(ord("Z")) && moving)
 {
 	moving = false;
 	timer = 60;
+	
+	_dstFromCenter = 320 - abs(barX - 320);
+		
+	var damage;
+	
+	if(_dstFromCenter <= 12) damage = round((obj_stat.atk - mon.def + random(2)) * 2.2);
+	else damage = round((obj_stat.atk - mon.def + random(2)) * (1 - _dstFromCenter/575) * 2);
+		
+	createSlice(damage);
 }
+
+t++;
 
 if(moving)
 {
-	barX += 5;
-	if(barX > 600)
+	barX += 7;
+	if(barX > obj_soul.box.x2)
 	{
-		moving = false;
-		timer = 60;
+		createSlice(-1);
 	}
 }
-else
-{
-	if(timer > 0) timer--;
-	else
-	{
-		_dstFromCenter = abs(barX - 320);
-		
-		var damage;
-		
-		if(_dstFromCenter <= 12) damage = round((obj_stat.atk - mon.def + random(2)) * 2.2);
-		else damage = round((obj_stat.atk - mon.def + random(2)) * (1 - _dstFromCenter/575) * 2);
-		
-		if(_dstFromCenter > 360) damage = -1;
-		
-		ct_argument = { damage: damage };
-		instance_create_layer(mon.x, mon.y, "Instances", obj_slice);
-		ct_argument = undefined;
-		
-		instance_destroy();
-	}
-}
+
+//Destroyed by obj_dmgnum

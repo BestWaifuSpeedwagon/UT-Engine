@@ -1,23 +1,20 @@
-function startBattle(monster, karma)
+function startBattle(monster, karma, music)
 {
-	var _l = array_length(monster);
-	var _monsterInstances = [];
-	for(i = 0; i < _l; i++)
-	{
-		_monsterInstances[i] = instance_create_depth((i+1)/(_l+1) * 640, 60, 10, monster[i]);
-	}
-	
 	//Allows setting arguments before create
 	ct_argument =
 	{
 		karma: karma,
-		monster: _monsterInstances
+		monster: monster,
+		music: music,
+		originalRoom: room
 	};
 	
-	instance_create_depth(0, 0, 0, obj_soul);
+	room = rm_battle;
+	
+	instance_create_depth(0, 0, 0, obj_battlestart);
+	
 	ct_argument = undefined;
 	
-	room = rm_battle;
 }
 
 // /!\ ox and oy are relative to x1 and y1
@@ -73,4 +70,17 @@ function drawRectangleRotated(x1, y1, x2, y2, ox, oy, theta)
 	draw_line(p1.x, p1.y, p3.x, p3.y);
 	draw_line(p3.x, p3.y, p4.x, p4.y);
 	draw_line(p2.x, p2.y, p4.x, p4.y);
+}
+
+function splice(arr, index)
+{
+	//[0, 1, 2, 3]
+	//splice(arr, 2)
+	//[0, 1, 3, -1]
+	
+	for(i = index; i < array_length(arr)-1; i++)
+	{
+		arr[@ i] = arr[@ i+1];
+	}
+	arr[@ array_length(arr)-1] = -1;
 }

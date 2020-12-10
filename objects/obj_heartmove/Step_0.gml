@@ -28,6 +28,8 @@ if(inv == 0 || obj_soul.karma)
 	
 		if(pointInRectangleRotated(x+8, y+8, _atk.p1.x, _atk.p1.y, _atk.p2.x, _atk.p2.y, _atk.po.x, _atk.po.y, _atk.theta))
 		{
+			audio_play_sound(snd_hurt1, 1, false);
+			
 			obj_stat.hp -= _atk.damage;
 			inv = room_speed;
 			if(_atk.destroy) instance_destroy(_atk);

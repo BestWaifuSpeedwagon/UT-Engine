@@ -4,32 +4,24 @@ event_inherited(); //Inherit all variables of parent
 maxHp = 100;
 hp = 100;
 name = "Loox";
+def = -50;
 
 text = [ "* Loox looks at you intently.", "* Loox expects you to do something." ];
 
 acts = [
-	new Act("Check", ["* LOOX - 5 ATK 5 DEF\n* Looks everywhere."]),
-	new Act("Talk", ["* You talk about your like to Loox\n  about your life."]),
-	new Act("Therapy", ["* Loox talks to you about his life."])
+	new Act("Check", ["* LOOX - 5 ATK 5 DEF\n* Looks everywhere."], NULL),
+	new Act("Talk", ["* You ask Loox how he has been doing{6}.{6}.{6}.{6}.",
+					 "* He seems to feel better !"],
+			function(){ spare = true })
 ]; 
-attacks = [
-	function(t)
-	{
-		obj_soul.box.wantedW = 100;
-		obj_soul.box.wantedH = 100;
-		
-		if(t % 60 == 0)
-		{
-			repeat(2)
-				instance_create_layer(choose(obj_soul.box.x, obj_soul.box.x2), choose(obj_soul.box.y, obj_soul.box.y2), "Attacks", atk_circle);
-		}
-		
-		if(t == 240) return true;
-		
-		return false;
-	}
-]
+attacks = [ atkp_loox1 ]
 attackOrder = function() //Determine order based on current count
 {
 	return attacks[0];
 }
+
+y = 120;
+
+expAmount = 6;
+gAmountFight = 20;
+gAmountSpare = 15;

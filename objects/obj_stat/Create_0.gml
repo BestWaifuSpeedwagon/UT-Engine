@@ -11,15 +11,19 @@ window_set_size(width*2, height*2);
 window_set_position(display_get_width()/2 - width, display_get_height()/2 - height);
 
 display_set_gui_size(width*2, height*2);
-//display_set_gui_maximize(2, 2, 0, 0);
+
+guiText = surface_create(width*2, height*2); //Deals with fullscreen shit
+
 #endregion
 #region Values
 
 name = "shit"
 lv = 1;
+xp = 0;
+g = 0;
 hp = 20;
 maxHp = 20;
-atk = 0;
+atk = 1;
 def = 0;
 items = ds_list_create(); //DS list of items
 ds_list_add(items, new Item( "Yum!", 10, "Delicious bun!" ));

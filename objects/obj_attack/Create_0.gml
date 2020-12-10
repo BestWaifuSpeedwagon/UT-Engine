@@ -3,6 +3,7 @@ u_uBox = shader_get_uniform(shd_insideOutside, "box");
 u_uInside = shader_get_uniform(shd_insideOutside, "inside");
 
 inside = true; //Default at true
+passthrough = false; //If the shader doesn't have an effect
 damage = 1; //Default at 1
 
 destroy = true; //Wether the attack will destroy itself when contacting the player

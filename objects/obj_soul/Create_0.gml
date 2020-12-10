@@ -11,14 +11,14 @@ box =
 {
 	x: 32.5,
 	y: 248,
-	w: 0,
-	h: 0,
+	w: 575,
+	h: 140,
 	wantedW: 575,
 	wantedH: 140,
-	x2: 32.5, //Convenience
-	y2: 248,
-	cx: 32.5,
-	cy: 248
+	x2: 32.5+575, //Convenience
+	y2: 248+140, 
+	cx: 32.5+575/2,
+	cy: 248+140/2
 }
 
 //Battle Variables
@@ -33,6 +33,16 @@ time = 0;
 
 instance_create_layer(0, 0, "Instances", obj_heartmove);
 
+//Other
+originalRoom = ct_argument.originalRoom;
+
+gAmount = 0;
+xpAmount = 0;
+
+won = false;
+
+// ----------
+
 function getDialogue()
 {
 	var _mon = monster[ irandom(monsterAmount-1) ];
@@ -40,10 +50,33 @@ function getDialogue()
 	return _mon.text[ irandom(array_length(_mon.text)-1) ];
 }
 
-function startCombat() //Start the combat event, _type either FIGHT, ACT, ITEM or SPARE
+dialogue = new Dialogue( [ getDialogue() ], false, snd_text );
+dialogue.passable = false;
+
+dialogue.x = box.x + 16;
+dialogue.y = box.y + 24;
+
+dialogue.font = fnt_menu;
+
+#region Utilities
+
+function startCombat() //Start the combat event
 {
 	substate[0] = NULL;
 	substate[1] = NULL;
+	
+	if(monsterAmount <= 0) //Won
+	{
+		var _t =  "You won !{9}\nYou gained " + string(gAmount) + "G and " +  string(xpAmount) + " EXP !";
+		
+		obj_stat.xp += xpAmount;
+		obj_stat.g += gAmount;
+		
+		dialogue.messages = [_t];
+		dialogue.reset();
+		won = true;
+		return;
+	}
 	
 	for(i = 0; i < monsterAmount; i++)
 		monster[i].count++;
@@ -54,16 +87,21 @@ function startCombat() //Start the combat event, _type either FIGHT, ACT, ITEM o
 	
 	time = 0;
 	currentAttack = monster[ irandom(monsterAmount-1) ].attackOrder();
+	instance_create_depth(0, 0, 0, currentAttack);
 	
 	obj_heartmove.visible = true;
 	obj_heartmove.x = box.cx;
 	obj_heartmove.y = box.cy;
 }
 
-dialogue = new Dialogue( [ getDialogue() ], false, snd_text );
-dialogue.passable = false;
+function allMonstersSparable()
+{
+	for(i = 0; i < monsterAmount; i++)
+	{
+		if(!monster[i].spare) return false;
+	}
+	
+	return true;
+}
 
-dialogue.x = box.x + 16;
-dialogue.y = box.y + 24;
-
-dialogue.font = fnt_menu;
+#endregion

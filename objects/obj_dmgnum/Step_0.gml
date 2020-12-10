@@ -8,5 +8,6 @@ if(velY > 6)
 	obj_soul.waitingForDamage = false;
 	obj_soul.startCombat();
 	
+	instance_destroy(obj_target);
 	instance_destroy();
 }

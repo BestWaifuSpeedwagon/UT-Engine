@@ -1,7 +1,9 @@
 /// @description Insérez la description ici
 damage = ct_argument.damage;
 
-miss = damage < 0;
+miss = damage <= 0;
+
+//damage = string(damage);
 
 if(damage >= 0)
 {
@@ -13,6 +15,6 @@ if(damage >= 0)
 	}
 	damage = _dmg;
 }
-damage = [0];
+else damage = [0];
 
 velY = -5;

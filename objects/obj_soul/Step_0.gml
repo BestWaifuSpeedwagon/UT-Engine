@@ -1,17 +1,22 @@
-/// @description Move heart around or something idunno
+ /// @description Move heart around or something idunno
 var _z = keyboard_check_pressed(ord("Z"));
 var _x = keyboard_check_pressed(ord("X"));
 
 var _hKey = keyboard_check_pressed(vk_right)-keyboard_check_pressed(vk_left),
 	_vKey = keyboard_check_pressed(vk_down)-keyboard_check_pressed(vk_up);
 
-if(!inBattle)
+if(won)
+{
+	dialogue.passable = true;
+	if(dialogue.update())
+	{
+		room = originalRoom;
+	}
+}
+else if(!inBattle)
 {
 	box.wantedW = 575;
 	box.wantedH = 140;
-	
-	if(_z) audio_play_sound(snd_select, 1, false);
-	if(_hKey != 0 || _vKey != 0) audio_play_sound(snd_squeak, 1, false);
 	
 	if(waitingForDialogue)
 	{
@@ -26,6 +31,9 @@ if(!inBattle)
 	}
 	else if(!waitingForDamage)
 	{
+		if(_z) audio_play_sound(snd_select, 1, false);
+		if(_hKey != 0 || _vKey != 0) audio_play_sound(snd_squeak, 1, false);
+		
 		if(substate[0] == NULL)
 		{
 			dialogue.update();
@@ -41,8 +49,31 @@ if(!inBattle)
 			{
 				switch(state)
 				{
-					case ACT: //ACT acts like SPARE for selecting monster
 					case SPARE:
+						if(_z)
+						{
+							for(i = 0; i < monsterAmount; i++)
+							{
+								if(monster[i].spare)
+								{
+									if(!audio_is_playing(snd_vaporized)) audio_play_sound(snd_vaporized, 3, false);
+									gAmount += monster[i].gAmountSpare;
+									
+									monster[i].spared = true;
+									splice(monster, i);
+									i--;
+									monsterAmount--;
+								}
+								else
+								{
+									monster[i].spareCount++;
+								}
+							}
+							
+							startCombat();
+						}
+						break;
+					case ACT:
 						substate[0] += _vKey;
 						substate[0] = clamp(substate[0], 0, monsterAmount-1);
 						
@@ -64,6 +95,8 @@ if(!inBattle)
 						}
 						break;
 					case ITEM:
+						if(ds_list_size(obj_stat.items) <= 0) substate[0] = NULL;
+					
 						//Horizontal + Vertical choosing
 						substate[0] += _hKey + _vKey*2;
 						substate[0] = clamp(substate[0], 0, array_length(obj_stat.items));
@@ -79,7 +112,7 @@ if(!inBattle)
 							if(obj_stat.hp == obj_stat.maxHp) _m = "Your HP maxed out !";
 							else _m = "You recovered " + _item.effect + " HP.";
 							
-							dialogue.messages = [ "* You eat the " + _item.name + ".\n* " + _m ];
+							dialogue.messages = [ "* You eat the " + _item.name + ".{60}\n* " + _m ];
 							dialogue.reset();
 							
 							ds_list_delete(obj_stat.items, substate[0]);
@@ -107,16 +140,19 @@ if(!inBattle)
 						
 						if(_z)
 						{
-							dialogue.messages = monster[substate[0]].acts[substate[1]].text;
+							var _act = monster[substate[0]].acts[substate[1]];
+							
+							if(_act.effect)
+							{
+								with(monster[substate[0]])
+								{
+									_act.effect();
+								}
+							}
+							
+							dialogue.messages = _act.text;
 							dialogue.reset();
 							waitingForDialogue = true;
-						}
-						break;
-					case SPARE:
-						if(_z)
-						{
-							monster[ substate[0] ].spareCount++;
-							startCombat();
 						}
 						break;
 				}
@@ -129,7 +165,7 @@ if(!inBattle)
 }
 else
 {
-	if(currentAttack(time))
+	if(!instance_exists(currentAttack))
 	{
 		inBattle = false;
 		

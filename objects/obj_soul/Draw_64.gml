@@ -11,6 +11,7 @@ draw_set_font(fnt_menu);
 draw_set_color(c_white);
 for(i = 0; i < 4; i++)
 	draw_rectangle(box.x + i, box.y + i, box.x2 - i, box.y2 - i, true);
+
 #endregion
 #region Heart / Text
 if(!inBattle)
@@ -72,8 +73,17 @@ if(!inBattle)
 						_hy = box.y + 40 + 32*substate[0];
 						
 						break;
-					case ACT:
 					case SPARE:
+						_hx = box.x + 40;
+						_hy = box.y + 40;
+						
+						draw_set_color(allMonstersSparable() ? c_yellow : c_white);
+						
+						draw_text(box.x + 64, box.y + 24, "Spare");
+						
+						draw_set_color(c_white);
+						break;
+					case ACT:
 						for(i = 0; i < monsterAmount; i++)
 						{
 							draw_text(box.x + 64, box.y + 24 + 32*i, monster[i].name);
@@ -116,12 +126,6 @@ if(!inBattle)
 							
 							draw_text(_x, _y, monster[substate[0]].acts[i].name);
 						}
-						break;
-					case SPARE:
-						_hx = box.x + 40;
-						_hy = box.y + 40;
-						
-						draw_text(box.x + 64, box.y + 24, "Spare");
 						break;
 				}
 			}

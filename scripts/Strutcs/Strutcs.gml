@@ -27,14 +27,31 @@ function Dialogue(_messages, _border, _voice) constructor
 	{
 		if(keyboard_check_pressed(ord("X")) && skippable)
 		{
+			current = "";
 			pos = string_length(messages[_id])+1;
-			current = messages[_id];
+			for(i = 1; i < pos; i++)
+			{
+				var _curChar = string_char_at(messages[_id], i);
+				if(_curChar == "{")
+				{
+					do
+					{
+						i++;
+						_curChar = string_char_at(messages[_id], i);
+					}
+					until(_curChar == "}")
+					
+					continue;
+				}
+				
+				current += _curChar;
+			}
 		}
 		
 		if(pos <= string_length(messages[_id]))
 		{
 			if(tVoice > 0) tVoice--;
-			else
+			else if(t == 0)
 			{
 				audio_play_sound(voice, 1, false);
 				tVoice = choose(2, 3, 4);
@@ -46,7 +63,29 @@ function Dialogue(_messages, _border, _voice) constructor
 				return false;
 			}
 			
-			current += string_char_at(messages[_id], pos);
+			var _curChar = string_char_at(messages[_id], pos);
+			
+			if(_curChar == "{")
+			{
+				var _num = "";
+				
+				pos++;
+				
+				_curChar = string_char_at(messages[_id], pos);
+				while(_curChar != "}")
+				{
+					_num += _curChar;
+					pos++;
+					
+					_curChar = string_char_at(messages[_id], pos);
+				}
+				pos++;
+				
+				t = real(_num);
+				return false;
+			}
+			
+			current += _curChar;
 			pos++;
 			t = 2;
 		}
@@ -92,10 +131,11 @@ function Dialogue(_messages, _border, _voice) constructor
 	}
 }
 
-function Act(_name, _text) constructor
+function Act(_name, _text, _effect) constructor
 {
 	name = _name;
 	text = _text;
+	effect = _effect;
 }
 
 function Item(_name, _effect, _desc) constructor

@@ -11,7 +11,7 @@ spareCount = 0; //Number of "rounds" where you spared
 
 text = []; //Array of text going in the box
 acts = []; //Different acts possible, /** Act[] */
-attacks = [] /** (_t: time) => bool */
+attacks = [] //Array of objects
 var attackOrder; /* Function, Determine order based on current count
 {
 	//Exemples
@@ -29,6 +29,18 @@ var attackOrder; /* Function, Determine order based on current count
 }*/
 
 //Functionnal stuff
-persistent = true;
+expAmount = 0; //Amount of exp gained from killing
+gAmountFight = 0; //Amount of gold gained when killing / sparing
+gAmountSpare = 0;
 
 spare = false; //Can he be spared ?
+spared = false; //Is he spared ? Usually draw the monster faded
+
+killed = false; //About straightforward
+yy = 0; //Dust effect
+u_uyy = shader_get_uniform(shd_dust, "yy");
+
+hurt = false;
+hurtTimer = 0;
+
+y = 230; //Base y, from below
