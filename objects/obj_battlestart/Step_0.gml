@@ -28,7 +28,7 @@ switch(timer)
 		
 		ct_argument = undefined;
 		
-		//audio_play_sound(music, 3, true);
+		audio_play_sound(music, 3, true);
 		
 		instance_destroy();
 		break;
@@ -36,8 +36,8 @@ switch(timer)
 
 timer++;
 
-if(timer >= 100 && timer < 140)
+if(timer >= 100 && timer < 135)
 {
-	x = lerp(sx, 33+16, (timer-100)/40);
-	y = lerp(sy, 453, (timer-100)/40);
+	x = lerp(sx, 33+16, (timer-100)/35);
+	y = lerp(sy, 453, (timer-100)/35);
 }

@@ -13,8 +13,8 @@
   "soundFile": "snd_save.wav",
   "duration": 0.570986,
   "parent": {
-    "name": "Sounds",
-    "path": "folders/Sounds.yy",
+    "name": "Misc",
+    "path": "folders/Sounds/Misc.yy",
   },
   "resourceVersion": "1.0",
   "name": "snd_save",

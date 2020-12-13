@@ -1,10 +1,12 @@
 /// @description Properties
 event_inherited(); //Inherit all variables of parent
 
-maxHp = 100;
-hp = 100;
+y = 200;
+
+maxHp = 20;
+hp = 20;
 name = "Loox";
-def = -50;
+def = -5;
 
 text = [ "* Loox looks at you intently.", "* Loox expects you to do something." ];
 
@@ -14,14 +16,22 @@ acts = [
 					 "* He seems to feel better !"],
 			function(){ spare = true })
 ]; 
-attacks = [ atkp_loox1 ]
-attackOrder = function() //Determine order based on current count
+
+attacks = [ atkp_randomblaster ];
+attackOrder = function(attacked) //Determine order based on current count
 {
 	return attacks[0];
 }
 
-y = 120;
+speechs = [ new Speech( ["Hurt me !"], fnt_dialogue, snd_voice, spr_blconwd, true, x + width/2 + 10, y - height/2 ) ];
+speechOrder = function(attacked)
+{
+	return speechs[0];
+}
 
-expAmount = 6;
+
+image_speed = 0.1;
+
+xpAmount = 6;
 gAmountFight = 20;
 gAmountSpare = 15;

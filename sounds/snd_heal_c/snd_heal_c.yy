@@ -13,8 +13,8 @@
   "soundFile": "snd_heal_c.wav",
   "duration": 0.440374,
   "parent": {
-    "name": "Sounds",
-    "path": "folders/Battle/Sounds.yy",
+    "name": "Food",
+    "path": "folders/Sounds/Food.yy",
   },
   "resourceVersion": "1.0",
   "name": "snd_heal_c",

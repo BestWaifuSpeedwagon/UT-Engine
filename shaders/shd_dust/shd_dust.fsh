@@ -1,17 +1,23 @@
+varying vec3 v_vPosition;
 varying vec2 v_vTexcoord;
 varying vec4 v_vColour;
 
-uniform float yy;
+uniform float y;
+uniform float height;
+uniform float fraction;
+
 
 void main()
 {
-    vec4 v_c = v_vColour;
-    vec2 v_xy = v_vTexcoord;
+    float alpha = 1.;
     
-    if(v_xy.y < yy)
+	float pos = v_vPosition.y - y;
+	float yy = fraction*height;
+	
+    if(pos < yy)
     {
-        v_c.a = 2.0 - (yy - v_xy.y)*6.0;
+		alpha = max(0., 1. - (yy-pos)/15.);
     }
     
-    gl_FragColor = v_c * texture2D( gm_BaseTexture, v_xy );
+    gl_FragColor = vec4( texture2D( gm_BaseTexture, v_vTexcoord ).rgb, alpha );
 }

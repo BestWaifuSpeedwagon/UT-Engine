@@ -1,12 +1,4 @@
 /// @description Draw myself
-draw_circle(x, y, 6, true);
-
-var _x = x + cos(theta)*6,
-	_y = y + sin(theta)*6;
-
-draw_circle(_x, _y, 4, true);
-
-_x += cos(theta)*4;
-_y += sin(theta)*4;
-
-draw_circle(_x, _y, 3, true);
+draw_sprite(spr_circlebulletlarge, 0, x, y);
+draw_sprite(spr_circlebulletb, 0, bounding[1].p1.x + 8.5, bounding[1].p1.y + 8.5);
+draw_sprite(spr_circlebullet_noc, 0, bounding[2].p1.x + 4, bounding[2].p1.y + 4);

@@ -8,4 +8,4 @@ damage = 4;
 
 destroy = true;
 
-po.set(8, 8);
+bounding.o.set(8, 8); //Origin is relative

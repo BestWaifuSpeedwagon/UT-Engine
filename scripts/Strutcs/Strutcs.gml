@@ -19,9 +19,13 @@ function Dialogue(_messages, _border, _voice) constructor
 	t = 2;
 	tVoice = 3;
 	
+	pass = false; //Auto pass text with timers and shit
+	
 	voice = _voice;
 	
 	border = _border;
+	speech = false; //Wether this is showed in a speech bubble - MODIFY PROPERTY
+	width = -1; //Bubble related
 	
 	function update()
 	{
@@ -91,8 +95,12 @@ function Dialogue(_messages, _border, _voice) constructor
 		}
 		else
 		{
-			if(keyboard_check_pressed(ord("Z")) && passable)
+			//If pressed Z or text has to be passed
+			//AND
+			//Text can be passed
+			if((keyboard_check_pressed(ord("Z")) || pass) && passable)
 			{
+				pass = false;
 				if(_id >= array_length(messages)-1)
 				{
 					return true;
@@ -112,15 +120,24 @@ function Dialogue(_messages, _border, _voice) constructor
 		if(border)
 		{
 			draw_set_color(c_black);
-			draw_rectangle(x-10, y-10, x2, y2, false);
+			draw_rectangle(x-16, y-24, x2, y2, false);
 			draw_set_color(c_white);
 			for(i = 0; i < 4; i++)
 				draw_rectangle(x-10+i, y-10+i, x2-i, y2-i, true);
 		}
 		
-		draw_set_color(c_white);
-		draw_set_font(font);
-		draw_text(x, y, current);
+		if(speech) //If this is a speech bubble
+		{
+			draw_set_color(c_black);
+			draw_set_font(font);
+			draw_text_ext(x, y, current, -1, width);
+		}
+		else
+		{
+			draw_set_color(c_white);
+			draw_set_font(font);
+			draw_text(x, y, current);
+		}
 	}
 	
 	function reset()
@@ -138,11 +155,52 @@ function Act(_name, _text, _effect) constructor
 	effect = _effect;
 }
 
-function Item(_name, _effect, _desc) constructor
+function Speech(_text, _font, _voice, _bubbleSprite, _waitForEnd, _x, _y) constructor
+{
+	dialogue = new Dialogue(_text, false, _voice);
+	dialogue.font = _font;
+	dialogue.speech = true;
+	
+	dialogue.pass = !_waitForEnd;
+	wait = _waitForEnd;
+	
+	sprite = _bubbleSprite;
+	
+	
+	x = _x;
+	y = _y;
+	
+	switch(sprite)
+	{
+		case spr_blconabove:
+			dialogue.width = 165;
+			dialogue.x = x+5;
+			dialogue.y = y-95;
+			break;
+		case spr_blconwd:
+			dialogue.width = 190;
+			dialogue.x = x+30;
+			dialogue.y = y-84;
+			break;
+		case spr_blconwdshrt:
+			dialogue.width = 200;
+			dialogue.x = x+35;
+			dialogue.y = y-30;
+			break;
+		case spr_blconwdshrt_l:
+			dialogue.width = 200;
+			dialogue.x = x-230;
+			dialogue.y = y-30;
+			break;
+	}
+}
+
+function Item(_name, _effect, _desc, _sound) constructor
 {
 	name = _name;
 	effect = _effect;
 	description = _desc;
+	sound = _sound;
 }
 
 function Point(_x, _y) constructor
@@ -150,13 +208,14 @@ function Point(_x, _y) constructor
 	x = _x;
 	y = _y;
 	
-	function rotate(theta)
+	//https://stackoverflow.com/questions/2259476/rotating-a-point-about-another-point-2d
+	function rotate(ox, oy, theta)
 	{
-		var _x = x*cos(theta)-y*(sin(theta));
-		var _y = x*sin(theta)+y*cos(theta);
+		var nx = cos(theta) * (x-ox) - sin(theta) * (y-oy) + ox;
+		var ny = sin(theta) * (x-ox) + cos(theta) * (y-oy) + oy;
 		
-		x = _x;
-		y = _y;
+		x = nx;
+		y = ny;
 	}
 	
 	function set(_x, _y)
@@ -165,9 +224,7 @@ function Point(_x, _y) constructor
 		y = _y;
 	}
 	
-	/*
-		Either add another point or _x and _y
-	*/
+	//Either add another point or a x and y
 	function add()
 	{
 		if(argument_count == 1)
@@ -180,5 +237,35 @@ function Point(_x, _y) constructor
 			x += argument[0];
 			y += argument[1];
 		}
+	}
+}
+
+//No argument is passed since everything is changed in child attack instance
+function BoundingBox() constructor
+{
+	//Rectangle of bounding box
+	p1 = new Point(0, 0);
+	p2 = new Point(0, 0);
+	
+	//Angle
+	theta = 0;
+	
+	//Origin, and wether it's relative to x1/y1
+	o = new Point(0, 0);
+	relative = true; //Relative by default
+	
+	function checkPoint(_x, _y) //Mostly for heartmove, but can be used for other things I guess
+	{
+		return pointInRectangleRotated(_x, _y, p1.x, p1.y, p2.x, p2.y, o.x, o.y, theta, relative);
+	}
+	
+	function draw()
+	{
+		drawRectangleRotated(p1.x, p1.y, p2.x, p2.y, o.x, o.y, theta, relative);
+	}
+	
+	function centerOrigin(relative)
+	{
+		o.set( (relative ? (p2.x-p1.x)/2 : (p2.x+p1.x)/2), (relative ? (p2.y-p1.y)/2 : (p2.y+p1.y)/2));
 	}
 }

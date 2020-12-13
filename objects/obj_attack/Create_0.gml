@@ -6,10 +6,11 @@ inside = true; //Default at true
 passthrough = false; //If the shader doesn't have an effect
 damage = 1; //Default at 1
 
+collision = true; //Wether it should be collisionable, attacks fading away for exemple
 destroy = true; //Wether the attack will destroy itself when contacting the player
 
-//Collision bounding box
-p1 = new Point(0, 0); //Top-left corner
-p2 = new Point(0, 0); //Bottom-right corner
-po = new Point(0, 0); //Rotation origin
-theta = 0; //Angle of bounding box
+color = WHITE;
+
+//Bounding box
+bounding = new BoundingBox();
+boundingAmount = 1; //Only one bounding box by default, else make it an array

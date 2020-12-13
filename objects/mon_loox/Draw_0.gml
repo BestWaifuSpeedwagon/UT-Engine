@@ -2,7 +2,9 @@
 if(killed)
 {
 	shader_set(shd_dust);
-	shader_set_uniform_f(u_uyy, yy);
+	shader_set_uniform_f(u_uFraction, fraction);
+	shader_set_uniform_f(u_uY, y - sprite_height);
+	shader_set_uniform_f(u_uHeight, sprite_height);
 	
 	draw_sprite(spr_looxhurt, 0, x, y);
 	

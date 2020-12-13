@@ -73,7 +73,7 @@
   ],
   "parent": {
     "name": "Soul",
-    "path": "folders/Battle/Soul.yy",
+    "path": "folders/Battle/HUD/Soul.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_heart_battle",

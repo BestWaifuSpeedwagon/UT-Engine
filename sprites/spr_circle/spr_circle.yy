@@ -72,8 +72,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"98726967-fe23-4e8d-b7d8-fcb68d16fe2f","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Attacks",
-    "path": "folders/Monsters/Ruins/Attacks.yy",
+    "name": "Sprites",
+    "path": "folders/Monsters/Ruins/Attacks/Sprites.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_circle",

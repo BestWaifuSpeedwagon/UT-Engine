@@ -4,8 +4,7 @@ if(keyboard_check_pressed(ord("Z")) && moving)
 	moving = false;
 	timer = 60;
 	
-	_dstFromCenter = 320 - abs(barX - 320);
-		
+	_dstFromCenter = abs(barX - 320);
 	var damage;
 	
 	if(_dstFromCenter <= 12) damage = round((obj_stat.atk - mon.def + random(2)) * 2.2);
@@ -22,6 +21,7 @@ if(moving)
 	if(barX > obj_soul.box.x2)
 	{
 		createSlice(-1);
+		moving = false;
 	}
 }
 

@@ -13,8 +13,8 @@
   "soundFile": "snd_levelup.wav",
   "duration": 0.988605,
   "parent": {
-    "name": "Sounds",
-    "path": "folders/Sounds.yy",
+    "name": "Misc",
+    "path": "folders/Sounds/Misc.yy",
   },
   "resourceVersion": "1.0",
   "name": "snd_levelup",
