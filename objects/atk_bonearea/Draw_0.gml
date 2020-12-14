@@ -15,7 +15,7 @@ switch(angle) //x and y are ALWAYS top-left corner
 			var _x = x + (i/tileWidth)*width;
 			
 			draw_sprite_ext(spr_bone_top, 0, _x, y, 1, 1, angle*90, color, 1);
-			draw_sprite_ext(spr_bone_bottom, 0, _x+10, y+height, 1, 1, angle*90, color, 1);
+			draw_sprite_ext(spr_bone_top, 0, _x+10, y+height, 1, 1, angle*90 + 180, color, 1);
 			
 			draw_rectangle(_x+2, y+6, _x+8, y+height-6, false);
 		}
@@ -27,7 +27,7 @@ switch(angle) //x and y are ALWAYS top-left corner
 			var _y = y + (i/tileWidth)*width;
 			
 			draw_sprite_ext(spr_bone_top, 0, x, _y, 1, 1, angle*90, color, 1);
-			draw_sprite_ext(spr_bone_bottom, 0, x+height, _y+10, 1, 1, angle*90, color, 1);
+			draw_sprite_ext(spr_bone_top, 0, x+height, _y+10, 1, 1, angle*90 + 180, color, 1);
 			
 			draw_rectangle(x+6, _y+2, x+height-6, _y-2, false);
 		}

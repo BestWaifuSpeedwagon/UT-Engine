@@ -24,9 +24,9 @@
   "physicsKinematic": false,
   "physicsShapePoints": [],
   "eventList": [
-    {"isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,"parent":{"name":"atk_bone","path":"objects/atk_bone/atk_bone.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
-    {"isDnD":false,"eventNum":0,"eventType":8,"collisionObjectId":null,"parent":{"name":"atk_bone","path":"objects/atk_bone/atk_bone.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
-    {"isDnD":false,"eventNum":0,"eventType":3,"collisionObjectId":null,"parent":{"name":"atk_bone","path":"objects/atk_bone/atk_bone.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
+    {"isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,"parent":{"name":"atk_bonegap","path":"objects/atk_bonegap/atk_bonegap.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
+    {"isDnD":false,"eventNum":0,"eventType":8,"collisionObjectId":null,"parent":{"name":"atk_bonegap","path":"objects/atk_bonegap/atk_bonegap.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
+    {"isDnD":false,"eventNum":0,"eventType":3,"collisionObjectId":null,"parent":{"name":"atk_bonegap","path":"objects/atk_bonegap/atk_bonegap.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
   ],
   "properties": [],
   "overriddenProperties": [],
@@ -35,7 +35,7 @@
     "path": "folders/Monsters/Main Cast/Sans/Battle/Attacks.yy",
   },
   "resourceVersion": "1.0",
-  "name": "atk_bone",
+  "name": "atk_bonegap",
   "tags": [],
   "resourceType": "GMObject",
 }

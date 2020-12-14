@@ -15,13 +15,14 @@ acts = [
 	], NULL),
 ]; 
 
-attacks = [ atkp_sans1, atkp_sans2 ];
+attacks = [ atkp_sans1, atkp_sans2, atkp_sans3 ];
 attackOrder = function(roundType) //Determine order based on current count
 {
 	return attacks[fightCount];
 }
 
 y = 200;
+width = 60;
 height = 180;
 
 var _bx = x + width/2 + 10,

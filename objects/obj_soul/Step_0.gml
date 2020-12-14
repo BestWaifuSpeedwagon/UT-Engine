@@ -5,6 +5,7 @@ var _x = keyboard_check_pressed(ord("X"));
 var _hKey = keyboard_check_pressed(vk_right)-keyboard_check_pressed(vk_left),
 	_vKey = keyboard_check_pressed(vk_down)-keyboard_check_pressed(vk_up);
 
+#region Selection
 if(won)
 {
 	dialogue.passable = true;
@@ -185,7 +186,7 @@ else
 	}
 	time++;
 }
-
+#endregion
 #region Speech
 
 if(currentSpeech != NULL)
@@ -201,7 +202,6 @@ if(currentSpeech != NULL)
 }
 
 #endregion
-
 #region Box
 if(abs(box.w - box.wantedW) > 1) box.w = lerp(box.w, box.wantedW, 0.1);
 else box.w = box.wantedW;
@@ -218,4 +218,15 @@ box.y2 = box.y + box.h;
 box.cx = box.x + box.w/2;
 box.cy = box.y + box.h/2;
 
+#endregion
+#region Health / Karma
+if(krCount > 0) krCount--;
+else
+{
+	if(obj_stat.hp > kr)
+	{
+		obj_stat.hp--;
+		krCount = ceil( power(1.5, kr-obj_stat.hp)*120 );
+	}
+}
 #endregion

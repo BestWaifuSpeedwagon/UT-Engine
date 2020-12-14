@@ -32,6 +32,7 @@ box =
 monster = ct_argument.monster; //Array of obj_monster instances
 monsterAmount = array_length(monster);
 
+krCount = 0;
 karma = ct_argument.karma;
 kr = obj_stat.hp;
 

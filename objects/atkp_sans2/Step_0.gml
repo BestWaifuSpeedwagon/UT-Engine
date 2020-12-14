@@ -2,7 +2,7 @@
 if(timer > 0) timer--;
 else if(timer == 0)
 {
-	if(num % 3 == 0) AttackGasterBlaster(0, 0, obj_soul.box.x - 50, obj_soul.box.y2 - 20, 0, 60, 10, 1, 0.5);
+	if(num % 3 == 2) AttackGasterBlaster(0, 0, obj_soul.box.x - 50, obj_soul.box.y2 - 20, 0, 90, 20, 1, 0.5);
 	
 	if(num < 3)
 	{
@@ -34,7 +34,7 @@ else if(timer == 0)
 	timer = 40;
 	
 	num++;
-	if(num == 3) timer = 70;
+	if(num == 3) timer = 90;
 	if(num >= 6) timer = -121;
 }
 else if(timer == -1) instance_destroy();

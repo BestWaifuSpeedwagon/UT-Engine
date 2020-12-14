@@ -173,11 +173,16 @@ draw_rectangle(_x, 399, _x + obj_stat.maxHp*1.2, 419, false);
 if(karma)
 {
 	draw_set_color(c_fuchsia);
-	draw_rectangle(_x, 399, _x + kr, 419, false);
+	draw_rectangle(_x, 399, _x + obj_stat.hp*1.2, 419, false);
+	
+	draw_set_color(c_yellow);
+	draw_rectangle(_x, 399, _x + kr*1.2, 419, false);
 }
-
-draw_set_color(c_yellow);
-draw_rectangle(_x, 399, _x + obj_stat.hp*1.2, 419, false);
+else
+{
+	draw_set_color(c_yellow);
+	draw_rectangle(_x, 399, _x + obj_stat.hp*1.2, 419, false);
+}
 
 _x += obj_stat.maxHp*1.2 + 9;
 
