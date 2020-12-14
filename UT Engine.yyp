@@ -52,9 +52,11 @@
     {"id":{"name":"snd_hero","path":"sounds/snd_hero/snd_hero.yy",},"order":0,},
     {"id":{"name":"obj_soul","path":"objects/obj_soul/obj_soul.yy",},"order":1,},
     {"id":{"name":"snd_break1","path":"sounds/snd_break1/snd_break1.yy",},"order":0,},
+    {"id":{"name":"spr_heartbreak","path":"sprites/spr_heartbreak/spr_heartbreak.yy",},"order":0,},
     {"id":{"name":"spr_circle","path":"sprites/spr_circle/spr_circle.yy",},"order":3,},
     {"id":{"name":"fnt_sans","path":"fonts/fnt_sans/fnt_sans.yy",},"order":0,},
     {"id":{"name":"spr_circlebulletb","path":"sprites/spr_circlebulletb/spr_circlebulletb.yy",},"order":1,},
+    {"id":{"name":"obj_gameover","path":"objects/obj_gameover/obj_gameover.yy",},"order":0,},
     {"id":{"name":"atkp_sans2","path":"objects/atkp_sans2/atkp_sans2.yy",},"order":0,},
     {"id":{"name":"shd_dust","path":"shaders/shd_dust/shd_dust.yy",},"order":0,},
     {"id":{"name":"spr_blcontiny","path":"sprites/spr_blcontiny/spr_blcontiny.yy",},"order":4,},
@@ -72,6 +74,7 @@
     {"id":{"name":"mus_megalovania","path":"sounds/mus_megalovania/mus_megalovania.yy",},"order":0,},
     {"id":{"name":"spr_fightbt","path":"sprites/spr_fightbt/spr_fightbt.yy",},"order":2,},
     {"id":{"name":"snd_rainbowbeam","path":"sounds/snd_rainbowbeam/snd_rainbowbeam.yy",},"order":0,},
+    {"id":{"name":"obj_heatshards","path":"objects/obj_heatshards/obj_heatshards.yy",},"order":0,},
     {"id":{"name":"spr_slice","path":"sprites/spr_slice/spr_slice.yy",},"order":0,},
     {"id":{"name":"obj_heartmove","path":"objects/obj_heartmove/obj_heartmove.yy",},"order":0,},
     {"id":{"name":"shd_insideOutside","path":"shaders/shd_insideOutside/shd_insideOutside.yy",},"order":0,},
@@ -79,6 +82,7 @@
     {"id":{"name":"obj_stat","path":"objects/obj_stat/obj_stat.yy",},"order":1,},
     {"id":{"name":"spr_blconsm2","path":"sprites/spr_blconsm2/spr_blconsm2.yy",},"order":2,},
     {"id":{"name":"snd_text","path":"sounds/snd_text/snd_text.yy",},"order":0,},
+    {"id":{"name":"spr_heartshards","path":"sprites/spr_heartshards/spr_heartshards.yy",},"order":0,},
     {"id":{"name":"fnt_battle_hud","path":"fonts/fnt_battle_hud/fnt_battle_hud.yy",},"order":2,},
     {"id":{"name":"snd_select","path":"sounds/snd_select/snd_select.yy",},"order":2,},
     {"id":{"name":"spr_sansb_face","path":"sprites/spr_sansb_face/spr_sansb_face.yy",},"order":0,},
@@ -163,6 +167,7 @@
     {"folderPath":"folders/Monsters/Main Cast/Sans/Battle/Attack Patterns.yy","order":0,"resourceVersion":"1.0","name":"Attack Patterns","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Sounds/Misc.yy","order":0,"resourceVersion":"1.0","name":"Misc","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Sounds/Attacks.yy","order":0,"resourceVersion":"1.0","name":"Attacks","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Files.yy","order":0,"resourceVersion":"1.0","name":"Files","tags":[],"resourceType":"GMFolder",},
   ],
   "AudioGroups": [
     {"targets":461609314234257646,"resourceVersion":"1.0","name":"audiogroup_default","resourceType":"GMAudioGroup",},
@@ -170,7 +175,9 @@
   "TextureGroups": [
     {"isScaled":true,"autocrop":true,"border":2,"mipsToGenerate":0,"groupParent":null,"targets":461609314234257646,"resourceVersion":"1.0","name":"Default","resourceType":"GMTextureGroup",},
   ],
-  "IncludedFiles": [],
+  "IncludedFiles": [
+    {"CopyToMask":153157610357391598,"filePath":"datafiles","resourceVersion":"1.0","name":"LV.txt","resourceType":"GMIncludedFile",},
+  ],
   "MetaData": {
     "IDEVersion": "23.1.1.230",
   },

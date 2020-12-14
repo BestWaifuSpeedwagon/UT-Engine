@@ -2,7 +2,7 @@
 if(timer > 0) timer--;
 else if(timer == 0)
 {
-	if(num % 2 == 0) AttackGasterBlaster(0, 0, obj_soul.box.x - 50, obj_soul.box.y2 - 20, 0, 60, 10, 1, 0.5);
+	if(num % 3 == 0) AttackGasterBlaster(0, 0, obj_soul.box.x - 50, obj_soul.box.y2 - 20, 0, 60, 10, 1, 0.5);
 	
 	if(num < 3)
 	{

@@ -28,4 +28,4 @@
 #macro ptSystem global.g_ptSystem
 #macro ptDust global.g_ptDust
 
-#macro globalTime global.g_globalTime
+#macro FILENAME "data.ini"

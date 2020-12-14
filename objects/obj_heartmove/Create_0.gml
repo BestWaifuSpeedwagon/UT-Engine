@@ -20,6 +20,11 @@ function applyDamage(_atk)
 	obj_stat.hp -= _atk.damage;
 	inv = room_speed;
 	if(_atk.destroy) instance_destroy(_atk);
+	
+	if(obj_stat.hp <= 0)
+	{
+		instance_create_depth(0, 0, 0, obj_gameover);
+	}
 }
 
 function changeColor(_color)

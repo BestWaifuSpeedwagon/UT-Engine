@@ -1,22 +1,4 @@
-function startBattle(monster, karma, music)
-{
-	//Allows setting arguments before create
-	ct_argument =
-	{
-		karma: karma,
-		monster: monster,
-		music: music,
-		originalRoom: room
-	};
-	
-	room = rm_battle;
-	
-	instance_create_depth(0, 0, 0, obj_battlestart);
-	
-	ct_argument = undefined;
-	
-}
-
+#region Geometry
 function pointDirection(x1, y1, x2, y2)
 {
 	return arctan2(y2 - y1, x2 - x1);
@@ -85,6 +67,27 @@ function drawRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative)
 	
 	draw_primitive_end();
 }
+#endregion
+#region Utility
+
+function startBattle(monster, karma, music)
+{
+	//Allows setting arguments before create
+	ct_argument =
+	{
+		karma: karma,
+		monster: monster,
+		music: music,
+		originalRoom: room
+	};
+	
+	room = rm_battle;
+	
+	instance_create_depth(0, 0, 0, obj_battlestart);
+	
+	ct_argument = undefined;
+	
+}
 
 //arr: any[]
 //index: number
@@ -114,3 +117,50 @@ function forEach(arr, callback)
 		argument[argument_count-1](arr[@ i], i);
 	}
 }
+#endregion
+#region File System
+
+function getStats(xp)
+{
+	var file = file_text_open_read("LV.txt");
+	
+	file_text_readln(file);
+	file_text_readln(file);
+	
+	show_debug_message( file_text_read_real(file) );
+	show_debug_message( file_text_read_real(file) );
+	show_debug_message( file_text_read_real(file) );
+	show_debug_message( file_text_read_real(file) );
+	
+	file_text_close(file);
+}
+
+function saveFile()
+{
+	ini_open(FILENAME);
+	
+	ini_write_real("stat", "room", room);
+	ini_write_real("stat", "hp", obj_stat.hp);
+	ini_write_real("stat", "maxHp", obj_stat.maxHp);
+	ini_write_real("stat", "xp", obj_stat.xp);
+	ini_write_real("stat", "lv", obj_stat.lv);
+	ini_write_real("stat", "g", obj_stat.g);
+	ini_write_real("stat", "atk", obj_stat.atk);
+	ini_write_real("stat", "def", obj_stat.def);
+	
+	ini_write_real("player", "x", obj_player.x);
+	ini_write_real("player", "y", obj_player.y);
+	
+	ini_close();
+}
+
+function loadFile()
+{
+	ini_open(FILENAME);
+	
+	
+	
+	ini_close();
+}
+
+#endregion

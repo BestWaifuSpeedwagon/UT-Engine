@@ -1,4 +1,6 @@
 /// @description Insérez la description ici
+getStats(0);
+
 #region Camera stuff
 width = 320;
 height = 240;
