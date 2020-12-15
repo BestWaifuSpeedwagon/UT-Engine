@@ -1,9 +1,8 @@
 /// @description Timer
-Box.wantedW = 165;
-Box.wantedH = 165;
-
 timer = 0;
 num = 0;
+
+heart.visible = false;
 
 currentSpeech = new Speech(
 	[ "ready?" ],

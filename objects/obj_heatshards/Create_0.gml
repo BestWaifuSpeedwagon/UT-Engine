@@ -1,7 +1,7 @@
 /// @description Set random speed and direction
-image_speed = 0.1;
+image_speed = 0.3;
 
-dir = irandom(90)+45;
+dir = irandom(70)+245;
 speed = random(5)+3;
 
 hspeed = dcos(dir)*speed;

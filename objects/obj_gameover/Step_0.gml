@@ -11,8 +11,15 @@ switch(timer)
 	case 200:
 		audio_play_sound(mus_gameover, 3, false);
 		break;
+	case 260:
+		dontGiveUp.spd = 6;
+		dontGiveUp.passable = true;
+		break;
 }
 
-if(timer > 200 && timer < 260) fade += 1/60;
+if(timer > 200 && timer < 280) fade += 1/80;
+
+
+if(dontGiveUp.update()){}
 
 timer++;

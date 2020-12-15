@@ -18,14 +18,27 @@ box =
 {
 	x: 32.5,
 	y: 248,
+	freePos: false,
 	w: 575,
 	h: 140,
-	wantedW: 575,
-	wantedH: 140,
+	fw: 575, //Wanted W
+	fh: 140, //Wanted H
 	x2: 32.5+575, //Convenience
 	y2: 248+140, 
 	cx: 32.5+575/2,
-	cy: 248+140/2
+	cy: 248+140/2,
+	resize: function(_w, _h)
+	{
+		fw = _w;
+		fh = _h;
+	},
+	instantResize: function(_w, _h)
+	{
+		w = _w;
+		h = _h;
+		fw = _w;
+		fh = _h;
+	}
 }
 
 #region Battle Variables

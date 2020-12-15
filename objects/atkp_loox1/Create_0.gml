@@ -1,7 +1,7 @@
 /// @description Width / Height
 
-Box.wantedW = 200;
-Box.wantedH = 100;
+Box.fw = 200;
+Box.fh = 100;
 
 timer = 0;
 

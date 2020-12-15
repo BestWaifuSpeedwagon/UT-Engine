@@ -11,4 +11,10 @@ fade = 0;
 
 room = rm_gameover;
 
+dontGiveUp = new Dialogue(["Don't give up.", obj_stat.name + "!,{30}\nStay DETERMINED"], false, snd_txtasg);
+dontGiveUp.spd = 0;
+dontGiveUp.passable = false;
+dontGiveUp.skippable = false;
+dontGiveUp.x = 320;
+
 audio_stop_all();

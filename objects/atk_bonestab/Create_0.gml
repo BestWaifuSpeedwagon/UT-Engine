@@ -23,7 +23,7 @@ switch(dir)
 		_x = Box.x;
 		_y = Box.y - height;
 		_w = Box.w;
-		_h = height;
+		_h = -height;
 		
 		_x1 = Box.x;
 		_y1 = Box.y;
@@ -34,7 +34,7 @@ switch(dir)
 		_x = Box.x;
 		_y = Box.y2;
 		_w = Box.w;
-		_h = -height;
+		_h = height;
 		
 		_x1 = Box.x;
 		_y1 = Box.y2-height;
@@ -44,7 +44,7 @@ switch(dir)
 	case 2:
 		_x = Box.x2;
 		_y = Box.y;
-		_w = -height;
+		_w = height;
 		_h = Box.h;
 		
 		_x1 = Box.x2-height;
@@ -55,7 +55,7 @@ switch(dir)
 	case 0:
 		_x = Box.x - height;
 		_y = Box.y;
-		_w = height;
+		_w = -height;
 		_h = Box.h;
 		
 		_x1 = Box.x2-_w;

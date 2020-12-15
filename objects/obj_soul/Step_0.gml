@@ -16,8 +16,7 @@ if(won)
 }
 else if(!inBattle)
 {
-	box.wantedW = 575;
-	box.wantedH = 140;
+	box.resize(575, 140);
 	
 	if(waitingFor.dialogue)
 	{
@@ -203,11 +202,11 @@ if(currentSpeech != NULL)
 
 #endregion
 #region Box
-if(abs(box.w - box.wantedW) > 1) box.w = lerp(box.w, box.wantedW, 0.1);
-else box.w = box.wantedW;
+if(abs(box.w - box.fw) > 1) box.w = lerp(box.w, box.fw, 0.1);
+else box.w = box.fw;
 
-if(abs(box.h - box.wantedH) > 1) box.h = lerp(box.h, box.wantedH, 0.1);
-else box.h = box.wantedH;
+if(abs(box.h - box.fh) > 1) box.h = lerp(box.h, box.fh, 0.1);
+else box.h = box.fh;
 
 box.x = 320 - box.w/2;
 box.y = min(388, 320 + box.h/2) - box.h;

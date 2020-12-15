@@ -17,6 +17,8 @@ function Dialogue(_messages, _border, _voice) constructor
 	font = fnt_dialogue; //Font draw - MODIFY PROPERTY
 	
 	t = 2;
+	spd = 2;
+	
 	tVoice = 3;
 	
 	pass = false; //Auto pass text with timers and shit
@@ -91,7 +93,7 @@ function Dialogue(_messages, _border, _voice) constructor
 			
 			current += _curChar;
 			pos++;
-			t = 2;
+			t = spd;
 		}
 		else
 		{
@@ -215,7 +217,7 @@ function Point(_x, _y) constructor
 	y = _y;
 	
 	//https://stackoverflow.com/questions/2259476/rotating-a-point-about-another-point-2d
-	function rotate(ox, oy, theta)
+	static rotate = function(ox, oy, theta)
 	{
 		var nx = cos(theta) * (x-ox) - sin(theta) * (y-oy) + ox;
 		var ny = sin(theta) * (x-ox) + cos(theta) * (y-oy) + oy;
@@ -224,14 +226,14 @@ function Point(_x, _y) constructor
 		y = ny;
 	}
 	
-	function set(_x, _y)
+	static set = function(_x, _y)
 	{
 		x = _x;
 		y = _y;
 	}
 	
 	//Either add another point or a x and y
-	function add()
+	static add = function()
 	{
 		if(argument_count == 1)
 		{
@@ -242,6 +244,21 @@ function Point(_x, _y) constructor
 		{
 			x += argument[0];
 			y += argument[1];
+		}
+	}
+	
+	static inside = function(shape)
+	{
+		switch(shape)
+		{
+			case "rectangle":
+				var x1 = argument[1],
+					y1 = argument[2],
+					x2 = argument[3],
+					y2 = argument[4];
+			
+				return x >= min(x1, x2) && x <= max(x1, x2) && y >= min(y1, y2) && y <= max(y1, y2);
+				break;
 		}
 	}
 }

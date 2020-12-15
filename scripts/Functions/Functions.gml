@@ -21,7 +21,7 @@ function pointInRectangleRotated(px, py, x1, y1, x2, y2, ox, oy, theta, relative
 	
 	p.rotate(_ox, _oy, -theta); //Rotate the point backwards
 	
-	return p.x > x1 && p.x < x2 && p.y > y1 && p.y < y2; //Normal collision check
+	return p.inside("rectangle", x1, y1, x2, y2); //Normal collision check
 }
 
 function getRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative)
@@ -116,20 +116,9 @@ function oscillate(val1, val2, amount) //Amount from 0 to 1
 	else return lerp(val2, val1, (1-amount)*2);
 }
 
-//arr: any[]
-//index: number
-//=> void
-function splice(arr, index)
+function createDialogue(dialogue)
 {
-	//[0, 1, 2, 3]
-	//splice(arr, 2)
-	//[0, 1, 3, -1]
-	
-	for(i = index; i < array_length(arr)-1; i++)
-	{
-		arr[@ i] = arr[@ i+1];
-	}
-	arr[@ array_length(arr)-1] = -1;
+	ds_list_add(obj_dialogueManager.dialogues, dialogue);
 }
 
 //arr: any[]
@@ -185,6 +174,7 @@ function loadFile()
 {
 	ini_open(FILENAME);
 	
+	room = ini_read_real("stat", "room", rm_start);
 	
 	
 	ini_close();

@@ -63,6 +63,15 @@ function AttackBonegap(x, y, height, theta, velX, velY, gapPos, gapHeight)
 	
 	return _b;
 }
+
+function AttackBone(x, y, height, theta, velX, velY)
+{
+	var _b = instance_create_layer(x, y, "Attacks", atk_bone);
+	_b.height = height;
+	_b.theta = theta;
+	_b.velX = velX;
+	_b.velY = velY;
+}
 #endregion
 #region Others
 function Slam(theta)
@@ -74,5 +83,11 @@ function Slam(theta)
 	heart.slam = true;
 }
 
-
+function Platform(x, y, size, velX, velY)
+{
+	var _p = instance_create_layer(x, y, "Attacks", obj_platform);
+	_p.size = size;
+	_p.velX = velX;
+	_p.velY = velY;
+}
 #endregion

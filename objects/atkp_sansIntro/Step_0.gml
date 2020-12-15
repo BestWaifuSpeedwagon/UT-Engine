@@ -23,6 +23,9 @@ else
 		case 0:
 			flicker(4);
 			mon_sans.changeSprite("head", spr_sansb_blueeye, 0);
+			
+			heart.visible = true;
+			Box.instantResize(165, 165);
 			break;
 		case 4:
 			mon_sans.changeSprite("body", spr_sansb_handdown, 0);

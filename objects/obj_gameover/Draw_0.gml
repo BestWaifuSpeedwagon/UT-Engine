@@ -6,4 +6,11 @@ if(fade > 0)
 {
 	image_alpha = fade;
 	draw_self();
+	
+	draw_set_alpha(fade);
+	
+	draw_set_halign(fa_center);
+	dontGiveUp.draw();
+	
+	draw_set_alpha(1);
 }
