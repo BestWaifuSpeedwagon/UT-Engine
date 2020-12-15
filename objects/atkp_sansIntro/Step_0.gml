@@ -22,10 +22,14 @@ else
 	{
 		case 0:
 			flicker(4);
+			mon_sans.changeSprite("head", spr_sansb_blueeye, 0);
 			break;
 		case 4:
-			mon_sans.changeSprite("head", spr_sansb_blueeye, 0);
 			mon_sans.changeSprite("body", spr_sansb_handdown, 0);
+			
+			heart.x = Box.cx;
+			heart.y = Box.cy;
+			
 			audio_play_sound(snd_gaster_blaster, 3, false);
 			break;
 		case 20:
@@ -36,7 +40,7 @@ else
 			mon_sans.changeSprite("body", spr_sansb_handup, 0);
 			mon_sans.bodySprite = spr_sansb_handup;
 			
-			AttackBonestab(0, 54, 10);
+			AttackBonestab(1, 54, 10);
 			break;
 		case 92:
 			mon_sans.changeSprite("body", spr_sansb_handright, 0);

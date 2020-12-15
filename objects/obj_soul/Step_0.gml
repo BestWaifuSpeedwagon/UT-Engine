@@ -220,17 +220,35 @@ box.cy = box.y + box.h/2;
 
 #endregion
 #region Health / Karma
-var _krTimer = ceil(power(1.25, kr-obj_stat.hp)*120);
 
-if(_krTimer < krCount) krCount = _krTimer;
-
-if(krCount > 0) krCount--;
+if(karma)
+{
+	var _krTimer = ceil(power(1.25, obj_stat.hp-kr)*120);
+	
+	if(_krTimer < krCount) krCount = _krTimer;
+	
+	if(krCount > 0) krCount--;
+	else
+	{
+		if(kr > obj_stat.hp)
+		{
+			kr--;
+			krCount = _krTimer;
+		}
+	}
+	
+	if(obj_stat.hp <= 0)
+	{
+		if(kr > 0)
+		{
+			obj_stat.hp = 1;
+			kr--; //Additional damage remove karma
+		}
+		else instance_create_depth(0, 0, 0, obj_gameover);
+	}
+}
 else
 {
-	if(obj_stat.hp > kr)
-	{
-		obj_stat.hp--;
-		krCount = _krTimer;
-	}
+	if(obj_stat.hp <= 0) instance_create_depth(0, 0, 0, obj_gameover);
 }
 #endregion

@@ -69,10 +69,9 @@ function drawRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative)
 }
 #endregion
 #region Camera
-function screenShake(hPower, vPower)
+function screenShake(_power)
 {
-	obj_stat.hShake += hPower;
-	obj_stat.vShake += vPower;
+	obj_stat.shake = max(obj_stat.shake, _power);
 }
 
 function flicker(time)

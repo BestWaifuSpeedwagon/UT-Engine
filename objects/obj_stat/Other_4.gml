@@ -2,7 +2,7 @@
 view_enabled = true;
 view_visible = true;
 
-if(room == rm_battle)
+if(room == rm_battle || room == rm_gameover)
 {
 	camera_set_view_size(view_camera, width*2, height*2);
 }

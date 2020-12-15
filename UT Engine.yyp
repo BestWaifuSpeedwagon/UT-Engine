@@ -25,6 +25,7 @@
     {"id":{"name":"obj_attack","path":"objects/obj_attack/obj_attack.yy",},"order":3,},
     {"id":{"name":"snd_bell","path":"sounds/snd_bell/snd_bell.yy",},"order":0,},
     {"id":{"name":"spr_dmgnum","path":"sprites/spr_dmgnum/spr_dmgnum.yy",},"order":0,},
+    {"id":{"name":"mus_gameover","path":"sounds/mus_gameover/mus_gameover.yy",},"order":0,},
     {"id":{"name":"snd_damage","path":"sounds/snd_damage/snd_damage.yy",},"order":0,},
     {"id":{"name":"obj_blank","path":"objects/obj_blank/obj_blank.yy",},"order":0,},
     {"id":{"name":"spr_exc_f","path":"sprites/spr_exc_f/spr_exc_f.yy",},"order":0,},
@@ -80,6 +81,7 @@
     {"id":{"name":"rm_start","path":"rooms/rm_start/rm_start.yy",},"order":1,},
     {"id":{"name":"mus_megalovania","path":"sounds/mus_megalovania/mus_megalovania.yy",},"order":0,},
     {"id":{"name":"atk_bonegap","path":"objects/atk_bonegap/atk_bonegap.yy",},"order":0,},
+    {"id":{"name":"rm_gameover","path":"rooms/rm_gameover/rm_gameover.yy",},"order":0,},
     {"id":{"name":"spr_fightbt","path":"sprites/spr_fightbt/spr_fightbt.yy",},"order":2,},
     {"id":{"name":"snd_rainbowbeam","path":"sounds/snd_rainbowbeam/snd_rainbowbeam.yy",},"order":0,},
     {"id":{"name":"obj_heatshards","path":"objects/obj_heatshards/obj_heatshards.yy",},"order":0,},
@@ -144,6 +146,7 @@
   "RoomOrderNodes": [
     {"roomId":{"name":"rm_start","path":"rooms/rm_start/rm_start.yy",},},
     {"roomId":{"name":"rm_battle","path":"rooms/rm_battle/rm_battle.yy",},},
+    {"roomId":{"name":"rm_gameover","path":"rooms/rm_gameover/rm_gameover.yy",},},
   ],
   "Folders": [
     {"folderPath":"folders/Sounds.yy","order":5,"resourceVersion":"1.0","name":"Sounds","tags":[],"resourceType":"GMFolder",},

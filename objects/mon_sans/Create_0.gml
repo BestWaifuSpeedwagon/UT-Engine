@@ -17,7 +17,7 @@ acts = [
 	], NULL),
 ]; 
 
-attacks = [ atkp_sans1, atkp_sans2, atkp_sans3 ];
+attacks = [ atkp_sans4, atkp_sans2, atkp_sans3, atkp_sans4 ];
 attackOrder = function(roundType) //Determine order based on current count
 {
 	return attacks[fightCount];

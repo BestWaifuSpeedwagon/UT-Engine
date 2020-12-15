@@ -2,8 +2,7 @@
 getStats(0);
 
 #region Camera stuff
-hShake = 0;
-vShake = 0;
+shake = 0;
 
 flick = -1;
 

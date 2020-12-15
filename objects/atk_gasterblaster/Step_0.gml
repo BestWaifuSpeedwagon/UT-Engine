@@ -11,7 +11,8 @@ if(timer > 0)
 else if(timer == 0)
 {
 	audio_play_sound(snd_gaster_blast, 0, false);
-	screenShake(5, 5);
+	
+	screenShake(max(image_xscale*image_yscale, 5));
 	
 	collision = true;
 	

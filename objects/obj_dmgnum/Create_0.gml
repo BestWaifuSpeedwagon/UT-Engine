@@ -4,8 +4,6 @@ monster = ct_argument.monster;
 mon = obj_soul.monster[monster];
 
 originalHp = mon.hp;
-	
-audio_play_sound(snd_damage, 0, false);
 
 miss = damage <= 0;
 
@@ -20,6 +18,8 @@ if(damage >= 0)
 		_dmg[i] = real(string_char_at(damage, i+1));
 	}
 	damage = _dmg;
+	
+	audio_play_sound(snd_damage, 0, false);
 }
 else damage = [0];
 

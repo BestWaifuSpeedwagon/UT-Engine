@@ -1,3 +1,8 @@
+// -- NAMES --
+//Angle meaning a clockwise angle in degrees
+//Theta meaning a clockwise angle in radians
+//Dir being 0, 1, 2, 3, and multiplied by 90 to give an angle
+
 //States
 #macro NULL -1
 #macro FIGHT 0

@@ -83,7 +83,7 @@
     "backdropXOffset": 0.0,
     "backdropYOffset": 0.0,
     "xorigin": 36,
-    "yorigin": 29,
+    "yorigin": 30,
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_sansb_torso","path":"sprites/spr_sansb_torso/spr_sansb_torso.yy",},

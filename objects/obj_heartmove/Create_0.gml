@@ -17,16 +17,11 @@ visible = false;
 function applyDamage(_atk)
 {
 	audio_play_sound(snd_hurt1, 1, false);
+
+	obj_stat.hp -= _atk.damage;
 	
-	if(obj_soul.karma) obj_soul.kr -= _atk.damage
-	else obj_stat.hp -= _atk.damage;
 	inv = room_speed;
 	if(_atk.destroy) instance_destroy(_atk);
-	
-	if(obj_stat.hp <= 0)
-	{
-		instance_create_depth(0, 0, 0, obj_gameover);
-	}
 }
 
 function changeColor(_color)

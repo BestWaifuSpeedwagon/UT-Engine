@@ -170,28 +170,27 @@ draw_rectangle(_x, 399, _x + obj_stat.maxHp*1.2, 419, false);
 
 if(karma)
 {
-	draw_set_color(c_yellow);
-	draw_rectangle(_x, 399, _x + kr*1.2, 419, false);
-	
 	draw_set_color(c_fuchsia);
-	draw_rectangle(_x, 399, _x + obj_stat.hp*1.2, 419, false);
-}
-else
-{
-	draw_set_color(c_yellow);
-	draw_rectangle(_x, 399, _x + obj_stat.hp*1.2, 419, false);
+	draw_rectangle(_x, 399, _x + kr*1.2, 419, false);
 }
 
+draw_set_color(c_yellow);
+draw_rectangle(_x, 399, _x + obj_stat.hp*1.2, 419, false);
+
 _x += obj_stat.maxHp*1.2 + 9;
+
+var _hp = obj_stat.hp;
 
 if(karma)
 {
 	draw_sprite(spr_krmeter, 0, _x, 404);
 	_x += 40;
+	
+	_hp = kr;
+	
+	draw_set_color(kr > obj_stat.hp ? c_fuchsia : c_white);
 }
+else draw_set_color(c_white);
 
-draw_set_color(c_white);
-draw_text(_x, 395, string(obj_stat.hp) + " / " + string(obj_stat.maxHp));
+draw_text(_x, 395, string(_hp) + " / " + string(obj_stat.maxHp));
 #endregion
-
-//surface_reset_target();

@@ -9,8 +9,7 @@ else if(flick == 0)
 	flick = -1;
 }
 
-hShake *= -.8;
-vShake *= -.8;
+if(shake > 0) shake -= shake/10;
 
 if(!surface_exists(guiSurf)) guiSurf = surface_create(width*2, height*2);
 

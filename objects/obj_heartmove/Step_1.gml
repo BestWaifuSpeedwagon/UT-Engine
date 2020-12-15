@@ -34,7 +34,7 @@ if(visible)
 			
 			if(slam && onGround)
 			{
-				screenShake(5, 5);
+				screenShake(10);
 				audio_play_sound(snd_impact, 3, false);
 				
 				slam = false;

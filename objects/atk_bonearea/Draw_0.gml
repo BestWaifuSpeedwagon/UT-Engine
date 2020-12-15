@@ -6,32 +6,14 @@ shader_set_uniform_f(u_uBox, Box.x, Box.y, Box.x2, Box.y2);
 
 draw_set_color(color);
 
-switch(angle) //x and y are ALWAYS top-left corner
+for(i = 0; i < tileWidth; i++)
 {
-	case 0:
-	case 2:
-		for(i = 0; i < tileWidth; i++)
-		{
-			var _x = x + (i/tileWidth)*width;
+	var _x = x + (i/tileWidth)*width;
 			
-			draw_sprite_ext(spr_bone_top, 0, _x, y, 1, 1, angle*90, color, 1);
-			draw_sprite_ext(spr_bone_top, 0, _x+10, y+height, 1, 1, angle*90 + 180, color, 1);
+	draw_sprite_ext(spr_bone_top, 0, _x, y, 1, 1, 0, color, 1);
+	draw_sprite_ext(spr_bone_top, 0, _x+10, y+height, 1, 1, 180, color, 1);
 			
-			draw_rectangle(_x+2, y+6, _x+8, y+height-6, false);
-		}
-		break;
-	case 1:
-	case 3:
-		for(i = 0; i < tileWidth; i++)
-		{
-			var _y = y + (i/tileWidth)*width;
-			
-			draw_sprite_ext(spr_bone_top, 0, x, _y, 1, 1, angle*90, color, 1);
-			draw_sprite_ext(spr_bone_top, 0, x+height, _y+10, 1, 1, angle*90 + 180, color, 1);
-			
-			draw_rectangle(x+6, _y+2, x+height-6, _y-2, false);
-		}
-		break;
+	draw_rectangle(_x+2, y+6, _x+8, y+height-6, false);
 }
 
 shader_reset();
