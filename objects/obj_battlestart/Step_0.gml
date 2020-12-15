@@ -28,7 +28,16 @@ switch(timer)
 		
 		ct_argument = undefined;
 		
-		audio_play_sound(music, 3, true);
+		if(startAttack == NULL) audio_play_sound(music, 3, true);
+		else
+		{
+			obj_heartmove.visible = true;
+			obj_heartmove.x = Box.cx;
+			obj_heartmove.y = Box.cy;
+			
+			obj_soul.inBattle = true;
+			obj_soul.currentAttack = instance_create_depth(0, 0, 0, startAttack);
+		}
 		
 		instance_destroy();
 		break;

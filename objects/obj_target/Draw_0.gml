@@ -1,7 +1,7 @@
 /// @description Draw myself + target
 draw_self();
 
-var _h = (obj_soul.box.h - 16)/2;
+var _h = (Box.h - 16)/2;
 
 if(moving)
 {

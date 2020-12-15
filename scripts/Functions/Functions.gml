@@ -68,9 +68,25 @@ function drawRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative)
 	draw_primitive_end();
 }
 #endregion
+#region Camera
+function screenShake(hPower, vPower)
+{
+	obj_stat.hShake += hPower;
+	obj_stat.vShake += vPower;
+}
+
+function flicker(time)
+{
+	audio_pause_all();
+	
+	audio_play_sound(snd_noise, 3, false);
+	
+	obj_stat.flick = time;
+}
+#endregion
 #region Utility
 
-function startBattle(monster, karma, music)
+function startBattle(monster, karma, music, startAttack)
 {
 	//Allows setting arguments before create
 	ct_argument =
@@ -78,7 +94,8 @@ function startBattle(monster, karma, music)
 		karma: karma,
 		monster: monster,
 		music: music,
-		originalRoom: room
+		originalRoom: room,
+		startAttack: startAttack
 	};
 	
 	room = rm_battle;
@@ -87,6 +104,17 @@ function startBattle(monster, karma, music)
 	
 	ct_argument = undefined;
 	
+}
+
+function cosine(val1, val2, amount)
+{
+	return lerp(val1, val2, (1-cos(amount*pi))/2);
+}
+
+function oscillate(val1, val2, amount) //Amount from 0 to 1
+{
+	if(amount < .5) return lerp(val1, val2, amount*2);
+	else return lerp(val2, val1, (1-amount)*2);
 }
 
 //arr: any[]

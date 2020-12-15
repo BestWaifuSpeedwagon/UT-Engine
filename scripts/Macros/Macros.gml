@@ -12,6 +12,10 @@
 #macro ORANGE $0A2E8   //So in real hexcodes, those two would be inversed
 #macro WHITE c_white
 
+//Battle
+#macro heart obj_heartmove
+#macro Box obj_soul.box
+
 //Voices
 
 

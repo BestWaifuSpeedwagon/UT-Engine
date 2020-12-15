@@ -2,7 +2,7 @@
 shader_set(shd_insideOutside);
 
 shader_set_uniform_i(u_uInside, inside);
-shader_set_uniform_f(u_uBox, obj_soul.box.x, obj_soul.box.y, obj_soul.box.x2, obj_soul.box.y2);
+shader_set_uniform_f(u_uBox, Box.x, Box.y, Box.x2, Box.y2);
 
 draw_set_color(color);
 drawRectangleRotated(x+2, y+6, x+8, y+height-6, 3, -6, theta, true);

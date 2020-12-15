@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_gasterblaster",
-    "path": "sprites/spr_gasterblaster/spr_gasterblaster.yy",
+    "name": "spr_gasterblaster_charge",
+    "path": "sprites/spr_gasterblaster_charge/spr_gasterblaster_charge.yy",
   },
   "solid": false,
   "visible": true,

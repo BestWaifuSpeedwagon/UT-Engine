@@ -2,16 +2,16 @@
 if(timer > 0) timer--;
 else if(timer == 0)
 {
-	var _b = instance_create_layer(obj_soul.box.x-10, obj_soul.box.y2, "Attacks", atk_bonegap);
+	var _b = instance_create_layer(Box.x-10, Box.y2, "Attacks", atk_bonegap);
 	_b.theta = pi;
-	_b.height = obj_soul.box.h;
+	_b.height = Box.h;
 	_b.velX = 3;
 	_b.gapPos = 20;
 	_b.gapHeight = 14;
 	
-	_b = instance_create_layer(obj_soul.box.x2+10, obj_soul.box.y2, "Attacks", atk_bonegap);
+	_b = instance_create_layer(Box.x2+10, Box.y2, "Attacks", atk_bonegap);
 	_b.theta = pi;
-	_b.height = obj_soul.box.h;
+	_b.height = Box.h;
 	_b.velX = -3;
 	_b.gapPos = 20;
 	_b.gapHeight = 14;

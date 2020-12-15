@@ -34,7 +34,7 @@ if(mon.hp <= 0)
 	mon.killed = true;
 	obj_soul.monsterAmount--;
 }
-else mon.hurt = true;
+else if(!mon.dodge) mon.hurt = true; //!Sans
 
 _y = y; //For healthbar
 

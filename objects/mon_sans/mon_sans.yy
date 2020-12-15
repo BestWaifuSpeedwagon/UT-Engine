@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_sans_bface",
-    "path": "sprites/spr_sans_bface/spr_sans_bface.yy",
+    "name": "spr_sansb_face",
+    "path": "sprites/spr_sansb_face/spr_sansb_face.yy",
   },
   "solid": false,
   "visible": true,

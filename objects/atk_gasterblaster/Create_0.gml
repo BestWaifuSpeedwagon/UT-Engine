@@ -4,7 +4,7 @@
 // Inherit the parent event
 event_inherited();
 
-audio_play_sound(snd_segapower, 0, false);
+audio_play_sound(snd_gaster_blaster, 0, false);
 
 passthrough = true;
 damage = 1; //K A R M A
@@ -15,7 +15,7 @@ destroy = false;
 wantedX = ct_argument.wantedX;
 wantedY = ct_argument.wantedY;
 wantedDir = ct_argument.wantedDir;
-image_angle = radtodeg(wantedDir);
+image_angle = -radtodeg(wantedDir);
 
 timer = ct_argument.timer; //Time before it fires
 fadeOut = ct_argument.fadeOut; //Time for it to start fading out

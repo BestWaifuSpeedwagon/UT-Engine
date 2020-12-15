@@ -1,13 +1,27 @@
-/// @description Insérez la description iciè
-// Vous pouvez écrire votre code dans cet éditeur
-if(keyboard_check_pressed(ord("U")))
+/// @description Various actions
+#region Camera
+if(flick > 0) flick--;
+else if(flick == 0)
 {
-	startBattle([ mon_sans ], true, mus_megalovania);
+	audio_play_sound(snd_noise, 3, false);
+	audio_resume_all();
+	
+	flick = -1;
 }
+
+hShake *= -.8;
+vShake *= -.8;
+
+if(!surface_exists(guiSurf)) guiSurf = surface_create(width*2, height*2);
 
 if(keyboard_check_pressed(vk_f4))
 {
 	window_set_fullscreen( !window_get_fullscreen() );
 }
 
-if(!surface_exists(guiSurf)) guiSurf = surface_create(width*2, height*2);
+#endregion
+
+if(keyboard_check_pressed(ord("U")))
+{
+	startBattle([ mon_sans ], true, NULL, atkp_sansIntro);
+}

@@ -6,6 +6,8 @@ hp = 1;
 name = "Sans";
 def = 1000;
 
+dodge = true;
+
 text = [ "* You feel like your going to\n  have a bad time." ];
 
 acts = [
@@ -45,13 +47,26 @@ speechOrder = function(roundType)
 	return NULL;
 }
 
-bodyChannel = animcurve_get_channel(ac_body, 0);
+bodyChannelX = animcurve_get_channel(ac_sans_body, 0);
+bodyChannelY = animcurve_get_channel(ac_sans_body, 1);
 
+bodySprite = NULL;
+bodyImage = 0;
+
+bodyState = 0;
 bodyX = 0;
 bodyY = 0;
 
-headY = 0;
+headSprite = spr_sansb_face;
+headImage = 0;
 
+function changeSprite(part, sprite, image)
+{
+	variable_instance_set(id, part + "Sprite", sprite);
+	variable_instance_set(id, part + "Image", image);
+}
+
+headY = 0;
 
 image_speed = 0.1;
 

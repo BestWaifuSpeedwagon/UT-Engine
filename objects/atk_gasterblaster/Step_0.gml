@@ -1,37 +1,36 @@
 /// @description Decrease timer, then fire
 if(timer > 0)
 {
-	x = lerp(x, wantedX, 0.1);
-	y = lerp(y, wantedY, 0.1);
-	
-	var dd = angle_difference(image_angle, -radtodeg(wantedDir));
-	image_angle -= min(abs(dd), 5) * sign(dd);
+	x += (wantedX-x)/10;
+	y += (wantedY-y)/10;
 	
 	timer--;
+	
+	if(timer <= 40) image_index = floor(1 - timer/40)*4;
 }
 else if(timer == 0)
 {
-	audio_play_sound(snd_rainbowbeam, 0, false);
+	audio_play_sound(snd_gaster_blast, 0, false);
+	screenShake(5, 5);
+	
 	collision = true;
 	
-	image_speed = 0.3;
+	sprite_index = spr_gasterblaster_fire;
+	image_speed = 0.1;
 	
 	timer = -1;
 }
 else if(timer > -fadeOut)
 {
-	size = lerp(size, 1, 0.1);
+	size += min(1-size, 0.05);
 	timer--;
 }
 else
 {
-	alpha -= 4/room_speed; //Fade out in 0.25 seconds
+	alpha -= 4/room_speed;
+	size = sqr(alpha);
 	
-	if(alpha < 0.5)
-	{
-		collision = false;
-		size = lerp(size, 0, 0.2);
-	}
+	collision = false;
 	
 	if(alpha <= 0)
 	{
@@ -41,12 +40,9 @@ else
 
 if(timer < 0)
 {
-	//Loop animation
-	if(image_index == 6) image_index = 4;
-	
 	//Set bounding box
-	bounding.p1.set(x, y-42*image_yscale*size);
-	bounding.p2.set(x+length, y+42*image_yscale*size);
+	bounding.p1.set(x, y - 32*image_yscale*size);
+	bounding.p2.set(x+length, y + 32*image_yscale*size);
 	bounding.o.set(x, y);
 	bounding.theta = wantedDir;
 	//Increase size / Move
@@ -54,7 +50,7 @@ if(timer < 0)
 	
 	if(x > -100 && y > -100 && x < 740 && y < 580)
 	{
-		vel -= 0.3;
+		vel -= 0.5;
 		x += cos(wantedDir)*vel;
 		y += sin(wantedDir)*vel;
 	}

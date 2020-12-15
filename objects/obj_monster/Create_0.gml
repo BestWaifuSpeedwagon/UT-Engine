@@ -52,6 +52,9 @@ spared = false; //Is he spared ? Usually draw the monster faded
 
 killed = false; //About straightforward
 
+dodging = 0; //X-offset
+dodgingTimer = 0;
+
 //Dust effect
 fraction = 0; 
 u_uY = shader_get_uniform(shd_dust, "y");

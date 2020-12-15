@@ -5,6 +5,7 @@ monster = ct_argument.monster;
 karma = ct_argument.karma;
 music = ct_argument.music;
 originalRoom = ct_argument.originalRoom;
+startAttack = ct_argument.startAttack;
 
 if(instance_exists(obj_player))
 {

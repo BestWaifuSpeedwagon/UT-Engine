@@ -5,9 +5,10 @@ onGround = true;
 
 velY = 0;
 gravityDir = pi/2; //Down by default
+slam = false; //SLAM DUNK when you touch box
 
-x = obj_soul.box.cx;
-y = obj_soul.box.cy;
+x = Box.cx;
+y = Box.cy;
 
 inv = 0; //Invicibility time
 

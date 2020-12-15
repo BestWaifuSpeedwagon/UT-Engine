@@ -2,15 +2,22 @@
 if(keyboard_check_pressed(ord("Z")) && moving)
 {
 	moving = false;
-	timer = 60;
 	
-	_dstFromCenter = abs(barX - 320);
-	var damage;
+	if(mon.dodge)
+	{
+		mon.dodging = -1;
+		createSlice(-1);
+	}
+	else
+	{
+		_dstFromCenter = abs(barX - 320);
+		var damage;
 	
-	if(_dstFromCenter <= 12) damage = round((obj_stat.atk - mon.def + random(2)) * 2.2);
-	else damage = round((obj_stat.atk - mon.def + random(2)) * (1 - _dstFromCenter/575) * 2);
+		if(_dstFromCenter <= 12) damage = round((obj_stat.atk - mon.def + random(2)) * 2.2);
+		else damage = round((obj_stat.atk - mon.def + random(2)) * (1 - _dstFromCenter/575) * 2);
 		
-	createSlice(damage);
+		createSlice(damage);
+	}
 }
 
 t++;
@@ -18,9 +25,9 @@ t++;
 if(moving)
 {
 	barX += 7;
-	if(barX > obj_soul.box.x2)
+	if(barX > Box.x2)
 	{
-		createSlice(-1);
+		createMiss();
 		moving = false;
 	}
 }

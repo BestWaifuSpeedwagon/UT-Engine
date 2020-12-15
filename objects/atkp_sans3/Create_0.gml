@@ -1,5 +1,5 @@
 /// @description Timer
-obj_soul.box.wantedW = 375;
+Box.wantedW = 375;
 
 obj_heartmove.changeColor(BLUE);
 

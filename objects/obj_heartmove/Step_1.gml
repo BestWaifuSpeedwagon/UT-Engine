@@ -15,25 +15,35 @@ if(visible)
 			var hspd = keyboard_check(vk_right) - keyboard_check(vk_left);
 			x += hspd*3;
 			
-			if(onGround && keyboard_check_pressed(vk_up)) velY = -6;
+			//if(onGround) velY = max(0, velY);
 			
-			if(velY <= -4) velY += 0.2/2;
-			else if(velY <= -1) velY += 0.5/2;
-			else if(velY <= -0.5) velY += 0.2/2;
-			else if(velY < 8) velY += 0.6/2;
+			if(onGround && keyboard_check_pressed(vk_up)) velY = -6/2;
+			
+			if(velY <= -4/2) velY += 0.2/4;
+			else if(velY <= -1/2) velY += 0.5/4;
+			else if(velY <= -0.5/2) velY += 0.2/4;
+			else if(velY < 8/2) velY += 0.6/4;
 				
 			if(keyboard_check_released(vk_up)) velY = max(velY, -1);
 			
-			x += cos(gravityDir)*velY/2;
-			y += sin(gravityDir)*velY/2;
+			x += cos(gravityDir)*velY;
+			y += sin(gravityDir)*velY;
 			
 			//Check for all angles
-			onGround = !pointInRectangleRotated(x, y, obj_soul.box.x+2, obj_soul.box.y+2, obj_soul.box.x2-18, obj_soul.box.y2-18, obj_soul.box.w/2-8, obj_soul.box.h/2-8, gravityDir - pi/2, true);
+			onGround = !pointInRectangleRotated(x, y, Box.x+2, Box.y+2, Box.x2-18, Box.y2-18, Box.w/2-8, Box.h/2-8, gravityDir - pi/2, true);
+			
+			if(slam && onGround)
+			{
+				screenShake(5, 5);
+				audio_play_sound(snd_impact, 3, false);
+				
+				slam = false;
+			}
 			break;
 	}
 }
 
-x = clamp(x, obj_soul.box.x, obj_soul.box.x2-16); //-16 for the sprite width/height
-y = clamp(y, obj_soul.box.y, obj_soul.box.y2-16);
+x = clamp(x, Box.x, Box.x2-16); //-16 for the sprite width/height
+y = clamp(y, Box.y, Box.y2-16);
 
 #endregion

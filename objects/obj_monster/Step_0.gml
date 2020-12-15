@@ -1,4 +1,4 @@
-/// @description Increment yy
+/// @description Increment yy, dodge, hurt timer
 if(killed)
 {
 	fraction += 0.01;
@@ -26,4 +26,21 @@ if(hurt)
 		hurt = false;
 		hurtTimer = 0;
 	}
+}
+
+if(dodging < 0)
+{
+	var startX = x-dodging;
+	
+	dodgingTimer += 1/room_speed;
+	
+	dodging = lerp(0, -200, dodgingTimer*dodgingTimer*(3-2*dodgingTimer));
+	
+	if(dodging >= 0) 
+	{
+		dodging = 0;
+		dodgingTimer = 0;
+	}
+	
+	x = startX + dodging;
 }

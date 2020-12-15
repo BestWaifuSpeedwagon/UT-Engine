@@ -193,6 +193,12 @@ function Speech(_text, _font, _voice, _bubbleSprite, _waitForEnd, _x, _y) constr
 			dialogue.y = y-30;
 			break;
 	}
+	
+	function draw()
+	{
+		draw_sprite(sprite, 0, x, y);
+		dialogue.draw();
+	}
 }
 
 function Item(_name, _effect, _desc, _sound) constructor

@@ -1,7 +1,7 @@
 /// @description Width / Height
 
-obj_soul.box.wantedW = 200;
-obj_soul.box.wantedH = 100;
+Box.wantedW = 200;
+Box.wantedH = 100;
 
 timer = 0;
 

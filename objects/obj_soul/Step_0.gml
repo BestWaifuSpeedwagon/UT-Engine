@@ -220,13 +220,17 @@ box.cy = box.y + box.h/2;
 
 #endregion
 #region Health / Karma
+var _krTimer = ceil(power(1.25, kr-obj_stat.hp)*120);
+
+if(_krTimer < krCount) krCount = _krTimer;
+
 if(krCount > 0) krCount--;
 else
 {
 	if(obj_stat.hp > kr)
 	{
 		obj_stat.hp--;
-		krCount = ceil( power(1.5, kr-obj_stat.hp)*120 );
+		krCount = _krTimer;
 	}
 }
 #endregion
