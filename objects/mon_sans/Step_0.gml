@@ -2,7 +2,7 @@
 // Inherit the parent event
 event_inherited();
 
-var _time = oscillate(0, 1, frac(current_time / 2000 ));
+var _time = oscillate(0, 1, frac(current_time / 2500 ));
 
 switch(bodyState)
 {
@@ -18,13 +18,13 @@ switch(bodyState)
 		break;
 }
 
-if(bodySprite != NULL)
+if(bodySprite != spr_sansb_torso)
 {
 	bodyImage += 0.1;
 	
 	if(bodyImage >= sprite_get_number(bodySprite)-1)
 	{
-		bodySprite = NULL;
+		bodySprite = spr_sansb_torso;
 		bodyImage = 0;
 	}
 }

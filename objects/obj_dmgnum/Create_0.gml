@@ -29,7 +29,7 @@ if(mon.hp <= 0)
 		
 	obj_soul.gAmount += mon.gAmountFight;
 	obj_soul.xpAmount += mon.xpAmount;
-	splice(obj_soul.monster, monster);
+	array_delete(obj_soul.monster, monster, 1);
 		
 	mon.killed = true;
 	obj_soul.monsterAmount--;

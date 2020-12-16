@@ -18,15 +18,23 @@ box =
 {
 	x: 32.5,
 	y: 248,
-	freePos: false,
 	w: 575,
 	h: 140,
 	fw: 575, //Wanted W
 	fh: 140, //Wanted H
-	x2: 32.5+575, //Convenience
-	y2: 248+140, 
-	cx: 32.5+575/2,
+	
+	//Free Pose
+	freePos: false,
+	fx: 32.5, //Wanted X
+	fy: 248,  //Wanted Y
+	o: new Point(.5, .5), //Origin from 0 to 1
+	
+	//Convenience
+	cx: 32.5+575/2, 
 	cy: 248+140/2,
+	x2: 32.5+575,
+	y2: 248+140, 
+	
 	resize: function(_w, _h)
 	{
 		fw = _w;
@@ -36,8 +44,25 @@ box =
 	{
 		w = _w;
 		h = _h;
-		fw = _w;
-		fh = _h;
+		resize(_w, _h);
+	},
+	move: function(_x, _y)
+	{
+		freePos = true;
+		fx = _x;
+		fy = _y;
+	},
+	instantMove: function(_x, _y)
+	{
+		move(_x, _y);
+		x = _x - w*o.x;
+		y = _y - h*o.y;
+	},
+	setOrigin: function(_x, _y)
+	{
+		move(x + w*_x, y + h*_y);
+		
+		o.set(_x, _y);
 	}
 }
 

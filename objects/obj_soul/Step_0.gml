@@ -202,14 +202,25 @@ if(currentSpeech != NULL)
 
 #endregion
 #region Box
-if(abs(box.w - box.fw) > 1) box.w = lerp(box.w, box.fw, 0.1);
-else box.w = box.fw;
+box.w = lerp(box.w, box.fw, .1);
+box.h = lerp(box.h, box.fh, .1);
 
-if(abs(box.h - box.fh) > 1) box.h = lerp(box.h, box.fh, 0.1);
-else box.h = box.fh;
-
-box.x = 320 - box.w/2;
-box.y = min(388, 320 + box.h/2) - box.h;
+if(box.freePos)
+{
+	//box.o.x = lerp(box.o.x, box.fo.x, .1);
+	//box.o.y = lerp(box.o.y, box.fo.y, .1);
+	
+	box.x = lerp(box.x, box.fx - box.fw*box.o.x, .1);
+	box.y = lerp(box.y, box.fy - box.fh*box.o.y, .1);
+}
+else
+{
+	box.x = 320 - box.w/2;
+	box.y = min(388, 320 + box.h/2) - box.h;
+	
+	box.fx = box.x;
+	box.fy = box.y;
+}
 
 box.x2 = box.x + box.w;
 box.y2 = box.y + box.h;

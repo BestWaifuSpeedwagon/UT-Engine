@@ -17,7 +17,7 @@ acts = [
 	], NULL),
 ]; 
 
-attacks = [ atkp_sans1, atkp_sans2, atkp_sans3, atkp_sans4 ];
+attacks = [ atkp_sans5, atkp_sans1, atkp_sans2, atkp_sans3, atkp_sans4 ];
 attackOrder = function(roundType) //Determine order based on current count
 {
 	return attacks[fightCount];
@@ -42,15 +42,15 @@ speechs = [
 ];
 speechOrder = function(roundType)
 {
+	return NULL;
 	if(roundType == FIGHT) return speechs[fightCount];
 	
-	return NULL;
 }
 
 bodyChannelX = animcurve_get_channel(ac_sans_body, 0);
 bodyChannelY = animcurve_get_channel(ac_sans_body, 1);
 
-bodySprite = NULL;
+bodySprite = spr_sansb_torso;
 bodyImage = 0;
 
 bodyState = 0;

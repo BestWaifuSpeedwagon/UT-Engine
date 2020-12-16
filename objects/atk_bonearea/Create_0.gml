@@ -9,7 +9,7 @@ destroy = false;
 width = ct_argument.width;
 height = ct_argument.height;
 
-tileWidth = max(1, floor(width/12)); //Always at least 1 bone
+tileWidth = max(1, abs(floor(width/12))); //Always at least 1 bone
 
 velX = ct_argument.velX;
 velY = ct_argument.velY;
