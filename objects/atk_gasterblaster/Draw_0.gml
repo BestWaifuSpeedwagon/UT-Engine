@@ -5,7 +5,7 @@ if(size > 0)
 	
 	draw_set_alpha(alpha);
 	draw_set_color(c_white);
-	drawRectangleRotated(x, y-32*image_yscale*size * oscillation, x+length, y+32*image_yscale*size * oscillation, x, y, wantedDir, false);
+	drawRectangleRotated(x, y-32*image_yscale*size * oscillation, x+length, y+32*image_yscale*size * oscillation, x, y, wantedDir, false, false);
 	draw_set_alpha(1);
 }
 

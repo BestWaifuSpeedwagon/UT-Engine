@@ -2,19 +2,8 @@
 if(timer > 0) timer--;
 else if(timer == 0)
 {
-	var _b = instance_create_layer(Box.x-10, Box.y2, "Attacks", atk_bonegap);
-	_b.theta = pi;
-	_b.height = Box.h;
-	_b.velX = 3;
-	_b.gapPos = 20;
-	_b.gapHeight = 14;
-	
-	_b = instance_create_layer(Box.x2+10, Box.y2, "Attacks", atk_bonegap);
-	_b.theta = pi;
-	_b.height = Box.h;
-	_b.velX = -3;
-	_b.gapPos = 20;
-	_b.gapHeight = 14;
+	AttackBonegap(Box.x-10, Box.y2, Box.h, pi, 20, 14, 3, 0);
+	AttackBonegap(Box.x2+10, Box.y2, Box.h, pi, 20, 14, -3, 0);
 	
 	timer = 40;
 	

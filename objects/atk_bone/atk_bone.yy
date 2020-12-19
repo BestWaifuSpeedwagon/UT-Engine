@@ -31,8 +31,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Attacks",
-    "path": "folders/Monsters/Main Cast/Sans/Battle/Attacks.yy",
+    "name": "Bones",
+    "path": "folders/Monsters/Main Cast/Sans/Battle/Attacks/Bones.yy",
   },
   "resourceVersion": "1.0",
   "name": "atk_bone",

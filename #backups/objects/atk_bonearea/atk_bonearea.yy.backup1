@@ -1,0 +1,53 @@
+// 2020-12-17 22:45:37
+#event properties (no comments/etc. here are saved)
+parent_index = obj_attack;
+sprite_index = spr_bone_top;
+uses_physics = false;
+
+#event create Insérez la description ici
+// Vous pouvez écrire votre code dans cet éditeur
+
+// Inherit the parent event
+event_inherited();
+
+destroy = false;
+
+width = ct_argument.width;
+height = ct_argument.height;
+
+tileWidth = max(1, abs(floor(width/12))); //Always at least 1 bone
+
+vel = ct_argument.vel;
+
+bounding.p1.set(x, y);
+bounding.p2.set(x+width, y+height);
+bounding.theta = 0;
+
+bounding.o.set(0, 0);
+
+#event step Move bounding box etc etc
+x += vel.x;
+y += vel.y;
+
+bounding.p1.set(x, y);
+bounding.p2.set(x+width, y+height);
+
+#event draw Draw myself (with shaders)
+shader_set(shd_insideOutside);
+
+shader_set_uniform_i(u_u.insideOutside_inside, inside);
+shader_set_uniform_f(u_u.insideOutside_box, Box.x, Box.y, Box.x2, Box.y2);
+
+draw_set_color(color);
+
+for(i = 0; i < tileWidth; i++)
+{
+	var _x = x + (i/tileWidth)*width;
+			
+	draw_sprite_ext(spr_bone_top, 0, _x, y, 1, 1, 0, color, 1);
+	draw_sprite_ext(spr_bone_top, 0, _x+10, y+height, 1, 1, 0, color, 1);
+	
+	draw_rectangle(_x+2, y+6, _x+8, y+height-6, false);
+}
+
+shader_reset();

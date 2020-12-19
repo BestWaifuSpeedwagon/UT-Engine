@@ -18,6 +18,7 @@ function Dialogue(_messages, _border, _voice) constructor
 	
 	t = 2;
 	spd = 2;
+	pause = false;
 	
 	tVoice = 3;
 	
@@ -54,7 +55,7 @@ function Dialogue(_messages, _border, _voice) constructor
 			}
 		}
 		
-		if(pos <= string_length(messages[_id]))
+		if(pos <= string_length(messages[_id]) && !pause)
 		{
 			if(tVoice > 0) tVoice--;
 			else if(t == 0)
@@ -277,18 +278,59 @@ function BoundingBox() constructor
 	o = new Point(0, 0);
 	relative = true; //Relative by default
 	
-	function checkPoint(_x, _y) //Mostly for heartmove, but can be used for other things I guess
+	static checkPoint = function(_x, _y) //Mostly for heartmove, but can be used for other things I guess
 	{
 		return pointInRectangleRotated(_x, _y, p1.x, p1.y, p2.x, p2.y, o.x, o.y, theta, relative);
 	}
 	
-	function draw()
+	static draw = function()
 	{
-		drawRectangleRotated(p1.x, p1.y, p2.x, p2.y, o.x, o.y, theta, relative);
+		drawRectangleRotated(p1.x, p1.y, p2.x, p2.y, o.x, o.y, theta, relative, true);
 	}
 	
-	function centerOrigin(relative)
+	static centerOrigin = function(relative)
 	{
 		o.set( (relative ? (p2.x-p1.x)/2 : (p2.x+p1.x)/2), (relative ? (p2.y-p1.y)/2 : (p2.y+p1.y)/2));
+	}
+}
+
+function Vector(_x, _y) constructor
+{
+	if(argument_count >= 1) x = _x;
+	if(argument_count >= 2) y = _y;
+
+	static set = function(_x, _y)
+	{
+		x = _x;
+		y = _y;
+	}
+	
+	static magnitude = function()
+	{
+		return sqrt(x*x + y*y);
+	}
+	
+	///@returns {radians}
+	static dir = function()
+	{
+		return pointDirection(0, 0, x, y);
+	}
+}
+
+function PolarVector(_mag, _theta) : Vector() constructor
+{
+	x = cos(_theta)*_mag;
+	y = sin(_theta)*_mag;
+	
+	mag = _mag;
+	theta = _theta;
+	
+	static set = function(_mag, _theta)
+	{
+		mag = _mag;
+		theta = _theta;
+		
+		x = cos(_theta)*_mag;
+		y = sin(_theta)*_mag;
 	}
 }

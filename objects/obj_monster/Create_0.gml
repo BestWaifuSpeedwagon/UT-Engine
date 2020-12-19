@@ -57,9 +57,6 @@ dodgingTimer = 0;
 
 //Dust effect
 fraction = 0; 
-u_uY = shader_get_uniform(shd_dust, "y");
-u_uHeight = shader_get_uniform(shd_dust, "height");
-u_uFraction = shader_get_uniform(shd_dust, "fraction");
 
 height = sprite_height; //Default at sprite height, modify for multi-sprite monsters
 width = sprite_width; //Default at sprite width, modify fot multi-sprite monsters

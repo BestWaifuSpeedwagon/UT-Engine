@@ -1,0 +1,170 @@
+// 2020-12-19 22:00:05
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+sprite_index = spr_heart;
+uses_physics = false;
+
+#event create Variables
+color = RED;
+
+onGround = true;
+
+velY = 0;
+gravityDir = pi/2; //Down by default
+slam = false; //SLAM DUNK when you touch box
+
+x = Box.cx;
+y = Box.cy;
+
+inv = 0; //Invicibility time
+
+visible = false;
+
+function applyDamage(_atk)
+{
+	audio_play_sound(snd_hurt1, 1, false);
+
+	obj_stat.hp -= _atk.damage;
+	
+	if(obj_soul.karma) obj_soul.kr++;
+	
+	inv = room_speed;
+	if(_atk.destroy) instance_destroy(_atk);
+}
+
+function changeColor(_color)
+{
+	if(color == _color) return; //If color is already color
+	
+	audio_play_sound(snd_bell, 0, false);
+	color = _color;
+}
+
+#event step Collision
+#region Attacks
+if(inv == 0 || obj_soul.karma)
+{
+	var moved = xprevious != x || yprevious != y;
+	
+	var _atkCount = instance_number(obj_attack);
+	for(i = 0; i < _atkCount; i++)
+	{
+		var _atk = instance_find(obj_attack, i);
+	
+		if(!_atk.collision) continue;
+		
+		if(_atk.boundingAmount > 1)
+		{
+			var _colOccured = false;
+				
+			//Check over every bounding box and break if a collision happen
+			for(j = 0; j < _atk.boundingAmount; j++)
+			{
+				if(_atk.bounding[j].checkPoint(x+8, y+8))
+				{
+					switch(_atk.color)
+					{
+						case WHITE:
+							_colOccured = true;
+							break;
+						case AQUA:
+							if(moved) _colOccured = true;
+							break;
+						case ORANGE:
+							if(!moved) _colOccured = true;
+							break;
+					}
+						
+					if(_colOccured) break;
+				}
+			}
+				
+			if(_colOccured)
+			{
+				applyDamage(_atk);
+				break;
+			}
+		}
+		else if(_atk.bounding.checkPoint(x+8, y+8)) //Using else if since we know there is only 1 bounding box
+		{
+			switch(_atk.color)
+			{
+				case WHITE:
+					applyDamage(_atk);
+					break;
+				case AQUA:
+					if(moved) applyDamage(_atk);
+					break;
+				case ORANGE:
+					if(!moved) applyDamage(_atk);
+					break;
+			}
+			break;
+		}
+	}
+}
+else inv--;
+
+#endregion
+
+#event step_begin Movement
+#region Movement
+if(visible)
+{
+	switch(color)
+	{
+		case RED:
+			var hspd = keyboard_check(vk_right) - keyboard_check(vk_left);
+			var vspd = keyboard_check(vk_down) - keyboard_check(vk_up);
+		
+			x += hspd*3;
+			y += vspd*3;
+			break;
+		case BLUE: //https://www.reddit.com/r/Underminers/comments/3yq1nn/physics_for_blue_soul/
+			var hspd = keyboard_check(vk_right) - keyboard_check(vk_left);
+			x += hspd*3;
+			
+			//if(onGround) velY = max(0, velY);
+			
+			if(onGround && keyboard_check_pressed(vk_up)) velY = -6/2;
+			
+			if(velY <= -4/2) velY += 0.2/4;
+			else if(velY <= -1/2) velY += 0.5/4;
+			else if(velY <= -0.5/2) velY += 0.2/4;
+			else if(velY < 8/2) velY += 0.6/4;
+				
+			if(keyboard_check_released(vk_up)) velY = max(velY, -1);
+			
+			x += cos(gravityDir)*velY;
+			y += sin(gravityDir)*velY;
+			
+			//Check for all angles
+			onGround = !pointInRectangleRotated(x, y, Box.x+2, Box.y+2, Box.x2-18, Box.y2-18, Box.w/2-8, Box.h/2-8, gravityDir - pi/2, true);
+			
+			if(slam && onGround)
+			{
+				screenShake(10);
+				audio_play_sound(snd_impact, 3, false);
+				
+				slam = false;
+			}
+			break;
+	}
+}
+
+///TODO : Add rotation
+x = clamp(x, Box.x+8, Box.x2-8); //Sprite width/height
+y = clamp(y, Box.y+8, Box.y2-8);
+
+#endregion
+
+#event draw Draw myself
+var _rot = 0;
+switch(color)
+{
+	case BLUE:
+		_rot = -radtodeg(gravityDir)+90;
+		break;
+}
+
+draw_sprite_ext(sprite_index, inv % 20 < 10 ? 0 : 1, x, y, 1, 1, _rot, color, 1.0); //1 frame on 2 every 6 step

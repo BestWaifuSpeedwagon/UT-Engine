@@ -22,19 +22,29 @@ function AttackGasterBlaster(wantedX, wantedY, angle, timeBeforeBlast, timeBefor
 	return _g;
 }
 
-function AttackBonearea(x, y, width, height, velX, velY)
+#region Bones
+/**
+	x {real}
+	y {real}
+	width {real} Width of the area created
+	height {real} Height of the area created
+	
+	vel {Vector} Speed it's going to go
+	||
+	velX {Real}
+	velY {Real}
+*/
+function AttackBonearea(x, y, width, height, vel)
 {
+	if(argument_count == 6) vel = new Vector(argument[4], argument[5]);
 	ct_argument = 
 	{
 		width: width,
 		height: height,
-		velX: velX,
-		velY: velY
+		vel: vel,
 	}
 	
 	return instance_create_layer(x, y, "Attacks", atk_bonearea);
-	
-	ct_argument = undefined;
 }
 
 function AttackBonestab(dir, height, timeBeforeStab)
@@ -47,31 +57,81 @@ function AttackBonestab(dir, height, timeBeforeStab)
 	}
 	
 	return instance_create_depth(0, 0, 0, atk_bonestab);
-	
-	ct_argument = undefined;
 }
 
-function AttackBonegap(x, y, height, theta, velX, velY, gapPos, gapHeight)
+/**
+	@param {number} x
+	@param {number} y
+	@param {number} height Height of the bone created
+	@param {number} theta Angle of the bone created
+	@param {Vector} vel Speed it's going to go
+	@param [{number}] velY
+	@returns 
+*/
+function AttackBone(x, y, height, theta, vel)
 {
+	if(argument_count == 6) vel = new Vector(argument[4], argument[5]);
+	
+	var _b = instance_create_layer(x, y, "Attacks", atk_bone);
+	_b.height = height;
+	_b.theta = theta;
+	_b.vel = vel;
+	
+	return _b;
+}
+
+
+///@param {real} x
+///@param {real} y
+///@param {real} height Height of the bone created
+///@param {radians} theta Angle of the bone created
+///@param {Real} gapPos Where the gap is
+///@param {Real} gapHeight The size of the gap created
+///@param {Vector | Real} vel
+///@param {[Real]} velY
+///@returns {atk_bonegap}
+function AttackBonegap(x, y, height, theta, gapPos, gapHeight, vel)
+{
+	if(argument_count == 8) vel = new Vector(argument[6], argument[7]);
+	
 	var _b = instance_create_layer(x, y, "Attacks", atk_bonegap);
 	_b.height = height;
 	_b.theta = theta;
-	_b.velX = velX;
-	_b.velY = velY;
+	_b.vel = vel;
 	_b.gapPos = gapPos;
 	_b.gapHeight = gapHeight;
 	
 	return _b;
 }
 
-function AttackBone(x, y, height, theta, velX, velY)
+/**
+	x {real}
+	y {real}
+	height {real} Height of the bone created
+	boneTheta {radians} Angle of the bone created
+	spacing {Real} How far apart the bones are spawned
+	
+	vel {Vector} Speed it's going to go
+	||
+	velX {Real}
+	velY {Real}
+*/
+function AttackBonerepeat(x, y, height, boneTheta, spacing, amount, vel)
 {
-	var _b = instance_create_layer(x, y, "Attacks", atk_bone);
-	_b.height = height;
-	_b.theta = theta;
-	_b.velX = velX;
-	_b.velY = velY;
+	if(argument_count == 8) vel = new Vector(argument[6], argument[7]);
+	
+	ct_argument = 
+	{
+		height: height,
+		theta: boneTheta,
+		vel: vel,
+		spacing: spacing,
+		amount: amount
+	}
+	
+	return instance_create_layer(x, y, "Attacks", atk_bonerepeat);
 }
+#endregion
 #endregion
 #region Others
 function Slam(theta)

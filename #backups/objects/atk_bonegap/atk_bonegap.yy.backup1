@@ -1,0 +1,71 @@
+// 2020-12-18 18:21:33
+#event properties (no comments/etc. here are saved)
+parent_index = obj_attack;
+sprite_index = spr_bone_top;
+uses_physics = false;
+
+#event create Insérez la description ici
+// Vous pouvez écrire votre code dans cet éditeur
+
+// Inherit the parent event
+event_inherited();
+
+height = 10; //Changed later
+theta = 0; //Radians, changed later
+
+vel = new Vector(0, 0);
+
+gapPos = 0; //[ where, size ]
+gapHeight = 0;
+
+boundingAmount = 2;
+bounding = [ new BoundingBox(), new BoundingBox() ];
+
+bounding[0].o.set(5, 0);
+
+bounding[1].relative = false;
+
+destroy = false;
+
+#event step Update bounding box
+x += vel.x;
+y += vel.y;
+
+bounding[0].p1.set(x, y);
+bounding[0].p2.set(x+10, y+gapPos);
+bounding[0].theta = theta;
+
+bounding[1].p1.set(x, y+gapPos+gapHeight);
+bounding[1].p2.set(x+10, y+height);
+bounding[1].theta = theta;
+
+bounding[1].o.set(x+5, y);
+
+#event draw Draw myself with shader
+shader_set(shd_insideOutside);
+
+shader_set_uniform_i(u_u.insideOutside_inside, inside);
+shader_set_uniform_f(u_u.insideOutside_box, Box.x, Box.y, Box.x2, Box.y2);
+
+draw_set_color(color);
+
+var _y1 = [ y, y+gapPos+gapHeight ],
+	_y2 = [ y+gapPos, y+height ];
+
+var angle = round(-radtodeg(theta));
+
+for(i = 0; i < 2; i++)
+{
+	drawRectangleRotated(x+2, _y1[i]+6, x+8, _y2[i]-6, x+5, y, theta, false);
+
+	var p1 = new Point(x, _y1[i]),
+		p2 = new Point(x+10, _y2[i]);
+
+	p1.rotate(x+5, y, theta);
+	p2.rotate(x+5, y, theta);
+
+	draw_sprite_ext(spr_bone_top, 0, p1.x, p1.y, 1, 1, 0, color, 1);
+	draw_sprite_ext(spr_bone_bottom, 0, p2.x, p2.y, 1, 1, 0, color, 1);
+}
+
+shader_reset();

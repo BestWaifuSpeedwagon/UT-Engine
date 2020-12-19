@@ -9,56 +9,55 @@ if(inv == 0 || obj_soul.karma)
 	{
 		var _atk = instance_find(obj_attack, i);
 	
-		if(_atk.collision)
+		if(!_atk.collision) continue;
+		
+		if(_atk.boundingAmount > 1)
 		{
-			if(_atk.boundingAmount > 1)
+			var _colOccured = false;
+				
+			//Check over every bounding box and break if a collision happen
+			for(j = 0; j < _atk.boundingAmount; j++)
 			{
-				var _colOccured = false;
-				
-				//Check over every bounding box and break if a collision happen
-				for(j = 0; j < _atk.boundingAmount; j++)
+				if(_atk.bounding[j].checkPoint(x+8, y+8))
 				{
-					if(_atk.bounding[j].checkPoint(x+8, y+8))
+					switch(_atk.color)
 					{
-						switch(_atk.color)
-						{
-							case WHITE:
-								_colOccured = true;
-								break;
-							case AQUA:
-								if(moved) _colOccured = true;
-								break;
-							case ORANGE:
-								if(!moved) _colOccured = true;
-								break;
-						}
-						
-						if(_colOccured) break;
+						case WHITE:
+							_colOccured = true;
+							break;
+						case AQUA:
+							if(moved) _colOccured = true;
+							break;
+						case ORANGE:
+							if(!moved) _colOccured = true;
+							break;
 					}
-				}
-				
-				if(_colOccured)
-				{
-					applyDamage(_atk);
-					break;
+						
+					if(_colOccured) break;
 				}
 			}
-			else if(_atk.bounding.checkPoint(x+8, y+8)) //Using else if since we know there is only 1 bounding box
+				
+			if(_colOccured)
 			{
-				switch(_atk.color)
-				{
-					case WHITE:
-						applyDamage(_atk);
-						break;
-					case AQUA:
-						if(moved) applyDamage(_atk);
-						break;
-					case ORANGE:
-						if(!moved) applyDamage(_atk);
-						break;
-				}
+				applyDamage(_atk);
 				break;
 			}
+		}
+		else if(_atk.bounding.checkPoint(x+8, y+8)) //Using else if since we know there is only 1 bounding box
+		{
+			switch(_atk.color)
+			{
+				case WHITE:
+					applyDamage(_atk);
+					break;
+				case AQUA:
+					if(moved) applyDamage(_atk);
+					break;
+				case ORANGE:
+					if(!moved) applyDamage(_atk);
+					break;
+			}
+			break;
 		}
 	}
 }

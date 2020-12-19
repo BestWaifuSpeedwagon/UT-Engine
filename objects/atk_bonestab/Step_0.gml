@@ -5,7 +5,7 @@ if(time > 0){}
 else if(time == 0)
 {
 	audio_play_sound(snd_spearrise, 3, false);
-	boneArea = AttackBonearea(_x, _y, _w, _h, 0, 0);
+	boneArea = AttackBonearea(_x, _y, _w, _h, new Vector(0, 0));
 }
 else if(time > -60)
 {

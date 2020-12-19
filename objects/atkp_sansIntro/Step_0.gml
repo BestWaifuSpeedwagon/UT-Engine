@@ -25,7 +25,7 @@ else
 			mon_sans.changeSprite("head", spr_sansb_blueeye, 0);
 			
 			heart.visible = true;
-			Box.instantResize(165, 165);
+			Box.resize(165, 165, 1);
 			break;
 		case 4:
 			mon_sans.changeSprite("body", spr_sansb_handdown, 0);
@@ -56,7 +56,7 @@ else
 		case 140:
 			for(i = 0; i < 20; i++)
 			{
-				AttackBonegap(Box.x - i*24, Box.y, Box.h, 0, 6, 0, sin(i/3)*20 + 40, 40);
+				AttackBonegap(Box.x - i*24, Box.y, Box.h, 0, sin(i/3)*20 + 40, 40, 6, 0);
 			}
 			break;
 		case 206:

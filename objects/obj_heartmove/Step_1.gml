@@ -43,7 +43,8 @@ if(visible)
 	}
 }
 
-x = clamp(x, Box.x, Box.x2-16); //-16 for the sprite width/height
-y = clamp(y, Box.y, Box.y2-16);
+///TODO : Add rotation of box
+x = clamp(x, Box.x+8, Box.x2-8); //Sprite width/height
+y = clamp(y, Box.y+8, Box.y2-8);
 
 #endregion

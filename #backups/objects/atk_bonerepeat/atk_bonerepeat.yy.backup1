@@ -1,0 +1,31 @@
+// 2020-12-17 20:41:18
+#event properties (no comments/etc. here are saved)
+parent_index = obj_attack;
+uses_physics = false;
+
+#event create Repeatedly place bones
+event_inherited();
+
+spacing = ct_argument.spacing;
+amount = ct_argument.amount;
+
+height = ct_argument.height;
+vel = ct_argument.vel;
+theta = ct_argument.theta;
+
+timer = (spacing+cos(theta + pi/4)*12+sin(theta + pi/4)*height) / vel.magnitude(); //Add the bone width
+t = timer;
+
+collision = false;
+
+#event step Create bones on timer
+if(t > 0) t--;
+else
+{
+	var _b = AttackBone(x, y, height, theta, vel);
+	
+	amount--;
+	if(amount <= 0) instance_destroy();
+	
+	t = timer;
+}

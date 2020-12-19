@@ -1,0 +1,35 @@
+// 2020-12-17 20:10:02
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+uses_physics = false;
+
+#event create Collisions - DON'T FORGET TO INHERIT
+inside = true; //Default at true
+passthrough = false; //If the shader doesn't have an effect
+damage = 1; //Default at 1
+
+collision = true; //Wether it should be collisionable, attacks fading away for exemple
+destroy = true; //Wether the attack will destroy itself when contacting the player
+
+color = WHITE;
+
+//Bounding box
+bounding = new BoundingBox();
+boundingAmount = 1; //Only one bounding box by default, else make it an array
+
+#event draw Draw self with shaders
+if(sprite_exists(sprite_index))
+{
+	if(!passthrough)
+	{
+		shader_set(shd_insideOutside);
+	
+		shader_set_uniform_i(u_u.insideOutside_inside, inside);
+		shader_set_uniform_f(u_u.insideOutside_box, Box.x, Box.y, Box.x2, Box.y2);
+	}
+	
+	draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, color, 1);
+	
+	shader_reset();
+	
+}

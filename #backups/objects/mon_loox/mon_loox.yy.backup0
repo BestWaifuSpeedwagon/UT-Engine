@@ -1,0 +1,75 @@
+// 2020-12-16 19:37:20
+#event properties (no comments/etc. here are saved)
+parent_index = obj_monster;
+sprite_index = spr_loox;
+uses_physics = false;
+
+#event create Properties
+event_inherited(); //Inherit all variables of parent
+
+y = 200;
+
+maxHp = 20;
+hp = 20;
+name = "Loox";
+def = -5;
+
+text = [ "* Loox looks at you intently.", "* Loox expects you to do something." ];
+
+acts = [
+	new Act("Check", ["* LOOX - 5 ATK 5 DEF\n* Looks everywhere."], NULL),
+	new Act("Talk", ["* You ask Loox how he has been doing{6}.{6}.{6}.{6}.",
+					 "* He seems to feel better !"],
+			function(){ spare = true })
+]; 
+
+attacks = [ atkp_randomblaster ];
+attackOrder = function(attacked) //Determine order based on current count
+{
+	return attacks[0];
+}
+
+speechs = [ new Speech( ["Hurt me !"], fnt_dialogue, snd_voice, spr_blconwd, true, x + width/2 + 10, y - height/2 ) ];
+speechOrder = function(attacked)
+{
+	return speechs[0];
+}
+
+
+image_speed = 0.1;
+
+xpAmount = 6;
+gAmountFight = 20;
+gAmountSpare = 15;
+
+#event draw Draw myself
+surface_set_target(monsterSurf);
+
+if(killed)
+{
+	shader_set(shd_dust);
+	shader_set_uniform_f(u_u.dust_fraction, fraction);
+	shader_set_uniform_f(u_u.dust_y, y - sprite_height);
+	shader_set_uniform_f(u_u.dust_height, sprite_height);
+	
+	draw_sprite(spr_looxhurt, 0, x, y);
+	
+	shader_reset();
+}
+else
+{
+	if(hurt)
+	{
+		draw_sprite(spr_looxhurt, 0, x + irandom_range(-5, 5), y);
+	}
+	else if(spared)
+	{
+		draw_sprite_ext(spr_looxhurt, 0, x, y, 1, 1, 0, c_white, 0.5);
+	}
+	else
+	{
+		draw_self();
+	}
+}
+
+surface_reset_target();

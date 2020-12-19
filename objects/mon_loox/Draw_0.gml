@@ -1,10 +1,12 @@
 /// @description Draw myself
+surface_set_target(monsterSurf);
+
 if(killed)
 {
 	shader_set(shd_dust);
-	shader_set_uniform_f(u_uFraction, fraction);
-	shader_set_uniform_f(u_uY, y - sprite_height);
-	shader_set_uniform_f(u_uHeight, sprite_height);
+	shader_set_uniform_f(u_u.dust_fraction, fraction);
+	shader_set_uniform_f(u_u.dust_y, y - sprite_height);
+	shader_set_uniform_f(u_u.dust_height, sprite_height);
 	
 	draw_sprite(spr_looxhurt, 0, x, y);
 	
@@ -25,3 +27,5 @@ else
 		draw_self();
 	}
 }
+
+surface_reset_target();

@@ -20,12 +20,15 @@ window_set_position(display_get_width()/2 - width, display_get_height()/2 - heig
 
 display_set_gui_size(width*2, height*2);
 
-guiSurf = surface_create(width*2, height*2); //Deals with fullscreen shit
 
+#endregion
+#region Surfaces
+guiSurf = surface_create(width*2, height*2); //Deals with fullscreen shit
 #endregion
 #region Values
 
-name = "shit"
+
+name = "shit";
 lv = 1;
 xp = 0;
 g = 0;
@@ -49,3 +52,5 @@ part_type_scale(ptDust, 2, 2);
 part_type_alpha3(ptDust, 1, 0.7, 0);
 part_type_life(ptDust, 30, 60);
 #endregion
+
+bone = NULL;

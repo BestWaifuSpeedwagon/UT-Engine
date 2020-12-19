@@ -1,4 +1,5 @@
- /// @description Move heart around or something idunno
+/// @description Move heart around or something idunno
+
 var _z = keyboard_check_pressed(ord("Z"));
 var _x = keyboard_check_pressed(ord("X"));
 
@@ -11,12 +12,13 @@ if(won)
 	dialogue.passable = true;
 	if(dialogue.update())
 	{
+		surface_free(monsterSurf);
 		room = originalRoom;
 	}
 }
 else if(!inBattle)
 {
-	box.resize(575, 140);
+	box.resize(575, 140, 0);
 	
 	if(waitingFor.dialogue)
 	{
@@ -202,45 +204,49 @@ if(currentSpeech != NULL)
 
 #endregion
 #region Box
-box.w = lerp(box.w, box.fw, .1);
-box.h = lerp(box.h, box.fh, .1);
 
-if(box.freePos)
+with(box)
 {
-	//box.o.x = lerp(box.o.x, box.fo.x, .1);
-	//box.o.y = lerp(box.o.y, box.fo.y, .1);
+	w = lerp(w, fw, .1);
+	h = lerp(h, fh, .1);
+
+	if(freePos)
+	{
+		//o.x = lerp(o.x, fo.x, .1);
+		//o.y = lerp(o.y, fo.y, .1);
 	
-	box.x = lerp(box.x, box.fx - box.fw*box.o.x, .1);
-	box.y = lerp(box.y, box.fy - box.fh*box.o.y, .1);
-}
-else
-{
-	box.x = 320 - box.w/2;
-	box.y = min(388, 320 + box.h/2) - box.h;
+		x = lerp(x, fx - fw*o.x, .1);
+		y = lerp(y, fy - fh*o.y, .1);
+	}
+	else
+	{
+		x = 320 - w/2;
+		y = min(388, 320 + h/2) - h;
 	
-	box.fx = box.x;
-	box.fy = box.y;
+		fx = x + w*o.x;
+		fy = y + h*o.y;
+	}
+	
+	calculate();
+	
+	if(keyboard_check_pressed(ord("A")))
+	{
+		move(mouse_x, mouse_y, 1);
+	}
 }
-
-box.x2 = box.x + box.w;
-box.y2 = box.y + box.h;
-
-box.cx = box.x + box.w/2;
-box.cy = box.y + box.h/2;
-
 #endregion
 #region Health / Karma
 
 if(karma)
 {
-	var _krTimer = ceil(power(1.25, obj_stat.hp-kr)*120);
+	var _krTimer = ceil(power(1.25, -kr)*120);
 	
 	if(_krTimer < krCount) krCount = _krTimer;
 	
 	if(krCount > 0) krCount--;
 	else
 	{
-		if(kr > obj_stat.hp)
+		if(kr > 0)
 		{
 			kr--;
 			krCount = _krTimer;
@@ -252,7 +258,7 @@ if(karma)
 		if(kr > 0)
 		{
 			obj_stat.hp = 1;
-			kr--; //Additional damage remove karma
+			kr-=2; //Additional damage remove karma
 		}
 		else instance_create_depth(0, 0, 0, obj_gameover);
 	}
@@ -261,4 +267,12 @@ else
 {
 	if(obj_stat.hp <= 0) instance_create_depth(0, 0, 0, obj_gameover);
 }
+#endregion
+#region Surfaces
+if(!surface_exists(monsterSurf)) monsterSurf = surface_create(obj_stat.width*2, obj_stat.height*2);
+
+surface_set_target(monsterSurf);
+draw_clear_alpha(c_black, 0);
+surface_reset_target();
+
 #endregion

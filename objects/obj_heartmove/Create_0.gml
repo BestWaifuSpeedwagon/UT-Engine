@@ -20,6 +20,8 @@ function applyDamage(_atk)
 
 	obj_stat.hp -= _atk.damage;
 	
+	if(obj_soul.karma) obj_soul.kr++;
+	
 	inv = room_speed;
 	if(_atk.destroy) instance_destroy(_atk);
 }

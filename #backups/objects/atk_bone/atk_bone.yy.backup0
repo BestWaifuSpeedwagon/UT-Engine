@@ -1,0 +1,49 @@
+// 2020-12-18 18:36:14
+#event properties (no comments/etc. here are saved)
+parent_index = obj_attack;
+sprite_index = spr_bone_top;
+uses_physics = false;
+
+#event create Insérez la description ici
+// Vous pouvez écrire votre code dans cet éditeur
+
+// Inherit the parent event
+event_inherited();
+
+height = 10; //Changed later
+theta = 0; //Radians, changed later
+
+vel = new Vector(0, 0);
+
+bounding.o.set(5, 0);
+destroy = false;
+
+#event step Update bounding box
+x += vel.x;
+y += vel.y;
+
+bounding.p1.set(x, y);
+bounding.p2.set(x+10, y+height);
+bounding.theta = theta;
+
+#event draw Draw myself with shader
+shader_set(shd_insideOutside);
+
+shader_set_uniform_i(u_u.insideOutside_inside, inside);
+shader_set_uniform_f(u_u.insideOutside_box, Box.x, Box.y, Box.x2, Box.y2);
+
+draw_set_color(color);
+drawRectangleRotated(x+2, y+6, x+8, y+height-6, 3, -6, theta, true);
+
+var p1:Point = new Point(x, y),
+	p2:Point = new Point(x+10, y+height);
+
+p1.rotate(x+5, y, theta);
+p2.rotate(x+5, y, theta);
+
+var angle = round(-radtodeg(theta));
+
+draw_sprite_ext(spr_bone_top, 0, p1.x, p1.y, 1, 1, angle, color, 1);
+draw_sprite_ext(spr_bone_bottom, 0, p2.x, p2.y, 1, 1, angle, color, 1);
+
+shader_reset();

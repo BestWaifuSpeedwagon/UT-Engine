@@ -1,0 +1,38 @@
+// 2020-12-17 20:43:06
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+uses_physics = false;
+
+#event create Timer
+Box.fw = 375;
+
+obj_heartmove.changeColor(BLUE);
+
+timer = 30;
+num = 0;
+
+#event step
+///@description Get those bones
+if(timer > 0) timer--;
+else if(timer == 0)
+{
+	var _h = 20 + irandom(2)*20;
+	
+	var _t = 60 + _h - 20;
+	var _dist = irandom(300);
+	
+	var _x = Box.x-10-_dist;
+	AttackBonegap(_x, Box.y2, Box.h, pi, _h, 14, abs(_x-Box.cx)/_t, 0);
+	
+	_dist = irandom(300);
+	
+	_x = Box.x2+10+_dist;
+	AttackBonegap(_x, Box.y2, Box.h, pi, _h, 14, -abs(_x-Box.cx)/_t, 0);
+	
+	timer = _t;
+	
+	num++;
+	if(num >= 4) timer = -200;
+}
+else if(timer == -1) instance_destroy();
+else timer++;

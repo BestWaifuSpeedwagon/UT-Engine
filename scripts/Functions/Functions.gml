@@ -1,7 +1,25 @@
 #region Geometry
+/// @param {number} x1
+/// @param {number} y1
+/// @param {number} x2
+/// @param {number} y2
+/// @returns {radians} Angle in radians
 function pointDirection(x1, y1, x2, y2)
 {
 	return arctan2(y2 - y1, x2 - x1);
+}
+
+/// @param {radians} src
+/// @param {radians} dest
+/// @returns {radians} Difference between the two
+function angleDifference(src, dest)
+{
+	var phi = abs(dest - src) % 360;       // This is either the distance or 360 - distance
+    var distance = phi > 180 ? 360 - phi : phi;
+    
+    var s = (src - dest >= 0 && src - dest <= 180) || (src - dest <= -180 && src - dest>= -360) ? 1 : -1;
+    
+    return distance*s;
 }
 
 function pointInRectangleRotated(px, py, x1, y1, x2, y2, ox, oy, theta, relative)
@@ -54,18 +72,38 @@ function getRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative)
 	}
 }
 
-function drawRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative)
+/// @param {real} x1
+/// @param {real} y1
+/// @param {real} x2
+/// @param {real} y2
+/// @param {real} ox
+/// @param {real} oy
+/// @param {radians} theta
+/// @param {boolean} relative
+/// @param {boolean | real} outline
+
+function drawRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative, outline)
 {
 	var points = getRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative);
 	
-	draw_primitive_begin(pr_trianglestrip);
-	
-	draw_vertex(points.p1.x, points.p1.y);
-	draw_vertex(points.p2.x, points.p2.y);
-	draw_vertex(points.p3.x, points.p3.y);
-	draw_vertex(points.p4.x, points.p4.y);
-	
-	draw_primitive_end();
+	if(outline > 0)
+	{
+		draw_line_width(points.p1.x, points.p1.y, points.p2.x, points.p2.y, outline);
+		draw_line_width(points.p2.x, points.p2.y, points.p4.x, points.p4.y, outline);
+		draw_line_width(points.p4.x, points.p4.y, points.p3.x, points.p3.y, outline);
+		draw_line_width(points.p3.x, points.p3.y, points.p1.x, points.p1.y, outline);
+	}
+	else
+	{
+		draw_primitive_begin(pr_trianglestrip);
+		
+		draw_vertex(points.p1.x, points.p1.y);
+		draw_vertex(points.p2.x, points.p2.y);
+		draw_vertex(points.p3.x, points.p3.y);
+		draw_vertex(points.p4.x, points.p4.y);
+		
+		draw_primitive_end();
+	}
 }
 #endregion
 #region Camera

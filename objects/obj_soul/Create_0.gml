@@ -7,6 +7,8 @@ inBattle = false;
 
 roundType = NULL; //Wether you attacked, acted, eated or spared this round
 
+monsterSurf = surface_create(obj_stat.width*2, obj_stat.height*2);
+
 waitingFor = 
 {
 	dialogue: false, //True when your waiting for the dialogue to finish
@@ -30,39 +32,56 @@ box =
 	o: new Point(.5, .5), //Origin from 0 to 1
 	
 	//Convenience
-	cx: 32.5+575/2, 
-	cy: 248+140/2,
-	x2: 32.5+575,
-	y2: 248+140, 
+	cx: 320, 
+	cy: 318,
+	x2: 607.5,
+	y2: 388, 
+	fx2: 320,
+	fy2: 318,
+	fcx: 607.5,
+	fcy: 388,
 	
-	resize: function(_w, _h)
+	
+	resize: function(_w, _h, _amount)
 	{
 		fw = _w;
 		fh = _h;
+		
+		w = lerp(w, fw, _amount);
+		h = lerp(h, fh, _amount);
+		
+		calculate();
 	},
-	instantResize: function(_w, _h)
-	{
-		w = _w;
-		h = _h;
-		resize(_w, _h);
-	},
-	move: function(_x, _y)
+	move: function(_x, _y, _amount)
 	{
 		freePos = true;
 		fx = _x;
 		fy = _y;
-	},
-	instantMove: function(_x, _y)
-	{
-		move(_x, _y);
-		x = _x - w*o.x;
-		y = _y - h*o.y;
+		
+		x = lerp(x, fx - fw*o.x, _amount);
+		y = lerp(y, fy - fh*o.y, _amount);
+		
+		calculate();
 	},
 	setOrigin: function(_x, _y)
 	{
-		move(x + w*_x, y + h*_y);
-		
 		o.set(_x, _y);
+		
+		move(x + w*_x, y + h*_y, 1);
+	},
+	calculate: function()
+	{
+		x2 = x + w;
+		y2 = y + h;
+	
+		cx = x + w/2;
+		cy = y + h/2;
+		
+		fx2 = fx - fw*(o.x-1);
+		fy2 = fy - fh*(o.y-1);
+		
+		fcx = fx - fw*(o.x/2 - 1);
+		fcy = fy - fh*(o.y/2 - 1);
 	}
 }
 
@@ -72,7 +91,7 @@ monsterAmount = array_length(monster);
 
 krCount = 0;
 karma = ct_argument.karma;
-kr = obj_stat.hp;
+kr = 0;
 
 currentAttack = undefined;
 time = 0;

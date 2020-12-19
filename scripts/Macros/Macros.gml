@@ -3,6 +3,18 @@
 //Theta meaning a clockwise angle in radians
 //Dir being 0, 1, 2, 3, and multiplied by 90 to give an angle
 
+//Enums
+#macro u_u global.g_u_u
+
+u_u =
+{
+	insideOutside_inside: shader_get_uniform(shd_insideOutside, "inside"),
+	insideOutside_box: shader_get_uniform(shd_insideOutside, "box"),
+	dust_y: shader_get_uniform(shd_insideOutside, "y"),
+	dust_height: shader_get_uniform(shd_insideOutside, "height"),
+	dust_fraction: shader_get_uniform(shd_insideOutside, "fraction")
+};
+
 //States
 #macro NULL -1
 #macro FIGHT 0
@@ -14,7 +26,7 @@
 #macro BLUE c_blue
 #macro GREEN c_green
 #macro AQUA $E8A200    //Game maker do BGR for some fucking reason
-#macro ORANGE $0A2E8   //So in real hexcodes, those two would be inversed
+#macro ORANGE $00A2E8   //So in real hexcodes, those two would be inversed
 #macro WHITE c_white
 
 //Battle

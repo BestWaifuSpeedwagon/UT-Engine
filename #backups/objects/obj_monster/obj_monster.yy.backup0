@@ -1,0 +1,119 @@
+// 2020-12-16 19:35:46
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+uses_physics = false;
+
+#event create PARENT OBJECT -- Placeholder Values
+//Parametrable stuff
+maxHp = 100;
+hp = 100;
+name = "";
+def = 1;
+
+count = -1; //Number of "rounds"
+fightCount = 0; //Number of "rounds" where you attacked
+actCount = 0;   //...
+itemCount = 0;  //...
+spareCount = 0; //...
+
+text = []; //Array of text going in the box
+acts = []; //Different acts possible, /** Act[] */
+
+attacks = [] //Array of objects
+
+/*function attackOrder(roundType) Return the wanted attack
+{
+	//Exemples
+	return attacks[count];
+	
+	switch(count)
+	{
+		case 0:
+			return attacks[choose(0, 1, 2)];
+			break;
+		...
+	}
+	
+	return attacks[irandom(array_length(attacks))]
+}*/
+
+speechs = [];
+/*function speechOrder(roundType) Returns the chosen speech bubble, and NULL if noone is showing
+{
+	//Exemples
+	if(roundType == ITEM)
+	{
+		...
+	}
+}*/
+
+//Functionnal stuff
+xpAmount = 0; //Amount of xp gained from killing
+gAmountFight = 0; //Amount of gold gained when killing / sparing
+gAmountSpare = 0;
+
+spare = false; //Can he be spared ?
+spared = false; //Is he spared ? Usually draw the monster faded
+
+killed = false; //About straightforward
+
+dodging = 0; //X-offset
+dodgingTimer = 0;
+
+//Dust effect
+fraction = 0; 
+
+height = sprite_height; //Default at sprite height, modify for multi-sprite monsters
+width = sprite_width; //Default at sprite width, modify fot multi-sprite monsters
+
+hurt = false;
+hurtTimer = 0;
+
+y = 230; //Base y, from below
+
+#event step Increment yy, dodge, hurt timer
+if(killed)
+{
+	fraction += 0.01;
+	
+	for(i = x-width/2; i <= x+width/2; i+=2)
+	{
+		if(random(1) < 0.8) continue;
+		
+		var _y = y - height * (1-fraction);
+		
+		part_particles_create(ptSystem, i, _y + random(6)-3, ptDust, 1);
+	}
+	
+	if(fraction > 1)
+	{
+		instance_destroy();
+	}
+}
+
+if(hurt)
+{
+	if(hurtTimer < 60) hurtTimer++;
+	else
+	{
+		hurt = false;
+		hurtTimer = 0;
+	}
+}
+
+if(dodging < 0)
+{
+	var startX = x-dodging;
+	
+	dodgingTimer += 1/room_speed;
+	
+	dodging = lerp(0, -200, dodgingTimer*dodgingTimer*(3-2*dodgingTimer));
+	
+	if(dodging >= 0) 
+	{
+		dodging = 0;
+		dodgingTimer = 0;
+	}
+	
+	x = startX + dodging;
+}

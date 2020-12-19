@@ -1,6 +1,4 @@
 /// @description Draw the *burp* thing
-//surface_set_target(guiSurf);
-
 draw_sprite(spr_fightbt, real(state == 0), 33, 431);
 draw_sprite(spr_actbt, real(state == 1), 186, 431);
 draw_sprite(spr_itembt, real(state == 2), 346, 431);
@@ -9,11 +7,23 @@ draw_sprite(spr_sparebt, real(state == 3), 501, 431);
 draw_set_color(c_white);
 draw_set_font(fnt_dialogue);
 
+#region Surfaces
+shader_set(shd_insideOutside);
+shader_set_uniform_i(u_u.insideOutside_inside, false);
+shader_set_uniform_f(u_u.insideOutside_box, box.x, box.y, box.x2, box.y2);
+
+draw_surface(monsterSurf, 0, 0);
+
+shader_reset();
+#endregion
+
 #region Box
 draw_set_color(c_white);
-for(i = 0; i < 4; i++)
-	draw_rectangle(box.x + i, box.y + i, box.x2 - i, box.y2 - i, true);
-
+with(box)
+{
+	for(i = 0; i < 4; i++)
+		draw_rectangle(x + i, y + i, x2 - i, y2 - i, true);
+}
 #endregion
 #region Heart / Text
 if(won)
@@ -92,7 +102,7 @@ else if(!inBattle)
 						var _startItem = substate[0] - substate[0] % 4;
 						var _endItem = min(_startItem+4, ds_list_size(obj_stat.items));
 						
-						_hx = box.x + 40 + (substate[0]%2 * box.w/2)
+						_hx = box.x + 40 + (substate[0]%2 * box.w/2);
 						_hy = box.y + 37 + ( (substate[0]+1)%4 > 2 ? 32 : 0 );
 						
 						for(i = _startItem; i < _endItem; i++)
@@ -122,7 +132,7 @@ else if(!inBattle)
 					case ACT:
 						var _l = array_length( monster[substate[0]].acts );
 						
-						_hx = box.x + 40 + (substate[1]%2 * box.w/2)
+						_hx = box.x + 40 + (substate[1]%2 * box.w/2);
 						_hy = box.y + 37 + ( (substate[1]+1)%4 > 2 ? 32 : 0 );
 						
 						for(i = 0; i < _l; i++)
@@ -171,7 +181,7 @@ draw_rectangle(_x, 399, _x + obj_stat.maxHp*1.2, 419, false);
 if(karma)
 {
 	draw_set_color(c_fuchsia);
-	draw_rectangle(_x, 399, _x + kr*1.2, 419, false);
+	draw_rectangle(_x, 399, _x + (kr+obj_stat.hp)*1.2, 419, false);
 }
 
 draw_set_color(c_yellow);
@@ -179,18 +189,14 @@ draw_rectangle(_x, 399, _x + obj_stat.hp*1.2, 419, false);
 
 _x += obj_stat.maxHp*1.2 + 9;
 
-var _hp = obj_stat.hp;
-
 if(karma)
 {
 	draw_sprite(spr_krmeter, 0, _x, 404);
 	_x += 40;
 	
-	_hp = kr;
-	
-	draw_set_color(kr > obj_stat.hp ? c_fuchsia : c_white);
+	draw_set_color(kr > 0 ? c_fuchsia : c_white);
 }
 else draw_set_color(c_white);
 
-draw_text(_x, 395, string(_hp) + " / " + string(obj_stat.maxHp));
+draw_text(_x, 395, string(obj_stat.hp+kr) + " / " + string(obj_stat.maxHp));
 #endregion

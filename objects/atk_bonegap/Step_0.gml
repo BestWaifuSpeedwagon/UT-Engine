@@ -1,6 +1,6 @@
 /// @description Update bounding box
-x += velX;
-y += velY;
+x += vel.x;
+y += vel.y;
 
 bounding[0].p1.set(x, y);
 bounding[0].p2.set(x+10, y+gapPos);

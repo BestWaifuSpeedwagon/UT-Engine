@@ -12,8 +12,7 @@ switch(timer)
 		audio_play_sound(mus_gameover, 3, false);
 		break;
 	case 260:
-		dontGiveUp.spd = 6;
-		dontGiveUp.passable = true;
+		dontGiveUp.pause = false;
 		break;
 }
 
