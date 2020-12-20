@@ -1,4 +1,4 @@
-// 2020-12-20 02:41:26
+// 2020-12-21 00:36:34
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 sprite_index = spr_gameoverbg;
@@ -6,8 +6,8 @@ persistent = true;
 uses_physics = false;
 
 #event create 
-_hx = 45;//obj_heartmove.x;
-_hy = 45;//obj_heartmove.y;
+_hx = obj_heartmove.x;
+_hy = obj_heartmove.y;
 
 x = 320;
 y = 120;

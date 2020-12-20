@@ -24,6 +24,8 @@ box =
 	h: 140,
 	fw: 575, //Wanted W
 	fh: 140, //Wanted H
+	spdSize: .1,
+	spdPos: .1,
 	
 	//Free Pose
 	freePos: false,
@@ -35,7 +37,9 @@ box =
 	cx: 320, 
 	cy: 318,
 	x2: 607.5,
-	y2: 388, 
+	y2: 388,
+	fx1: 32.5,
+	fy1: 32.5,
 	fx2: 320,
 	fy2: 318,
 	fcx: 607.5,
@@ -44,6 +48,8 @@ box =
 	
 	resize: function(_w, _h, _amount)
 	{
+		if (_amount == undefined) _amount = 0;
+		
 		fw = _w;
 		fh = _h;
 		
@@ -54,6 +60,8 @@ box =
 	},
 	move: function(_x, _y, _amount)
 	{
+		if (_amount == undefined) _amount = 0;
+		
 		freePos = true;
 		fx = _x;
 		fy = _y;
@@ -79,6 +87,9 @@ box =
 		
 		fx2 = fx - fw*(o.x-1);
 		fy2 = fy - fh*(o.y-1);
+		
+		fx1 = fx2 - fw;
+		fy1 = fy2 - fh;
 		
 		fcx = fx - fw*(o.x/2 - 1);
 		fcy = fy - fh*(o.y/2 - 1);

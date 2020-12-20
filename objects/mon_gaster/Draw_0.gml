@@ -14,32 +14,31 @@ if(killed)
 }
 else
 {
-	if(spared)
+	switch(state)
 	{
-		draw_sprite_ext(spr_looxhurt, 0, x, y, 1, 1, 0, c_white, 0.5);
-	}
-	else
-	{
-		// if(bodySprite != spr_sansb_torso)
-		// {
-		// 	draw_sprite_ext(bodySprite, bodyImage, x, y-46, 2, 2, 0, c_white, 1); //Always elative to torso
-		// }
-		// else
-		// {
-		// 	draw_sprite_ext(spr_sansb_legs, 0, x, y, 2, 2, 0, c_white, 1);
-		// 	draw_sprite_ext(spr_sansb_torso, bodyImage, x + bodyX, y-46 + bodyY, 2, 2, 0, c_white, 1);
-		// }
-		// draw_sprite_ext(headSprite, headImage, x + bodyX, y-38-50 + bodyY + headY, 2, 2, 0, c_white, 1);
-		draw_sprite_ext(spr_gaster_body, 0, x, y, 1, bodyScale, 0, c_white, 1);
-		
-		forEach(hand,
-			function(h)
+		case States.gaster:
+			with(gaster)
 			{
-				#args h:obj_gaster_hand
-				
-				draw_sprite_ext(spr_gaster_hand, 0, h.x, h.y, h.image_xscale, 1, 0, c_white, 1);
+				draw_sprite_ext(spr_gaster_body, 0, other.x, other.y, 1, bodyScale, 0, c_white, 1);
 			}
-		);
+			draw_sprite_ext(hand1.sprite_index, hand1.image_index, hand1.x, hand1.y, hand1.image_xscale, 1, 0, c_white, 1);
+			draw_sprite_ext(hand2.sprite_index, hand2.image_index, hand2.x, hand2.y, hand2.image_xscale, 1, 0, c_white, 1);
+			break;
+		case States.sans:
+			with(sans)
+			{
+				if(bodySprite != spr_sansb_torso)
+				{
+					draw_sprite_ext(bodySprite, bodyImage, other.x, other.y-46, 2, 2, 0, c_white, 1); //Always elative to torso
+				}
+				else
+				{
+					draw_sprite_ext(spr_sansb_legs, 0, other.x, other.y, 2, 2, 0, c_white, 1);
+					draw_sprite_ext(spr_sansb_torso, bodyImage, other.x + bodyX, other.y-46 + bodyY, 2, 2, 0, c_white, 1);
+				}
+				draw_sprite_ext(headSprite, headImage, other.x + bodyX, other.y-38-50 + bodyY + headY, 2, 2, 0, c_white, 1);
+			}
+			break;
 	}
 }
 

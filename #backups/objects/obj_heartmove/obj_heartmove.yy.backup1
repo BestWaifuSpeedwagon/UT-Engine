@@ -1,4 +1,4 @@
-// 2020-12-19 22:00:05
+// 2020-12-19 22:00:08
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 sprite_index = spr_heart;
@@ -152,7 +152,7 @@ if(visible)
 	}
 }
 
-///TODO : Add rotation
+///TODO : Add rotation of box
 x = clamp(x, Box.x+8, Box.x2-8); //Sprite width/height
 y = clamp(y, Box.y+8, Box.y2-8);
 

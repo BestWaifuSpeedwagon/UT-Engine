@@ -1,4 +1,4 @@
-// 2020-12-18 18:10:17
+// 2020-12-20 23:42:34
 #region Attacks
 /*
 Degrees are used, but they go in a clockwise direction, not the usual anticlockwise one !
@@ -66,12 +66,12 @@ function AttackBonestab(dir, height, timeBeforeStab)
 	@param {number} height Height of the bone created
 	@param {number} theta Angle of the bone created
 	@param {Vector} vel Speed it's going to go
-	@param [{number}] velY
+	@param {number} ?velY
 	@returns 
 */
-function AttackBone(x, y, height, theta, vel)
+function AttackBone(x, y, height, theta, vel, velY)
 {
-	if(argument_count == 6) vel = new Vector(argument[4], argument[5]);
+	vel = velY ?? new Vector(vel, velY); //Vel is velX in that case
 	
 	var _b = instance_create_layer(x, y, "Attacks", atk_bone);
 	_b.height = height;
@@ -88,7 +88,7 @@ function AttackBone(x, y, height, theta, vel)
 ///@param {radians} theta Angle of the bone created
 ///@param {Real} gapPos Where the gap is
 ///@param {Real} gapHeight The size of the gap created
-///@param {Vector} vel
+///@param {Vector | Real} vel
 ///@param {[Real]} velY
 ///@returns {atk_bonegap}
 function AttackBonegap(x, y, height, theta, gapPos, gapHeight, vel)

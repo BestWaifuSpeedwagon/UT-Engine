@@ -18,7 +18,7 @@ if(inv == 0 || obj_soul.karma)
 			//Check over every bounding box and break if a collision happen
 			for(j = 0; j < _atk.boundingAmount; j++)
 			{
-				if(_atk.bounding[j].checkPoint(x+8, y+8))
+				if(_atk.bounding[j].checkPoint(x, y))
 				{
 					switch(_atk.color)
 					{
@@ -43,7 +43,7 @@ if(inv == 0 || obj_soul.karma)
 				break;
 			}
 		}
-		else if(_atk.bounding.checkPoint(x+8, y+8)) //Using else if since we know there is only 1 bounding box
+		else if(_atk.bounding.checkPoint(x, y)) //Using else if since we know there is only 1 bounding box
 		{
 			switch(_atk.color)
 			{

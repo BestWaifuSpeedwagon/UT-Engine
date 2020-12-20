@@ -1,4 +1,4 @@
-// 2020-12-20 02:32:33
+// 2020-12-21 00:18:44
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -9,6 +9,7 @@ uses_physics = false;
 shake = 0;
 
 flick = -1;
+pauseAll = false;
 
 width = 320;
 height = 240;
@@ -78,6 +79,7 @@ part_type_scale(ptDust, 2, 2);
 part_type_alpha3(ptDust, 1, 0.7, 0);
 part_type_life(ptDust, 30, 60);
 #endregion
+
 #event step Various actions
 #region Camera
 if(flick > 0) flick--;
@@ -102,10 +104,8 @@ if(keyboard_check_pressed(vk_f4))
 
 if(keyboard_check_pressed(ord("U")))
 {
-	startBattle([ mon_gaster ], true, NULL);
+	startBattle([ mon_gaster ], false, mus_gasterMegalovania);
 }
-
-if(keyboard_check_pressed(ord("G"))) instance_create_depth(0, 0, 0, obj_gameover);
 
 #event other_room_start Insérez la description ici
 view_enabled = true;

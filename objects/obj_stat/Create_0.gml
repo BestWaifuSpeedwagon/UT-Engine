@@ -3,6 +3,7 @@
 shake = 0;
 
 flick = -1;
+pauseAll = false;
 
 width = 320;
 height = 240;

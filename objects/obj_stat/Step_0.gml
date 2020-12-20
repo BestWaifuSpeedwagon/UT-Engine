@@ -4,9 +4,14 @@ if(flick > 0) flick--;
 else if(flick == 0)
 {
 	audio_play_sound(snd_noise, 3, false);
-	audio_resume_all();
 	
 	flick = -1;
+	
+	if(pauseAll)
+	{
+		audio_resume_all();
+		pauseAll = false;
+	}
 }
 
 if(shake > 0) shake -= shake/10;
@@ -22,5 +27,5 @@ if(keyboard_check_pressed(vk_f4))
 
 if(keyboard_check_pressed(ord("U")))
 {
-	startBattle([ mon_gaster ], true, NULL);
+	startBattle([ mon_gaster ], false, mus_gasterMegalovania);
 }

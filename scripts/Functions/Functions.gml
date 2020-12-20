@@ -1,3 +1,5 @@
+#region GMEdit Stuff
+#endregion
 #region Geometry
 /// @param {number} x1
 /// @param {number} y1
@@ -112,24 +114,28 @@ function screenShake(_power)
 	obj_stat.shake = max(obj_stat.shake, _power);
 }
 
-function flicker(time)
+function flicker(time, pauseAll)
 {
-	audio_pause_all();
+	if (pauseAll == undefined) pauseAll = true;
+	
+	if(pauseAll) audio_pause_all();
 	
 	audio_play_sound(snd_noise, 3, false);
 	
 	obj_stat.flick = time;
+	obj_stat.pauseAll = pauseAll;
 }
 #endregion
 #region Utility
 
+#region startBattle
 /// @param {object[]} monster
 /// @param {bool} karma
 /// @param {sound} music
 /// @param {object} ?startAttack
 function startBattle(monster, karma, music, startAttack)
 {
-	if(startAttack == undefined) startAttack = NULL;
+	if (startAttack == undefined) startAttack = NULL;
 	
 	//Allows setting arguments before create
 	ct_argument =
@@ -148,37 +154,51 @@ function startBattle(monster, karma, music, startAttack)
 	ct_argument = undefined;
 	
 }
-
+#endregion
+#region cosine
+/// @param {real} val1
+/// @param {real} val2
+/// @param {float} amount
+/// @returns {real}
 function cosine(val1, val2, amount)
 {
 	return lerp(val1, val2, (1-cos(amount*pi))/2);
 }
-
+#endregion
+#region oscillate
+/// @param {real} val1
+/// @param {real} val2
+/// @param {float} amount
 function oscillate(val1, val2, amount) //Amount from 0 to 1
 {
 	if(amount < .5) return lerp(val1, val2, amount*2);
 	else return lerp(val2, val1, (1-amount)*2);
 }
-
+#endregion
+#region createDialogue
+/// @param {Dialogue} dialogue
 function createDialogue(dialogue)
 {
 	ds_list_add(obj_dialogueManager.dialogues, dialogue);
 }
-
-//arr: any[]
-//length: number --- OPTIONAL
-//callback : (element: any, index: number) => void
-//=> void
+#endregion
+#region forEach
+/// @param {any[]} arr
+/// @param {function} callback
+/// @returns {void}
 function forEach(arr, callback)
 {
-	var _l = argument_count == 3 ? argument[1] : array_length(arr);
+	_l = array_length(arr);
 	for(i = 0; i < _l; i++)
 	{
-		argument[argument_count-1](arr[@ i], i);
+		callback(arr[@ i], i);
 	}
 }
 #endregion
+#endregion
 #region File System
+///TODO : Implement big boy (binary) saving
+
 function saveFile()
 {
 	ini_open(FILENAME);
@@ -216,6 +236,31 @@ function loadFile()
 	}
 	
 	ini_close();
+}
+
+#endregion
+#region Audio
+/// @param {sound} mus1
+/// @param {sound} mus2
+function fadeBetween(mus1, mus2)
+{
+	audio_sound_gain(mus1, 0, 1000);
+	
+	audio_sound_gain(mus2, 0, 0);
+	audio_play_sound(mus2, 3, true);
+	audio_sound_gain(mus2, 1, 1000);
+}
+#endregion
+#region Drawing
+function applyInsideOutside(inside, callback)
+{
+	shader_set(shd_insideOutside);
+	shader_set_uniform_i(u_u.insideOutside_inside, inside);
+	shader_set_uniform_f(u_u.insideOutside_box, Box.x, Box.y, Box.x2, Box.y2);
+	
+	callback();
+	
+	shader_reset();
 }
 
 #endregion

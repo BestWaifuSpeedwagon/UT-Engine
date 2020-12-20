@@ -1,6 +1,7 @@
 {
   "resources": [
     {"id":{"name":"snd_voice","path":"sounds/snd_voice/snd_voice.yy",},"order":2,},
+    {"id":{"name":"atkp_gaster2","path":"objects/atkp_gaster2/atkp_gaster2.yy",},"order":1,},
     {"id":{"name":"mon_sans","path":"objects/mon_sans/mon_sans.yy",},"order":0,},
     {"id":{"name":"spr_blconsm_shrt","path":"sprites/spr_blconsm_shrt/spr_blconsm_shrt.yy",},"order":1,},
     {"id":{"name":"Functions","path":"scripts/Functions/Functions.yy",},"order":1,},
@@ -124,6 +125,7 @@
     {"id":{"name":"snd_laz","path":"sounds/snd_laz/snd_laz.yy",},"order":7,},
     {"id":{"name":"spr_loox","path":"sprites/spr_loox/spr_loox.yy",},"order":0,},
     {"id":{"name":"spr_actbt","path":"sprites/spr_actbt/spr_actbt.yy",},"order":0,},
+    {"id":{"name":"fnt_windings","path":"fonts/fnt_windings/fnt_windings.yy",},"order":3,},
     {"id":{"name":"obj_slice","path":"objects/obj_slice/obj_slice.yy",},"order":0,},
     {"id":{"name":"spr_blconsm","path":"sprites/spr_blconsm/spr_blconsm.yy",},"order":0,},
     {"id":{"name":"sq_test","path":"sequences/sq_test/sq_test.yy",},"order":0,},
@@ -142,6 +144,7 @@
     {"id":{"name":"spr_gaster_body","path":"sprites/spr_gaster_body/spr_gaster_body.yy",},"order":0,},
     {"id":{"name":"obj_soul","path":"objects/obj_soul/obj_soul.yy",},"order":4,},
     {"id":{"name":"atkp_gaster1","path":"objects/atkp_gaster1/atkp_gaster1.yy",},"order":0,},
+    {"id":{"name":"atk_windings","path":"objects/atk_windings/atk_windings.yy",},"order":0,},
   ],
   "Options": [
     {"name":"Linux","path":"options/linux/options_linux.yy",},

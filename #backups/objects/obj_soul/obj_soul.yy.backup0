@@ -1,4 +1,4 @@
-// 2020-12-20 01:47:50
+// 2020-12-21 00:35:41
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 sprite_index = spr_heart;
@@ -30,6 +30,8 @@ box =
 	h: 140,
 	fw: 575, //Wanted W
 	fh: 140, //Wanted H
+	spdSize: .1,
+	spdPos: .1,
 	
 	//Free Pose
 	freePos: false,
@@ -41,7 +43,9 @@ box =
 	cx: 320, 
 	cy: 318,
 	x2: 607.5,
-	y2: 388, 
+	y2: 388,
+	fx1: 32.5,
+	fy1: 32.5,
 	fx2: 320,
 	fy2: 318,
 	fcx: 607.5,
@@ -50,6 +54,8 @@ box =
 	
 	resize: function(_w, _h, _amount)
 	{
+		_amount ??= 0;
+		
 		fw = _w;
 		fh = _h;
 		
@@ -60,6 +66,8 @@ box =
 	},
 	move: function(_x, _y, _amount)
 	{
+		_amount ??= 0;
+		
 		freePos = true;
 		fx = _x;
 		fy = _y;
@@ -85,6 +93,9 @@ box =
 		
 		fx2 = fx - fw*(o.x-1);
 		fy2 = fy - fh*(o.y-1);
+		
+		fx1 = fx2 - fw;
+		fy1 = fy2 - fh;
 		
 		fcx = fx - fw*(o.x/2 - 1);
 		fcy = fy - fh*(o.y/2 - 1);
@@ -232,9 +243,6 @@ if(won)
 }
 else if(!inBattle)
 {
-	box.resize(575, 140, 0);
-	box.freePos = false;
-	
 	if(waitingFor.dialogue)
 	{
 		dialogue.passable = true;
@@ -323,23 +331,26 @@ else if(!inBattle)
 						{
 							roundType = SPARE;
 							
-							for(i = 0; i < monsterAmount; i++)
-							{
-								if(monster[i].spare)
+							forEach(monster,
+								function(m, i)
 								{
-									if(!audio_is_playing(snd_vaporized)) audio_play_sound(snd_vaporized, 3, false);
-									gAmount += monster[i].gAmountSpare;
-									
-									monster[i].spared = true;
-									splice(monster, i);
-									i--;
-									monsterAmount--;
+									if(m.spare)
+									{
+										if(!audio_is_playing(snd_vaporized)) audio_play_sound(snd_vaporized, 3, false);
+										gAmount += m.gAmountSpare;
+										
+										m.spared = true;
+										array_delete(monster, i, 1);
+										
+										i--;
+										monsterAmount--;
+									}
+									else
+									{
+										monster[i].spareCount++;
+									}
 								}
-								else
-								{
-									monster[i].spareCount++;
-								}
-							}
+							);
 							
 							startSpeech();
 						}
@@ -391,6 +402,9 @@ else
 {
 	if(!instance_exists(currentAttack))
 	{
+		box.freePos = false;
+		box.resize(575, 140);
+		
 		inBattle = false;
 		
 		obj_heartmove.visible = false;
@@ -422,16 +436,16 @@ if(currentSpeech != NULL)
 
 with(box)
 {
-	w = lerp(w, fw, .1);
-	h = lerp(h, fh, .1);
+	w = lerp(w, fw, spdSize);
+	h = lerp(h, fh, spdSize);
 
 	if(freePos)
 	{
 		//o.x = lerp(o.x, fo.x, .1);
 		//o.y = lerp(o.y, fo.y, .1);
 	
-		x = lerp(x, fx - fw*o.x, .1);
-		y = lerp(y, fy - fh*o.y, .1);
+		x = lerp(x, fx - fw*o.x, spdPos);
+		y = lerp(y, fy - fh*o.y, spdPos);
 	}
 	else
 	{

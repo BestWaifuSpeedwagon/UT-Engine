@@ -20,15 +20,15 @@ switch(timer)
 		break;
 	case 80:
 		Box.setOrigin(0, 0.5);
-		Box.resize(100, 32, 0);
+		Box.resize(100, 32);
 		break;
 	case 150:
 		Box.setOrigin(1, .5);
-		Box.move(470, 240, 0);
-		Box.resize(20, 32, 0);
+		Box.move(470, 240);
+		Box.resize(20, 32);
 		break;
 	case 200:
-		Box.resize(320, 100, 0);
+		Box.resize(320, 100);
 		
 		for(i = 0; i < 6; i++)
 		{

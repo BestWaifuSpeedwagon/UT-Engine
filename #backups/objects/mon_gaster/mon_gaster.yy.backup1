@@ -1,4 +1,4 @@
-// 2020-12-20 01:48:50
+// 2020-12-20 20:32:37
 #event properties (no comments/etc. here are saved)
 parent_index = obj_monster;
 sprite_index = spr_gaster_body;
@@ -14,7 +14,7 @@ def = 1000;
 
 dodge = true;
 
-text = [ "* Something is Wrong...", "* Your back is crawling on your\n spine." ];
+text = [ "* Your back is crawling on your\n  spine." ];
 
 acts = [
 	new Act("Check", [
@@ -22,10 +22,10 @@ acts = [
 	], NULL),
 ]; 
 
-attacks = [ atkp_gaster1 ];//, atkp_gaster2, atkp_gaster3, atkp_gaster4, atkp_gaster5 ];
+attacks = [ atkp_gaster1, atkp_gaster2 ];//, atkp_gaster2, atkp_gaster3, atkp_gaster4, atkp_gaster5 ];
 attackOrder = function(roundType) //Determine order based on current count
 {
-	return attacks[count];
+	return attacks[fightCount];
 }
 
 y = 200;
@@ -43,40 +43,53 @@ speechOrder = function(roundType)
 	
 }
 
+enum States
+{
+	gaster,
+	sans
+}
 
-// sans = 
-// {
-// 	bodyChannelX: animcurve_get_channel(ac_sans_body, 0),
-// 	bodyChannelY: animcurve_get_channel(ac_sans_body, 1),
-	
-// 	bodySprite: spr_sansb_torso,
-// 	bodyImage: 0,
-	
-// 	bodyState: 0,
-// 	bodyX: 0,
-// 	bodyY: 0,
-	
-// 	headSprite: spr_sansb_face,
-// 	headImage: 0,
-	
-// 	changeSprite: function(part, sprite, image)
-// 	{
-// 		variable_struct_set(self, part + "Sprite", sprite);
-// 		variable_struct_set(self, part + "Image", image);
-// 	},
-	
-// 	headY: 0
-// }
+state = States.gaster;
 
-bodyScale = 1;
+sans = 
+{
+	bodyChannelX: animcurve_get_channel(ac_sans_body, 0),
+	bodyChannelY: animcurve_get_channel(ac_sans_body, 1),
+	
+	bodySprite: spr_sansb_torso,
+	bodyImage: 0,
+	
+	bodyState: 0,
+	bodyX: 0,
+	bodyY: 0,
+	
+	headSprite: spr_sansb_face,
+	headImage: 0,
+	
+	changeSprite: function(part, sprite, image)
+	{
+		variable_struct_set(self, part + "Sprite", sprite);
+		variable_struct_set(self, part + "Image", image);
+	},
+	
+	headY: 0
+}
 
-hand =
-[
-	instance_create_layer(x - width, y - height/3*2, "Monsters", obj_gaster_hand),
-	instance_create_layer(x + width, y - height/3*2, "Monsters", obj_gaster_hand)
-];
+gaster = 
+{
+	bodyScale: 1
+}
 
-hand[1].image_xscale = -1;
+hand1 = instance_create_layer(x - width, y - height/3*2, "Monsters", obj_gaster_hand);
+hand2 = instance_create_layer(x + width, y - height/3*2, "Monsters", obj_gaster_hand);
+
+function resetHandPos()
+{
+	hand1.go(x - width, y - height/3*2, 60, 0);
+	hand2.go(x + width, y - height/3*2, 60, 0);
+}
+
+hand1.image_xscale = -1;
 
 image_speed = 0.1;
 
@@ -88,47 +101,57 @@ gAmountSpare = 0;
 // Inherit the parent event
 event_inherited();
 
-bodyScale = (sin( current_time/1000 * pi ) + 1)/2 * .25 + .5;
-
-#region Commented Sans Code
-// var _time = oscillate(0, 1, frac(current_time / 2500 ));
-
-// switch(bodyState)
-// {
-// 	case 0:
-// 		bodyX = animcurve_channel_evaluate(bodyChannelX, _time);
-// 		bodyY = animcurve_channel_evaluate(bodyChannelY, _time);
-// 		headY = sin(current_time / 318.3 * 3);
-// 		break;
-// 	case 1:
-// 		bodyX = 0;
-// 		bodyY = 0;
-// 		headY = 0;
-// 		break;
-// }
-
-// if(bodySprite != spr_sansb_torso)
-// {
-// 	bodyImage += 0.1;
-	
-// 	if(bodyImage >= sprite_get_number(bodySprite)-1)
-// 	{
-// 		bodySprite = spr_sansb_torso;
-// 		bodyImage = 0;
-// 	}
-// }
-
-// if(headSprite != spr_sansb_face)
-// {
-// 	headImage += 0.1;
-	
-// 	if(headImage >= sprite_get_number(headSprite))
-// 	{
-// 		headImage = 0;
-// 	}
-// }
-#endregion
-
+switch(state)
+{
+	case States.gaster:
+		with(gaster)
+		{
+			bodyScale = (sin( current_time/2000 * pi + pi/2) + 1)/2 * .25 + .875; //Add pi/2 to start at ~1
+			
+		}
+		break;
+	case States.sans:
+		with(sans)
+		{
+			var _time = oscillate(0, 1, frac(current_time / 2500 ));
+			
+			switch(bodyState)
+			{
+				case 0:
+					bodyX = animcurve_channel_evaluate(bodyChannelX, _time);
+					bodyY = animcurve_channel_evaluate(bodyChannelY, _time);
+					headY = sin(current_time / 318.3 * 3);
+					break;
+				case 1:
+					bodyX = 0;
+					bodyY = 0;
+					headY = 0;
+					break;
+			}
+			
+			if(bodySprite != spr_sansb_torso)
+			{
+				bodyImage += 0.1;
+				
+				if(bodyImage >= sprite_get_number(bodySprite)-1)
+				{
+					bodySprite = spr_sansb_torso;
+					bodyImage = 0;
+				}
+			}
+			
+			if(headSprite != spr_sansb_face)
+			{
+				headImage += 0.1;
+				
+				if(headImage >= sprite_get_number(headSprite))
+				{
+					headImage = 0;
+				}
+			}
+		}
+		break;
+}
 #event draw Draw myself
 surface_set_target(monsterSurf);
 
@@ -145,32 +168,31 @@ if(killed)
 }
 else
 {
-	if(spared)
+	switch(state)
 	{
-		draw_sprite_ext(spr_looxhurt, 0, x, y, 1, 1, 0, c_white, 0.5);
-	}
-	else
-	{
-		// if(bodySprite != spr_sansb_torso)
-		// {
-		// 	draw_sprite_ext(bodySprite, bodyImage, x, y-46, 2, 2, 0, c_white, 1); //Always elative to torso
-		// }
-		// else
-		// {
-		// 	draw_sprite_ext(spr_sansb_legs, 0, x, y, 2, 2, 0, c_white, 1);
-		// 	draw_sprite_ext(spr_sansb_torso, bodyImage, x + bodyX, y-46 + bodyY, 2, 2, 0, c_white, 1);
-		// }
-		// draw_sprite_ext(headSprite, headImage, x + bodyX, y-38-50 + bodyY + headY, 2, 2, 0, c_white, 1);
-		draw_sprite_ext(spr_gaster_body, 0, x, y, 1, bodyScale, 0, c_white, 1);
-		
-		forEach(hand,
-			function(h)
+		case States.gaster:
+			with(gaster)
 			{
-				#args h:obj_gaster_hand
-				
-				draw_sprite_ext(spr_gaster_hand, 0, h.x, h.y, h.image_xscale, 1, 0, c_white, 1);
+				draw_sprite_ext(spr_gaster_body, 0, other.x, other.y, 1, bodyScale, 0, c_white, 1);
 			}
-		);
+			draw_sprite_ext(hand1.sprite_index, hand1.image_index, hand1.x, hand1.y, hand1.image_xscale, 1, 0, c_white, 1);
+			draw_sprite_ext(hand2.sprite_index, hand2.image_index, hand2.x, hand2.y, hand2.image_xscale, 1, 0, c_white, 1);
+			break;
+		case States.sans:
+			with(sans)
+			{
+				if(bodySprite != spr_sansb_torso)
+				{
+					draw_sprite_ext(bodySprite, bodyImage, other.x, other.y-46, 2, 2, 0, c_white, 1); //Always elative to torso
+				}
+				else
+				{
+					draw_sprite_ext(spr_sansb_legs, 0, other.x, other.y, 2, 2, 0, c_white, 1);
+					draw_sprite_ext(spr_sansb_torso, bodyImage, other.x + bodyX, other.y-46 + bodyY, 2, 2, 0, c_white, 1);
+				}
+				draw_sprite_ext(headSprite, headImage, other.x + bodyX, other.y-38-50 + bodyY + headY, 2, 2, 0, c_white, 1);
+			}
+			break;
 	}
 }
 

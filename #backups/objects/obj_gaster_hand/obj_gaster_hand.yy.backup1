@@ -1,4 +1,4 @@
-// 2020-12-20 01:38:19
+// 2020-12-20 17:06:36
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 sprite_index = spr_gaster_hand;
@@ -6,9 +6,55 @@ uses_physics = false;
 
 #event create
 dir = 0;
+state = 0;
+
+startX = x;
+startY = y;
+endX = x;
+endY = y;
+
+endState = 0;
+
+travelTime = 0;
+timer = 0;
+
+/// @param {real} _x
+/// @param {real} _y
+/// @param {real} _travelTime
+/// @param {int} _endState
+/// @returns {void}
+function go(_x, _y, _travelTime, _endState)
+{
+    startX = x;
+    startY = y;
+    endX = _x;
+    endY = _y;
+    
+    endState = _endState;
+    
+    travelTime = _travelTime;
+    timer = 0;
+    
+    state = 1;
+}
 
 #event step
-dir += pi/60;
+switch(state)
+{
+    case 0:
+        dir += pi/60;
+        
+        x += cos(dir)/2;
+        y += sin(dir)/2;
+        break;
+    case 1:
+        x = lerp(startX, endX, timer/travelTime);
+        y = lerp(startY, endY, timer/travelTime);
+        
+        if(diff(x, endX) < 3 && diff(y, endY) < 3) state = endState;
+        
+        timer++;
+        break;
+}
 
-x += cos(dir)/2;
-y += sin(dir)/2;
+#event draw Override draw event

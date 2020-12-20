@@ -1,0 +1,34 @@
+// 2020-12-21 00:16:45
+#event properties (no comments/etc. here are saved)
+parent_index = obj_attack;
+uses_physics = false;
+
+#event create
+
+//Inherit parent event
+event_inherited();
+
+letter = chr(irandom(26)+97);
+
+damage = 5;
+
+bounding.o.set(8, 8);
+
+velX = 0;
+velY = 0;
+
+#event step
+x += velX;
+y += velY;
+
+bounding.p1.set(x, y);
+bounding.p2.set(x+16, y+16);
+
+#event draw
+applyInsideOutside(true,
+    function()
+    {
+        draw_set_font(fnt_windings);
+        draw_text(x, y, letter);
+    }
+);

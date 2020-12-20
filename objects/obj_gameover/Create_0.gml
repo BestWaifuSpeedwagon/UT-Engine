@@ -1,6 +1,6 @@
 /// @description 
-_hx = 45;//obj_heartmove.x;
-_hy = 45;//obj_heartmove.y;
+_hx = obj_heartmove.x;
+_hy = obj_heartmove.y;
 
 x = 320;
 y = 120;

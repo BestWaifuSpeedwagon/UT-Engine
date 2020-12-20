@@ -65,12 +65,12 @@ function AttackBonestab(dir, height, timeBeforeStab)
 	@param {number} height Height of the bone created
 	@param {number} theta Angle of the bone created
 	@param {Vector} vel Speed it's going to go
-	@param [{number}] velY
+	@param {number} ?velY
 	@returns 
 */
-function AttackBone(x, y, height, theta, vel)
+function AttackBone(x, y, height, theta, vel, velY)
 {
-	if(argument_count == 6) vel = new Vector(argument[4], argument[5]);
+	vel = velY == undefined ? vel : new Vector(vel, velY); //Vel is velX in that case
 	
 	var _b = instance_create_layer(x, y, "Attacks", atk_bone);
 	_b.height = height;

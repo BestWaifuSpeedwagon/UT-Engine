@@ -1,4 +1,4 @@
-// 2020-12-20 02:39:51
+// 2020-12-20 02:41:26
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 sprite_index = spr_gameoverbg;
@@ -20,7 +20,7 @@ fadeOut = false;
 room = rm_gameover;
 
 dontGiveUp = new Dialogue(["Don't give up.", obj_stat.name + "!,{30} Stay DETERMINED"], false, snd_txtasg);
-dontGiveUp.spd = 6;
+dontGiveUp.spd = 5;
 dontGiveUp.pause = true;
 dontGiveUp.skippable = false;
 
