@@ -1,0 +1,81 @@
+// 2020-12-20 02:39:51
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+sprite_index = spr_gameoverbg;
+persistent = true;
+uses_physics = false;
+
+#event create 
+_hx = 45;//obj_heartmove.x;
+_hy = 45;//obj_heartmove.y;
+
+x = 320;
+y = 120;
+
+timer = 0;
+
+fade = 0;
+fadeOut = false;
+
+room = rm_gameover;
+
+dontGiveUp = new Dialogue(["Don't give up.", obj_stat.name + "!,{30} Stay DETERMINED"], false, snd_txtasg);
+dontGiveUp.spd = 6;
+dontGiveUp.pause = true;
+dontGiveUp.skippable = false;
+
+audio_stop_all();
+
+#event step Events
+switch(timer)
+{
+	case 60:
+		audio_play_sound(snd_break1, 3, false);
+		break;
+	case 120:
+		audio_play_sound(snd_break2, 3, false);
+		repeat(3) instance_create_depth(_hx, _hy, 0, obj_heatshards);
+		break;
+	case 200:
+		audio_play_sound(mus_gameover, 3, true);
+		break;
+	case 260:
+		dontGiveUp.pause = false;
+		break;
+}
+
+if(timer > 200 && timer < 280) fade += 1/80;
+if(fadeOut) fade -= 1/80;
+
+if(fade < -.1) 
+{
+	audio_stop_sound(mus_gameover);
+	audio_sound_gain(mus_gameover, 1, 1);
+	loadFile();
+	
+	instance_destroy();
+}
+
+if(dontGiveUp.update())
+{
+	fadeOut = true;
+	audio_sound_gain(mus_gameover, 0, 750);
+}
+timer++;
+
+#event draw Draw heart
+if(timer < 60) draw_sprite_ext(spr_heart, 0, _hx, _hy, 1, 1, 0, c_red, 1);
+else if(timer < 119) draw_sprite(spr_heartbreak, 0, _hx, _hy);
+
+if(fade > 0)
+{
+	image_alpha = fade;
+	draw_self();
+	
+	draw_set_alpha(fade);
+	
+	draw_set_halign(fa_left);
+	dontGiveUp.draw();
+	
+	draw_set_alpha(1);
+}

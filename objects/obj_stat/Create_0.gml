@@ -1,6 +1,4 @@
 /// @description Insérez la description ici
-getStats(0);
-
 #region Camera stuff
 shake = 0;
 
@@ -39,6 +37,28 @@ def = 0;
 items = ds_list_create(); //DS list of items
 ds_list_add(items, new Item( "Yum!", 10, "Delicious bun!", snd_heal_c ));
 
+
+#region Get XP details
+var file = file_text_open_read("LV.txt");
+file_text_readln(file); //Ignore first line
+
+lvDetails = [];
+
+for(i = 0; i < 20; i++)
+{
+	array_push(lvDetails, 
+		[
+			real(file_text_read_real(file)),
+			real(file_text_read_real(file)),
+			real(file_text_read_real(file)),
+			real(file_text_read_real(file)),
+			real(file_text_read_real(file))
+		]
+	);
+}
+
+file_text_close(file);
+#endregion
 #endregion
 #region Game maker's particle system
 ptSystem = part_system_create(); //Global particul system
@@ -52,5 +72,3 @@ part_type_scale(ptDust, 2, 2);
 part_type_alpha3(ptDust, 1, 0.7, 0);
 part_type_life(ptDust, 30, 60);
 #endregion
-
-bone = NULL;

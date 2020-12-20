@@ -9,7 +9,7 @@ switch(timer)
 		repeat(3) instance_create_depth(_hx, _hy, 0, obj_heatshards);
 		break;
 	case 200:
-		audio_play_sound(mus_gameover, 3, false);
+		audio_play_sound(mus_gameover, 3, true);
 		break;
 	case 260:
 		dontGiveUp.pause = false;
@@ -17,8 +17,20 @@ switch(timer)
 }
 
 if(timer > 200 && timer < 280) fade += 1/80;
+if(fadeOut) fade -= 1/80;
 
+if(fade < -.1) 
+{
+	audio_stop_sound(mus_gameover);
+	audio_sound_gain(mus_gameover, 1, 1);
+	loadFile();
+	
+	instance_destroy();
+}
 
-if(dontGiveUp.update()){}
-
+if(dontGiveUp.update())
+{
+	fadeOut = true;
+	audio_sound_gain(mus_gameover, 0, 750);
+}
 timer++;

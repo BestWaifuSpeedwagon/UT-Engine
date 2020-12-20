@@ -1,4 +1,4 @@
-// 2020-12-19 23:09:41
+// 2020-12-19 23:08:04
 #event properties (no comments/etc. here are saved)
 parent_index = obj_monster;
 sprite_index = spr_sansb_face;
@@ -99,6 +99,11 @@ switch(bodyState)
 		headY = 0;
 		break;
 }
+
+
+headImage = floor(mouse_x / 640 * 9);
+bodyImage = floor(mouse_x / 640 * 7);
+
 
 if(bodySprite != spr_sansb_torso)
 {

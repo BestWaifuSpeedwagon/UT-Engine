@@ -19,6 +19,7 @@ if(won)
 else if(!inBattle)
 {
 	box.resize(575, 140, 0);
+	box.freePos = false;
 	
 	if(waitingFor.dialogue)
 	{

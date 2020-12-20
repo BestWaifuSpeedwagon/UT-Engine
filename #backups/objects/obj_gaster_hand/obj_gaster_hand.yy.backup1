@@ -1,0 +1,14 @@
+// 2020-12-20 01:38:19
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+sprite_index = spr_gaster_hand;
+uses_physics = false;
+
+#event create
+dir = 0;
+
+#event step
+dir += pi/60;
+
+x += cos(dir)/2;
+y += sin(dir)/2;

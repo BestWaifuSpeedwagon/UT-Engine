@@ -1,4 +1,4 @@
-// 2020-12-19 21:58:05
+// 2020-12-20 02:29:28
 #region Geometry
 /// @param {number} x1
 /// @param {number} y1
@@ -124,8 +124,14 @@ function flicker(time)
 #endregion
 #region Utility
 
+/// @param {object[]} monster
+/// @param {bool} karma
+/// @param {sound} music
+/// @param {object} ?startAttack
 function startBattle(monster, karma, music, startAttack)
 {
+	if(startAttack == undefined) startAttack = NULL;
+	
 	//Allows setting arguments before create
 	ct_argument =
 	{
@@ -174,34 +180,14 @@ function forEach(arr, callback)
 }
 #endregion
 #region File System
-
-function getStats(xp)
-{
-	var file = file_text_open_read("LV.txt");
-	
-	file_text_readln(file);
-	file_text_readln(file);
-	
-	show_debug_message( file_text_read_real(file) );
-	show_debug_message( file_text_read_real(file) );
-	show_debug_message( file_text_read_real(file) );
-	show_debug_message( file_text_read_real(file) );
-	
-	file_text_close(file);
-}
-
 function saveFile()
 {
 	ini_open(FILENAME);
 	
 	ini_write_real("stat", "room", room);
 	ini_write_real("stat", "hp", obj_stat.hp);
-	ini_write_real("stat", "maxHp", obj_stat.maxHp);
 	ini_write_real("stat", "xp", obj_stat.xp);
-	ini_write_real("stat", "lv", obj_stat.lv);
 	ini_write_real("stat", "g", obj_stat.g);
-	ini_write_real("stat", "atk", obj_stat.atk);
-	ini_write_real("stat", "def", obj_stat.def);
 	
 	ini_write_real("player", "x", obj_player.x);
 	ini_write_real("player", "y", obj_player.y);
@@ -214,7 +200,21 @@ function loadFile()
 	ini_open(FILENAME);
 	
 	room = ini_read_real("stat", "room", rm_start);
+	obj_stat.hp = ini_read_real("stat", "hp", 20);
+	obj_stat.xp = ini_read_real("stat", "xp", 0);
 	
+	with(obj_stat)
+	{
+		var lv = 0;
+		while(xp >= lvDetails[lv][4])
+		{
+			lv++;
+		}
+		
+		maxHp = lvDetails[lv][1];
+		atk = lvDetails[lv][2];
+		def = lvDetails[lv][3];
+	}
 	
 	ini_close();
 }

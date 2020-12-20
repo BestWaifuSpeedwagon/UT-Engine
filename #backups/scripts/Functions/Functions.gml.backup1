@@ -1,4 +1,4 @@
-// 2020-12-19 21:54:34
+// 2020-12-20 02:27:57
 #region Geometry
 /// @param {number} x1
 /// @param {number} y1
@@ -41,23 +41,6 @@ function pointInRectangleRotated(px, py, x1, y1, x2, y2, ox, oy, theta, relative
 	p.rotate(_ox, _oy, -theta); //Rotate the point backwards
 	
 	return p.inside("rectangle", x1, y1, x2, y2); //Normal collision check
-}
-
-function clampInRectangleRotated(px, py, x1, y1, x2, y2, ox, oy, theta, relative)
-{
-	var _ox = ox + (relative ? x1 : 0), 
-		_oy = oy + (relative ? y1 : 0);
-	
-	var p = new Point(px, py);
-	
-	p.rotate(_ox, _oy, -theta); //Rotate the point backwards
-	
-	p.x = clamp(p.x, x1, x2);
-	p.y = clamp(p.y, y1, y2);
-	
-	p.rotate(_ox, _oy, theta); //Rotate the point forward
-	
-	return p;
 }
 
 function getRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative)
@@ -141,8 +124,14 @@ function flicker(time)
 #endregion
 #region Utility
 
+/// @param {object[]} monster
+/// @param {bool} karma
+/// @param {sound} music
+/// @param {object} ?startAttack
 function startBattle(monster, karma, music, startAttack)
 {
+	if(startAttack == undefined) startAttack = NULL;
+	
 	//Allows setting arguments before create
 	ct_argument =
 	{
@@ -191,34 +180,14 @@ function forEach(arr, callback)
 }
 #endregion
 #region File System
-
-function getStats(xp)
-{
-	var file = file_text_open_read("LV.txt");
-	
-	file_text_readln(file);
-	file_text_readln(file);
-	
-	show_debug_message( file_text_read_real(file) );
-	show_debug_message( file_text_read_real(file) );
-	show_debug_message( file_text_read_real(file) );
-	show_debug_message( file_text_read_real(file) );
-	
-	file_text_close(file);
-}
-
 function saveFile()
 {
 	ini_open(FILENAME);
 	
 	ini_write_real("stat", "room", room);
 	ini_write_real("stat", "hp", obj_stat.hp);
-	ini_write_real("stat", "maxHp", obj_stat.maxHp);
 	ini_write_real("stat", "xp", obj_stat.xp);
-	ini_write_real("stat", "lv", obj_stat.lv);
 	ini_write_real("stat", "g", obj_stat.g);
-	ini_write_real("stat", "atk", obj_stat.atk);
-	ini_write_real("stat", "def", obj_stat.def);
 	
 	ini_write_real("player", "x", obj_player.x);
 	ini_write_real("player", "y", obj_player.y);
@@ -231,7 +200,19 @@ function loadFile()
 	ini_open(FILENAME);
 	
 	room = ini_read_real("stat", "room", rm_start);
+	obj_stat.hp = ini_read_real("stat", "hp", 20);
+	obj_stat.xp = ini_read_real("stat", "xp", 0);
 	
+	with(obj_stat)
+	{
+		var lv = 0;
+		while(obj_stat.xp >= obj_stat.lvDetails[lv][4])
+		{
+			obj_stat.lv++;
+		}
+		
+		obj_stat.maxHp = obj_stat;
+	}
 	
 	ini_close();
 }

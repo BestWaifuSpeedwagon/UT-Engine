@@ -2,39 +2,43 @@
 // Inherit the parent event
 event_inherited();
 
-var _time = oscillate(0, 1, frac(current_time / 2500 ));
+bodyScale = (sin( current_time/1000 * pi ) + 1)/2 * .25 + 1;
 
-switch(bodyState)
-{
-	case 0:
-		bodyX = animcurve_channel_evaluate(bodyChannelX, _time);
-		bodyY = animcurve_channel_evaluate(bodyChannelY, _time);
-		headY = sin(current_time / 318.3 * 3);
-		break;
-	case 1:
-		bodyX = 0;
-		bodyY = 0;
-		headY = 0;
-		break;
-}
+#region Commented Sans Code
+// var _time = oscillate(0, 1, frac(current_time / 2500 ));
 
-if(bodySprite != spr_sansb_torso)
-{
-	bodyImage += 0.1;
+// switch(bodyState)
+// {
+// 	case 0:
+// 		bodyX = animcurve_channel_evaluate(bodyChannelX, _time);
+// 		bodyY = animcurve_channel_evaluate(bodyChannelY, _time);
+// 		headY = sin(current_time / 318.3 * 3);
+// 		break;
+// 	case 1:
+// 		bodyX = 0;
+// 		bodyY = 0;
+// 		headY = 0;
+// 		break;
+// }
+
+// if(bodySprite != spr_sansb_torso)
+// {
+// 	bodyImage += 0.1;
 	
-	if(bodyImage >= sprite_get_number(bodySprite)-1)
-	{
-		bodySprite = spr_sansb_torso;
-		bodyImage = 0;
-	}
-}
+// 	if(bodyImage >= sprite_get_number(bodySprite)-1)
+// 	{
+// 		bodySprite = spr_sansb_torso;
+// 		bodyImage = 0;
+// 	}
+// }
 
-if(headSprite != spr_sansb_face)
-{
-	headImage += 0.1;
+// if(headSprite != spr_sansb_face)
+// {
+// 	headImage += 0.1;
 	
-	if(headImage >= sprite_get_number(headSprite))
-	{
-		headImage = 0;
-	}
-}
+// 	if(headImage >= sprite_get_number(headSprite))
+// 	{
+// 		headImage = 0;
+// 	}
+// }
+#endregion

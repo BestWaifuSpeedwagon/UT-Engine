@@ -1,0 +1,6 @@
+// 2020-12-19 23:31:19
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+uses_physics = false;
+
+#event step

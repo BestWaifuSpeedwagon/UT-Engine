@@ -1,4 +1,4 @@
-// 2020-12-19 21:58:39
+// 2020-12-20 01:47:43
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 sprite_index = spr_heart;
@@ -36,8 +36,6 @@ box =
 	fx: 32.5, //Wanted X
 	fy: 248,  //Wanted Y
 	o: new Point(.5, .5), //Origin from 0 to 1
-	rot: 0,
-	wantedRot: 0,
 	
 	//Convenience
 	cx: 320, 
@@ -70,10 +68,6 @@ box =
 		y = lerp(y, fy - fh*o.y, _amount);
 		
 		calculate();
-	},
-	rotate: function(_rot, _amount)
-	{
-		wantedRot = _rot;
 	},
 	setOrigin: function(_x, _y)
 	{
@@ -239,6 +233,7 @@ if(won)
 else if(!inBattle)
 {
 	box.resize(575, 140, 0);
+	box.
 	
 	if(waitingFor.dialogue)
 	{

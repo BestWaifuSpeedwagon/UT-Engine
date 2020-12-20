@@ -1,12 +1,10 @@
-// 2020-12-19 18:11:52
+// 2020-12-20 02:41:42
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
 uses_physics = false;
 
 #event create Insérez la description ici
-getStats(0);
-
 #region Camera stuff
 shake = 0;
 
@@ -45,6 +43,28 @@ def = 0;
 items = ds_list_create(); //DS list of items
 ds_list_add(items, new Item( "Yum!", 10, "Delicious bun!", snd_heal_c ));
 
+
+#region Get XP details
+var file = file_text_open_read("LV.txt");
+file_text_readln(file); //Ignore first line
+
+lvDetails = [];
+
+for(i = 0; i < 20; i++)
+{
+	array_push(lvDetails, 
+		[
+			real(file_text_read_real(file)),
+			real(file_text_read_real(file)),
+			real(file_text_read_real(file)),
+			real(file_text_read_real(file)),
+			real(file_text_read_real(file))
+		]
+	);
+}
+
+file_text_close(file);
+#endregion
 #endregion
 #region Game maker's particle system
 ptSystem = part_system_create(); //Global particul system
@@ -58,9 +78,6 @@ part_type_scale(ptDust, 2, 2);
 part_type_alpha3(ptDust, 1, 0.7, 0);
 part_type_life(ptDust, 30, 60);
 #endregion
-
-bone = NULL;
-
 #event step Various actions
 #region Camera
 if(flick > 0) flick--;
@@ -85,7 +102,7 @@ if(keyboard_check_pressed(vk_f4))
 
 if(keyboard_check_pressed(ord("U")))
 {
-	startBattle([ mon_sans ], true, NULL, atkp_sans5);
+	startBattle([ mon_gaster ], true, NULL);
 }
 
 #event other_room_start Insérez la description ici
@@ -104,6 +121,7 @@ else
 #event draw_end Draw application surface
 
 ///TODO: 
+
 #event draw_gui_begin Set target for gui surface
 draw_surface(application_surface, random_range(-shake, shake), random_range(-shake, shake));
 

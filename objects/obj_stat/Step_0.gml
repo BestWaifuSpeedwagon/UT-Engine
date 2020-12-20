@@ -22,5 +22,5 @@ if(keyboard_check_pressed(vk_f4))
 
 if(keyboard_check_pressed(ord("U")))
 {
-	startBattle([ mon_sans ], true, NULL, atkp_sans5);
+	startBattle([ mon_gaster ], true, NULL);
 }

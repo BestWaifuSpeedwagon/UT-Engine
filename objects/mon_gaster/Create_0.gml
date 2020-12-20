@@ -16,29 +16,20 @@ acts = [
 	], NULL),
 ]; 
 
-attacks = [ atkp_gaster1, atkp_gaster2, atkp_gaster3, atkp_gaster4, atkp_gaster5 ];
+attacks = [ atkp_gaster1 ];//, atkp_gaster2, atkp_gaster3, atkp_gaster4, atkp_gaster5 ];
 attackOrder = function(roundType) //Determine order based on current count
 {
 	return attacks[count];
 }
 
 y = 200;
-width = 60;
+width = 140;
 height = 180;
 
 var _bx = x + width/2 + 10,
 	_by = y - height/2;
 
-speechs = [
-	new Speech( ["what ?{20}\nyou think i'm just gonna stand there and take it ?"], fnt_sans, snd_txtsans, spr_blconwdshrt, true, _bx, _by ),
-	new Speech( [
-		"our reports showed a massive anomaly in the timespace continuum.",
-		"timelines jumping left and right,{20} stopping and starting..."
-	], fnt_sans, snd_txtsans, spr_blconwdshrt, true, _bx, _by ),
-	new Speech( ["until suddenly,{20} everything ends."], fnt_sans, snd_txtsans, spr_blconwdshrt, true, _bx, _by ),
-	new Speech( ["heh heh heh...{30} that's your fault, isn't it?"], fnt_sans, snd_txtsans, spr_blconwdshrt, true, _bx, _by ),
-	
-];
+speechs = [];
 speechOrder = function(roundType)
 {
 	return NULL;
@@ -46,26 +37,40 @@ speechOrder = function(roundType)
 	
 }
 
-bodyChannelX = animcurve_get_channel(ac_sans_body, 0);
-bodyChannelY = animcurve_get_channel(ac_sans_body, 1);
 
-bodySprite = spr_sansb_torso;
-bodyImage = 0;
+// sans = 
+// {
+// 	bodyChannelX: animcurve_get_channel(ac_sans_body, 0),
+// 	bodyChannelY: animcurve_get_channel(ac_sans_body, 1),
+	
+// 	bodySprite: spr_sansb_torso,
+// 	bodyImage: 0,
+	
+// 	bodyState: 0,
+// 	bodyX: 0,
+// 	bodyY: 0,
+	
+// 	headSprite: spr_sansb_face,
+// 	headImage: 0,
+	
+// 	changeSprite: function(part, sprite, image)
+// 	{
+// 		variable_struct_set(self, part + "Sprite", sprite);
+// 		variable_struct_set(self, part + "Image", image);
+// 	},
+	
+// 	headY: 0
+// }
 
-bodyState = 0;
-bodyX = 0;
-bodyY = 0;
+bodyScale = 1;
 
-headSprite = spr_sansb_face;
-headImage = 0;
+hand =
+[
+	instance_create_layer(x - width, y - height/3*2, "Monsters", obj_gaster_hand),
+	instance_create_layer(x + width, y - height/3*2, "Monsters", obj_gaster_hand)
+];
 
-function changeSprite(part, sprite, image)
-{
-	variable_instance_set(id, part + "Sprite", sprite);
-	variable_instance_set(id, part + "Image", image);
-}
-
-headY = 0;
+hand[1].image_xscale = -1;
 
 image_speed = 0.1;
 
