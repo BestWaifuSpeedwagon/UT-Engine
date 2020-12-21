@@ -1,4 +1,4 @@
-// 2020-12-21 00:18:44
+// 2020-12-21 01:48:34
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -6,6 +6,9 @@ uses_physics = false;
 
 #event create Insérez la description ici
 #region Camera stuff
+
+var foo = keyboard_check(vk_right) ^^ keyboard_check(vk_left);
+
 shake = 0;
 
 flick = -1;
@@ -86,9 +89,14 @@ if(flick > 0) flick--;
 else if(flick == 0)
 {
 	audio_play_sound(snd_noise, 3, false);
-	audio_resume_all();
 	
 	flick = -1;
+	
+	if(pauseAll)
+	{
+		audio_resume_all();
+		pauseAll = false;
+	}
 }
 
 if(shake > 0) shake -= shake/10;

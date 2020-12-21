@@ -3,8 +3,8 @@
 switch(timer)
 {
     case 0:
-        flicker(10, false);
-        audio_pause_sound(mus_gasterMegalovania);
+        flicker(10);
+        audio_stop_sound(mus_gasterMegalovania);
         
         mon_gaster.state = States.sans;
         
@@ -18,7 +18,7 @@ switch(timer)
         
         AttackGasterBlaster(Box.fx1 + 32, Box.fy1 - 80, 90, 60, 30, 1, 1);
         break;
-    case 80:
+    case 100:
         heart.changeColor(BLUE);
         
         Box.setOrigin(.5, 1);
@@ -26,16 +26,16 @@ switch(timer)
         
         Box.resize(16, 16);
         break;
-    case 110:
+    case 140:
         audio_play_sound(snd_spearrise, 3, false);
         Box.resize(120, 120);
         
         for(i = 0; i < 20; i++)
         {
-            array_push(attacks, AttackBonegap(Box.fx1, Box.fy1 - i*16, Box.fw, pi/2*3, sin(i/4)*Box.fw/5 + Box.fw/2, 30, 0, 4));
+            array_push(attacks, AttackBonegap(Box.fx1, Box.fy1 - i*16, Box.fw, pi/2*3, sin(i/4)*Box.fw/6 + Box.fw/2, 30, 0, 4));
         }
         break;
-    case 220:
+    case 250:
         Box.setOrigin(1, .5);
         
         Box.move(480, 360);
@@ -44,63 +44,63 @@ switch(timer)
         forEach(attacks, function(b){ instance_destroy(b); });
         array_resize(attacks, 0);
         break;
-    case 250:
+    case 280:
         audio_play_sound(snd_spearrise, 3, false);
         Box.resize(320, 20);
         heart.changeColor(RED);
         
         for(i = 0; i < 15; i++)
         {
-            var b = AttackBone(Box.fx1 - i*45, Box.fy1, Box.fh, 0, 4, 0);
+            var b = AttackBone(Box.fx1 - 30 - i*45, Box.fy1, Box.fh, 0, 4, 0);
             b.color = random(1) < .25 ? AQUA : ORANGE;
         }
         break;
-    case 310:
+    case 350:
         AttackGasterBlaster(480 - 32, Box.fy1 - 100, 90, 60, 30, 1, 1);
         break;
-    case 340:
+    case 380:
         AttackGasterBlaster(480 - 96, Box.fy1 - 100, 90, 60, 30, 1, 1);
         break;
-    case 370:
+    case 410:
         AttackGasterBlaster(480 - 160, Box.fy1 - 100, 90, 60, 30, 1, 1);
         break;
-    case 400:
+    case 440:
         AttackGasterBlaster(480 - 224, Box.fy1 - 100, 90, 60, 30, 1, 1);
         break;
-    case 500:
+    case 540:
         Box.setOrigin(.5, .5);
         Box.move(320, 240);
         Box.resize(30, 30);
         break;
-    case 510:
+    case 550:
         audio_play_sound(snd_impact, 5, false);
-        screenShake(15);
+        screenShake(30);
         
         array_push(attacks, AttackGasterBlaster(320-120, 240, 0, 1000, 1, 1, 1));
         break;
-    case 520:
+    case 560:
         array_push(attacks, AttackGasterBlaster(320 - cos(pi/4)*120, 240 - sin(pi/4)*120, 45, 1000, 1, 1, 1));
         break;
-    case 530:
+    case 570:
         array_push(attacks, AttackGasterBlaster(320, 240-120, 90, 1000, 1, 1, 1));
         break;
-    case 540:
+    case 580:
         array_push(attacks, AttackGasterBlaster(320 + cos(pi/4)*120, 240 - sin(pi/4)*120, 135, 1000, 1, 1, 1));
         break;
-    case 550:
+    case 590:
         array_push(attacks, AttackGasterBlaster(320 + 120, 240, 180, 1000, 1, 1, 1));
         break;
-    case 560:
+    case 600:
         array_push(attacks, AttackGasterBlaster(320 + cos(pi/4)*120, 240 + sin(pi/4)*120, 225, 1000, 1, 1, 1));
         break;
-    case 570:
+    case 610:
         array_push(attacks, AttackGasterBlaster(320, 240 + 120, 270, 1000, 1, 1, 1));
         break;
-    case 580:
+    case 620:
         array_push(attacks, AttackGasterBlaster(320 - cos(pi/4)*120, 240 + sin(pi/4)*120, 315, 1000, 1, 1, 1));
         break;
-    case 610:
-        flicker(30, true);
+    case 630:
+        flicker(30, false);
         
         Box.setOrigin(.5, .5);
         Box.freePos = false;
@@ -108,8 +108,8 @@ switch(timer)
         
         forEach(attacks, function(g){ instance_destroy(g); });
         break;
-    case 760:
-        Slam(pi/4);
+    case 660:
+        Slam(pi/2);
         AttackBonestab(1, 40, 40);
         break;
 }

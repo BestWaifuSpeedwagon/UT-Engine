@@ -2,7 +2,7 @@
 #region Attacks
 if(inv == 0 || obj_soul.karma)
 {
-	var moved = xprevious != x || yprevious != y;
+	var moved = (xprevious != x || yprevious != y) && ((keyboard_check(vk_right) ^ keyboard_check(vk_left)) || (keyboard_check(vk_down) ^ keyboard_check(vk_up)));
 	
 	var _atkCount = instance_number(obj_attack);
 	for(i = 0; i < _atkCount; i++)

@@ -1,5 +1,6 @@
 /// @description Insérez la description ici
 #region Camera stuff
+
 shake = 0;
 
 flick = -1;

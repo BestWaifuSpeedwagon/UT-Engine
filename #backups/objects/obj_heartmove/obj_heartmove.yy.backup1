@@ -1,4 +1,4 @@
-// 2020-12-19 22:00:08
+// 2020-12-21 01:39:39
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 sprite_index = spr_heart;
@@ -44,7 +44,7 @@ function changeColor(_color)
 #region Attacks
 if(inv == 0 || obj_soul.karma)
 {
-	var moved = xprevious != x || yprevious != y;
+	var moved = (xprevious != x || yprevious != y) && ((keyboard_check(vk_right) ^^ keyboard_check(vk_left)) || (keyboard_check(vk_down) ^^ keyboard_check(vk_up)));
 	
 	var _atkCount = instance_number(obj_attack);
 	for(i = 0; i < _atkCount; i++)
@@ -60,7 +60,7 @@ if(inv == 0 || obj_soul.karma)
 			//Check over every bounding box and break if a collision happen
 			for(j = 0; j < _atk.boundingAmount; j++)
 			{
-				if(_atk.bounding[j].checkPoint(x+8, y+8))
+				if(_atk.bounding[j].checkPoint(x, y))
 				{
 					switch(_atk.color)
 					{
@@ -85,7 +85,7 @@ if(inv == 0 || obj_soul.karma)
 				break;
 			}
 		}
-		else if(_atk.bounding.checkPoint(x+8, y+8)) //Using else if since we know there is only 1 bounding box
+		else if(_atk.bounding.checkPoint(x, y)) //Using else if since we know there is only 1 bounding box
 		{
 			switch(_atk.color)
 			{
