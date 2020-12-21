@@ -1,22 +1,22 @@
 /// @description Properties
 event_inherited(); //Inherit all variables of parent
 
-maxHp = 1;
-hp = 1;
+maxHp = 1000;
+hp = 1000;
 name = "Gaster";
 def = 1000;
 
-dodge = true;
+dodge = false;
 
 text = [ "* Your back is crawling on your\n  spine." ];
 
 acts = [
 	new Act("Check", [
-		"* GASTER | 999 ATK -457 DEF{12}\n* The _-|-_|_- ennemy."
+		"* G4ST3R___999AT4 K-57 DEF{12}\n* The _^|¤-_|µ_- ennemy."
 	], NULL),
 ]; 
 
-attacks = [ atkp_gaster1, atkp_gaster2 ];//, atkp_gaster2, atkp_gaster3, atkp_gaster4, atkp_gaster5 ];
+attacks = [ atkp_gaster2, atkp_gaster2 ];//, atkp_gaster2, atkp_gaster3, atkp_gaster4, atkp_gaster5 ];
 attackOrder = function(roundType) //Determine order based on current count
 {
 	return attacks[fightCount];

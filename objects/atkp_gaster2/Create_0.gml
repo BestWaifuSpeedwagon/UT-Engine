@@ -1,3 +1,3 @@
 timer = 0;
 
-bones = [];
+attacks = [];

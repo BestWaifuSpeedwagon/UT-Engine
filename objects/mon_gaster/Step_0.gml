@@ -6,6 +6,7 @@ switch(state)
 {
 	case States.gaster:
 		obj_soul.karma = false;
+		dodge = false;
 		with(gaster)
 		{
 			bodyScale = (sin( current_time/2000 * pi + pi/2) + 1)/2 * .25 + .875; //Add pi/2 to start at ~1
@@ -14,6 +15,7 @@ switch(state)
 		break;
 	case States.sans:
 		obj_soul.karma = true;
+		dodge = true;
 		with(sans)
 		{
 			var _time = oscillate(0, 1, frac(current_time / 2500 ));
