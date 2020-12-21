@@ -20,28 +20,34 @@ switch(state)
 		{
 			var _time = oscillate(0, 1, frac(current_time / 2500 ));
 			
-			switch(bodyState)
+			if(bodySprite == spr_sansb_torso)
 			{
-				case 0:
-					bodyX = animcurve_channel_evaluate(bodyChannelX, _time);
-					bodyY = animcurve_channel_evaluate(bodyChannelY, _time);
-					headY = sin(current_time / 318.3 * 3);
-					break;
-				case 1:
-					bodyX = 0;
-					bodyY = 0;
-					headY = 0;
-					break;
-			}
-			
-			if(bodySprite != spr_sansb_torso)
-			{
-				bodyImage += 0.1;
-				
-				if(bodyImage >= sprite_get_number(bodySprite)-1)
+				switch(bodyState)
 				{
-					bodySprite = spr_sansb_torso;
-					bodyImage = 0;
+					case 0:
+						bodyX = animcurve_channel_evaluate(bodyChannelX, _time);
+						bodyY = animcurve_channel_evaluate(bodyChannelY, _time);
+						headY = sin(current_time / 318.3 * 3);
+						break;
+					case 1:
+						bodyX = 0;
+						bodyY = 0;
+						headY = 0;
+						break;
+				}
+			}
+			else
+			{
+				var _numImages = sprite_get_number(bodySprite)-1;
+				
+				bodyX = animcurve_channel_evaluate(bodyChannelX, bodyImage/_numImages);
+				bodyY = animcurve_channel_evaluate(bodyChannelY, bodyImage/_numImages);
+				
+				bodyImage += 0.25;
+				
+				if(bodyImage >= _numImages)
+				{
+					changeSprite("body", spr_sansb_torso, 0);
 				}
 			}
 			

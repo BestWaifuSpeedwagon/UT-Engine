@@ -1,4 +1,4 @@
-// 2020-12-21 01:39:39
+// 2020-12-21 01:50:34
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 sprite_index = spr_heart;
@@ -44,7 +44,7 @@ function changeColor(_color)
 #region Attacks
 if(inv == 0 || obj_soul.karma)
 {
-	var moved = (xprevious != x || yprevious != y) && ((keyboard_check(vk_right) ^^ keyboard_check(vk_left)) || (keyboard_check(vk_down) ^^ keyboard_check(vk_up)));
+	var moved = (xprevious != x || yprevious != y) && ((keyboard_check(vk_right) ^ keyboard_check(vk_left)) || (keyboard_check(vk_down) ^ keyboard_check(vk_up)));
 	
 	var _atkCount = instance_number(obj_attack);
 	for(i = 0; i < _atkCount; i++)

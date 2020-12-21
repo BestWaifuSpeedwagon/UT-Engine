@@ -114,6 +114,8 @@ function screenShake(_power)
 	obj_stat.shake = max(obj_stat.shake, _power);
 }
 
+/// @param {real} time
+/// @param {bool} ?pauseAll
 function flicker(time, pauseAll)
 {
 	if (pauseAll == undefined) pauseAll = true;

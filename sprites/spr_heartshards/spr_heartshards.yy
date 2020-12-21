@@ -80,8 +80,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"4c38a0a8-5849-4bee-b267-c0f29f12fb8e","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "GAME OVER",
-    "path": "folders/Battle/GAME OVER.yy",
+    "name": "Objects",
+    "path": "folders/Battle/Objects.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_heartshards",

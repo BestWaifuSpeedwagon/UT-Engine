@@ -47,13 +47,19 @@ function AttackBonearea(x, y, width, height, vel)
 	return instance_create_layer(x, y, "Attacks", atk_bonearea);
 }
 
-function AttackBonestab(dir, height, timeBeforeStab)
+/// @param {int} dir
+/// @param {real} height
+/// @param {int} timeBeforeStab
+/// @param {real} ?timeBeforeDestroy
+function AttackBonestab(dir, height, timeBeforeStab, timeBeforeDestroy)
 {
+	if (timeBeforeDestroy == undefined) timeBeforeDestroy = 80;
 	ct_argument = 
 	{
 		dir: dir,
 		height: height,
-		time: timeBeforeStab
+		time: timeBeforeStab,
+		destroy: timeBeforeDestroy
 	}
 	
 	return instance_create_depth(0, 0, 0, atk_bonestab);

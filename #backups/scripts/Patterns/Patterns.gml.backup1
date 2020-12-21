@@ -1,4 +1,4 @@
-// 2020-12-20 23:42:34
+// 2020-12-21 17:17:01
 #region Attacks
 /*
 Degrees are used, but they go in a clockwise direction, not the usual anticlockwise one !
@@ -48,13 +48,19 @@ function AttackBonearea(x, y, width, height, vel)
 	return instance_create_layer(x, y, "Attacks", atk_bonearea);
 }
 
-function AttackBonestab(dir, height, timeBeforeStab)
+/// @param {int} dir
+/// @param {real} height
+/// @param {int} timeBeforeStab
+/// @param {real} ?timeBeforeDestroy
+function AttackBonestab(dir, height, timeBeforeStab, timeBeforeDestroy)
 {
+	timeBeforeDestroy ??= 40;
 	ct_argument = 
 	{
 		dir: dir,
 		height: height,
-		time: timeBeforeStab
+		time: timeBeforeStab,
+		destroy: timeBeforeDestroy
 	}
 	
 	return instance_create_depth(0, 0, 0, atk_bonestab);
@@ -71,7 +77,7 @@ function AttackBonestab(dir, height, timeBeforeStab)
 */
 function AttackBone(x, y, height, theta, vel, velY)
 {
-	vel = velY ?? new Vector(vel, velY); //Vel is velX in that case
+	vel = velY == undefined ? vel : new Vector(vel, velY); //Vel is velX in that case
 	
 	var _b = instance_create_layer(x, y, "Attacks", atk_bone);
 	_b.height = height;

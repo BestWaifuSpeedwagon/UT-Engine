@@ -1,4 +1,4 @@
-// 2020-12-21 00:18:20
+// 2020-12-21 00:19:13
 #region GMEdit Stuff
 #endregion
 #region Geometry
@@ -136,7 +136,7 @@ function flicker(time, pauseAll)
 /// @param {object} ?startAttack
 function startBattle(monster, karma, music, startAttack)
 {
-	if(startAttack == undefined) startAttack = NULL;
+	startAttack ??= NULL;
 	
 	//Allows setting arguments before create
 	ct_argument =

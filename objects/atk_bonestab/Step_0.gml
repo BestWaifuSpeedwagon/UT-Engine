@@ -7,9 +7,9 @@ else if(time == 0)
 	audio_play_sound(snd_spearrise, 3, false);
 	boneArea = AttackBonearea(_x, _y, _w, _h, new Vector(0, 0));
 }
-else if(time > -60)
+else if(time > -40)
 {
-	boneArea.x = lerp(boneArea.x, _x - cos( dir/4 * pi * 2 )*_h, 0.2);
+	boneArea.x = lerp(boneArea.x, _x - cos( dir/4 * pi * 2 )*_w, 0.2);
 	boneArea.y = lerp(boneArea.y, _y - sin( dir/4 * pi * 2 )*_h, 0.2);
 }
 else if(time > -80)
@@ -19,7 +19,8 @@ else if(time > -80)
 	
 	time--;
 }
-else if(time < -80)
+
+if(time < -destroy)
 {
 	instance_destroy(boneArea);
 	instance_destroy();

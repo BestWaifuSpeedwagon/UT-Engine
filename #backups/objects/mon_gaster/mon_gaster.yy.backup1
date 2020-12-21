@@ -1,4 +1,4 @@
-// 2020-12-21 00:50:43
+// 2020-12-21 16:19:02
 #event properties (no comments/etc. here are saved)
 parent_index = obj_monster;
 sprite_index = spr_gaster_body;
@@ -53,8 +53,8 @@ state = States.gaster;
 
 sans = 
 {
-	bodyChannelX: animcurve_get_channel(ac_sans_body, 0),
-	bodyChannelY: animcurve_get_channel(ac_sans_body, 1),
+	bodyChannelX: animcurve_get_channel(ac_sans_body, "spr_sansb_torso_x"),
+	bodyChannelY: animcurve_get_channel(ac_sans_body, "spr_sansb_torso_y"),
 	
 	bodySprite: spr_sansb_torso,
 	bodyImage: 0,
@@ -68,8 +68,13 @@ sans =
 	
 	changeSprite: function(part, sprite, image)
 	{
-		variable_struct_set(self, part + "Sprite", sprite);
-		variable_struct_set(self, part + "Image", image);
+		var struct = self; //Bug with self assignement
+		
+		struct[$ (part + "Sprite")] = sprite;
+		struct[$ (part + "Image")] = image;
+		
+		bodyChannelX = animcurve_get_channel(ac_sans_body, sprite_get_name(sprite) + "_x");
+		bodyChannelY = animcurve_get_channel(ac_sans_body, sprite_get_name(sprite) + "_y");
 	},
 	
 	headY: 0
@@ -119,28 +124,34 @@ switch(state)
 		{
 			var _time = oscillate(0, 1, frac(current_time / 2500 ));
 			
-			switch(bodyState)
+			if(bodySprite == spr_sansb_torso)
 			{
-				case 0:
-					bodyX = animcurve_channel_evaluate(bodyChannelX, _time);
-					bodyY = animcurve_channel_evaluate(bodyChannelY, _time);
-					headY = sin(current_time / 318.3 * 3);
-					break;
-				case 1:
-					bodyX = 0;
-					bodyY = 0;
-					headY = 0;
-					break;
+				switch(bodyState)
+				{
+					case 0:
+						bodyX = animcurve_channel_evaluate(bodyChannelX, _time);
+						bodyY = animcurve_channel_evaluate(bodyChannelY, _time);
+						headY = sin(current_time / 318.3 * 3);
+						break;
+					case 1:
+						bodyX = 0;
+						bodyY = 0;
+						headY = 0;
+						break;
+				}
 			}
-			
-			if(bodySprite != spr_sansb_torso)
+			else
 			{
+				var _numImages = sprite_get_number(bodySprite)-1;
+				
+				bodyX = animcurve_channel_evaluate(bodyChannelX, bodyImage/_numImages);
+				bodyY = animcurve_channel_evaluate(bodyChannelY, bodyImage/_numImages);
+				
 				bodyImage += 0.1;
 				
-				if(bodyImage >= sprite_get_number(bodySprite)-1)
+				if(bodyImage >= _numImages)
 				{
-					bodySprite = spr_sansb_torso;
-					bodyImage = 0;
+					changeSprite("body", spr_sansb_torso, 0);
 				}
 			}
 			

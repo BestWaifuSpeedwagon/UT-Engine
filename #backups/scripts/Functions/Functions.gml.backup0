@@ -1,4 +1,4 @@
-// 2020-12-21 00:19:13
+// 2020-12-21 16:54:21
 #region GMEdit Stuff
 #endregion
 #region Geometry
@@ -115,6 +115,8 @@ function screenShake(_power)
 	obj_stat.shake = max(obj_stat.shake, _power);
 }
 
+/// @param {real} time
+/// @param {bool} ?pauseAll
 function flicker(time, pauseAll)
 {
 	pauseAll ??= true;

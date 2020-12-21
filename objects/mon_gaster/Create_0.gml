@@ -16,7 +16,7 @@ acts = [
 	], NULL),
 ]; 
 
-attacks = [ atkp_gaster2, atkp_gaster2 ];//, atkp_gaster2, atkp_gaster3, atkp_gaster4, atkp_gaster5 ];
+attacks = [ atkp_gaster1, atkp_gaster2 ];//, atkp_gaster2, atkp_gaster3, atkp_gaster4, atkp_gaster5 ];
 attackOrder = function(roundType) //Determine order based on current count
 {
 	return attacks[fightCount];
@@ -47,8 +47,8 @@ state = States.gaster;
 
 sans = 
 {
-	bodyChannelX: animcurve_get_channel(ac_sans_body, 0),
-	bodyChannelY: animcurve_get_channel(ac_sans_body, 1),
+	bodyChannelX: animcurve_get_channel(ac_sans_body, "spr_sansb_torso_x"),
+	bodyChannelY: animcurve_get_channel(ac_sans_body, "spr_sansb_torso_y"),
 	
 	bodySprite: spr_sansb_torso,
 	bodyImage: 0,
@@ -62,8 +62,13 @@ sans =
 	
 	changeSprite: function(part, sprite, image)
 	{
-		variable_struct_set(self, part + "Sprite", sprite);
-		variable_struct_set(self, part + "Image", image);
+		var struct = self; //Bug with self assignement
+		
+		struct[$ (part + "Sprite")] = sprite;
+		struct[$ (part + "Image")] = image;
+		
+		bodyChannelX = animcurve_get_channel(ac_sans_body, sprite_get_name(sprite) + "_x");
+		bodyChannelY = animcurve_get_channel(ac_sans_body, sprite_get_name(sprite) + "_y");
 	},
 	
 	headY: 0
