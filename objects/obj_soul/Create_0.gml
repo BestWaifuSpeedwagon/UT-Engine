@@ -91,8 +91,8 @@ box =
 		fx1 = fx2 - fw;
 		fy1 = fy2 - fh;
 		
-		fcx = fx - fw*(o.x/2 - 1);
-		fcy = fy - fh*(o.y/2 - 1);
+		fcx = (fx1+fx2)/2;
+		fcy = (fy1+fy2)/2;
 	}
 }
 

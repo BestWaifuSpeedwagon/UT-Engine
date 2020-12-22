@@ -31,7 +31,37 @@ u_u =
 
 //Battle
 #macro heart obj_heartmove
+
 #macro Box obj_soul.box
+#region Hinting Box
+/// @hint Box Combat box
+/// @hint Box.x Current X position
+/// @hint Box.y Current Y position
+/// @hint Box.w Current width
+/// @hint Box.h Current height
+/// @hint Box.fw Wanted width
+/// @hint Box.fh Wanted height
+/// @hint Box.spdSize Speed at which the size interpolates
+/// @hint Box.spdPos Speed at which the position interpolates with freePos on
+/// @hint Box.freePos
+/// @hint Box.fx Wanted X
+/// @hint Box.fy Wanted Y
+/// @hint Box.o extends Point, Origin
+/// @hint Box.cx Current center X
+/// @hint Box.cy Current center Y
+/// @hint Box.x2 X of bottom-right corner
+/// @hint Box.y2 Y of bottom-right corner
+/// @hint Box.fx1 Wanted X of top-left corner
+/// @hint Box.fy1 Wanted Y of top-left corner
+/// @hint Box.fx2 Wanted X of bottom-right corner
+/// @hint Box.fy2 Wanted Y of bottom-right corner
+/// @hint Box.fcx Wanted center X
+/// @hint Box.fcy Wanted center Y
+/// @hint Box.resize(w, h, ?amount)->void
+/// @hint Box.move(x, y, ?amount)->void
+/// @hint Box.setOrigin(x, y)->void
+/// @hint Box.calculate()->void
+#endregion
 
 //Voices
 

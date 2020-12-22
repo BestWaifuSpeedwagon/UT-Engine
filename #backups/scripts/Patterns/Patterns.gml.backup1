@@ -1,8 +1,15 @@
-// 2020-12-21 17:17:01
+// 2020-12-22 01:46:50
 #region Attacks
-/*
-Degrees are used, but they go in a clockwise direction, not the usual anticlockwise one !
-*/
+
+//Degrees are used, but they go in a clockwise direction, not the usual anticlockwise one !
+/// @param {real} wantedX
+/// @param {real} wantedY
+/// @param {degrees} angle
+/// @param {int} timeBeforeBlast
+/// @param {int} timeBeforeFadeOut
+/// @param {real} xscale
+/// @param {real} yscale
+/// @returns {atk_gasterblaster}
 function AttackGasterBlaster(wantedX, wantedY, angle, timeBeforeBlast, timeBeforeFadeOut, xscale, yscale){
 	angle = degtorad(angle);
 	
@@ -19,6 +26,36 @@ function AttackGasterBlaster(wantedX, wantedY, angle, timeBeforeBlast, timeBefor
 	
 	_g.image_xscale = xscale;
 	_g.image_yscale = yscale;
+	
+	return _g;
+}
+
+//Degrees are used, but they go in a clockwise direction, not the usual anticlockwise one !
+/// @param {real} wantedX
+/// @param {real} wantedY
+/// @param {degrees} angle
+/// @param {int} timeBeforeBlast
+/// @param {int} timeBeforeFadeOut
+/// @param {real} size
+/// @param {color} ?color
+/// @returns {atk_gasterhand}
+function AttackGasterHand(wantedX, wantedY, angle, timeBeforeBlast, timeBeforeFadeOut, size, color){
+	angle = degtorad(angle);
+	color ??= WHITE;
+	
+	ct_argument = 
+	{
+		wantedX: wantedX,
+		wantedY: wantedY,
+		wantedDir: angle,
+		timer: timeBeforeBlast,
+		fadeOut: timeBeforeFadeOut
+	}
+	
+	_g = instance_create_layer(wantedX - cos(angle)*700, wantedY - sin(angle)*540, "Attacks", atk_gasterhand);
+	
+	_g.image_yscale = size;
+	_g.color = color;
 	
 	return _g;
 }
@@ -54,7 +91,7 @@ function AttackBonearea(x, y, width, height, vel)
 /// @param {real} ?timeBeforeDestroy
 function AttackBonestab(dir, height, timeBeforeStab, timeBeforeDestroy)
 {
-	timeBeforeDestroy ??= 40;
+	timeBeforeDestroy ??= 80;
 	ct_argument = 
 	{
 		dir: dir,

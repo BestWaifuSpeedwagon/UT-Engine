@@ -1,0 +1,128 @@
+// 2020-12-22 02:24:12
+#event properties (no comments/etc. here are saved)
+parent_index = obj_attack;
+sprite_index = spr_gaster_hand_atk;
+uses_physics = false;
+
+#event create Creation
+// /!\ Use the gaster blaster function to create one !
+
+// Inherit the parent event
+event_inherited();
+
+audio_play_sound(snd_gaster_blaster, 0, false);
+
+passthrough = true;
+damage = 10;
+
+collision = false; //No collision at first, and removed when fading away
+destroy = false;
+
+wantedX = ct_argument.wantedX;
+wantedY = ct_argument.wantedY;
+wantedDir = ct_argument.wantedDir;
+image_angle = -radtodeg(wantedDir);
+
+timer = ct_argument.timer; //Time before it fires
+fadeOut = ct_argument.fadeOut; //Time for it to start fading out
+
+//image_xscale; Set later
+//image_yscale;
+
+t = 0;
+
+size = 0; //Size of the blast, from 0 to 1, relative to yscale
+
+length = 0; //Length of the blas, from 0 to 1
+
+alpha = 1; //For fading away at the end
+vel = 0;
+
+image_speed = 0;
+
+bounding.relative = false;
+
+#event step Decrease timer, then fire
+if(timer > 0)
+{
+	x += (wantedX-x)/10;
+	y += (wantedY-y)/10;
+	
+	timer--;
+}
+else if(timer == 0)
+{
+	audio_play_sound(snd_gaster_blast, 0, false);
+	
+	screenShake(max(image_xscale*image_yscale, 5));
+	
+	collision = true;
+	
+	x -= cos(wantedDir)*10;
+	y -= sin(wantedDir)*10;
+	
+	timer = -1;
+}
+else if(timer > -fadeOut)
+{
+	size += min(1-size, 0.05);
+	timer--;
+	
+	x -= cos(wantedDir)/40;
+	y -= sin(wantedDir)/40;
+}
+else
+{
+	alpha -= 1/room_speed;
+	size = sqr(alpha);
+	vel -= 0.2;
+	
+	collision = false;
+	
+	if(alpha <= 0)
+	{
+		instance_destroy();
+	}
+}
+
+if(timer < 0)
+{
+	//Set bounding box
+	bounding.p1.set(x, y - 32*image_yscale*size);
+	bounding.p2.set(x+length, y + 32*image_yscale*size);
+	bounding.o.set(x, y);
+	bounding.theta = wantedDir;
+	//Increase size / Move
+	if(length < 2000) length += 50;
+	
+	
+	
+	if(x > -100 && y > -128*image_yscale && x < 740 && y < 480 + 128*image_yscale)
+	{
+		x += cos(wantedDir)*vel;
+		y += sin(wantedDir)*vel;
+	}
+}
+
+t += 1/room_speed;
+
+#event draw Draw myself (not affected by shaders)
+if(size > 0)
+{
+	var oscillation = (sin(t*pi*8)+1)/2 * 0.25 + 1; //0.25 second
+	
+	draw_set_alpha(alpha);
+	draw_set_color(color);
+	drawRectangleRotated(x, y-32*image_yscale*size * oscillation, x+length, y+32*image_yscale*size, x, y, wantedDir, false, false);
+	draw_set_alpha(1);
+}
+
+if(timer < 0 && timer > -5) //Flash screen when fire
+{
+	draw_set_color(c_white);
+	draw_set_alpha((timer+5)/5);
+	draw_rectangle(0, 0, 640, 480, false);
+	draw_set_alpha(1);
+}
+
+draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, color, 1);

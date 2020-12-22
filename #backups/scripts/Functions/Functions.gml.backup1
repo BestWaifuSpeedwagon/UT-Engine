@@ -1,11 +1,11 @@
-// 2020-12-21 00:19:13
+// 2020-12-22 14:11:32
 #region GMEdit Stuff
 #endregion
 #region Geometry
-/// @param {number} x1
-/// @param {number} y1
-/// @param {number} x2
-/// @param {number} y2
+/// @param {real} x1
+/// @param {real} y1
+/// @param {real} x2
+/// @param {real} y2
 /// @returns {radians} Angle in radians
 function pointDirection(x1, y1, x2, y2)
 {
@@ -25,6 +25,17 @@ function angleDifference(src, dest)
     return distance*s;
 }
 
+/// @param {real}    px       Point X
+/// @param {real}    py       Point Y
+/// @param {real}    x1       Left side of rectangle
+/// @param {real}    y1       Top side of rectangle
+/// @param {real}    x2       Right side of rectangle
+/// @param {real}    y2       Bottom side of rectangle
+/// @param {real}    ox       Origin of the rectangle
+/// @param {real}    oy       Origin of the rectangle
+/// @param {radians} theta    Angle of rectanle (clockwise)
+/// @param {bool}    relative Wether the origin is relative to x1/y1
+/// @returns {bool} If the point is in the rectangle
 function pointInRectangleRotated(px, py, x1, y1, x2, y2, ox, oy, theta, relative)
 {
 	/* 
@@ -43,6 +54,29 @@ function pointInRectangleRotated(px, py, x1, y1, x2, y2, ox, oy, theta, relative
 	p.rotate(_ox, _oy, -theta); //Rotate the point backwards
 	
 	return p.inside("rectangle", x1, y1, x2, y2); //Normal collision check
+}
+
+/// @param {Point}    pc      Center of circle
+/// @param {real}     radius  Radius of circle
+/// @param {Point}    p1      Top-left corner of rectangle
+/// @param {Point}    p2      Bottom-right corner of rectangle
+/// @param {Point}    po      Origin of rectangle
+/// @param {radians} theta    Angle of rectanle (clockwise)
+/// @param {bool}    relative If the origin is relative to p1
+/// @returns {bool}  If the circle and the rectangle intersects
+function circleIntersectsRectangleRotated(pc, radius, p1, p2, po, theta, relative)
+{
+	//Add the base coordonates if the origin is relative
+	var _ox = ox + (relative ? x1 : 0), 
+		_oy = oy + (relative ? y1 : 0);
+	
+	pc.rotate(_ox, _oy, -theta); //Make the circle relative to the non-rotated rectangle
+	
+	//Find most closest point
+	var _x = clamp(pc.x, p1.x, p2.x),
+		_y = clamp(pc.y, p1.y, p2.y);
+		
+	return sqr(pc.x-_x)+sqr(pc.y-_y) > sqr(radius);
 }
 
 function getRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative)
@@ -84,7 +118,7 @@ function getRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative)
 /// @param {radians} theta
 /// @param {boolean} relative
 /// @param {boolean | real} outline
-
+/// @returns {void}
 function drawRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative, outline)
 {
 	var points = getRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative);
@@ -115,6 +149,8 @@ function screenShake(_power)
 	obj_stat.shake = max(obj_stat.shake, _power);
 }
 
+/// @param {real} time
+/// @param {bool} ?pauseAll
 function flicker(time, pauseAll)
 {
 	pauseAll ??= true;

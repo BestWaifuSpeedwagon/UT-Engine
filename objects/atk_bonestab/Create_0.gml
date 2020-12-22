@@ -21,47 +21,47 @@ _y2 = 0;
 switch(dir)
 {
 	case 0:
-		_x = Box.x2 + 30;
-		_y = Box.y;
+		_x = Box.fx2 + 30;
+		_y = Box.fy1;
 		_w = height + 30;
-		_h = Box.h;
+		_h = Box.fh;
 		
-		_x1 = Box.x2-height;
-		_y1 = Box.y;
-		_x2 = Box.x2;
-		_y2 = Box.y2;
+		_x1 = Box.fx2-height;
+		_y1 = Box.fy1;
+		_x2 = Box.fx2;
+		_y2 = Box.fy2;
 		break;
 	case 1:
-		_x = Box.x;
-		_y = Box.y2 + 30;
-		_w = Box.w;
+		_x = Box.fx1;
+		_y = Box.fy2 + 30;
+		_w = Box.fw;
 		_h = height + 30;
 		
-		_x1 = Box.x;
-		_y1 = Box.y2-height;
-		_x2 = Box.x2;
-		_y2 = Box.y2;
+		_x1 = Box.fx1;
+		_y1 = Box.fy2-height;
+		_x2 = Box.fx2;
+		_y2 = Box.fy2;
 		break;
 	case 2:
-		_x = Box.x - 30;
-		_y = Box.y;
+		_x = Box.fx1 - 30;
+		_y = Box.fy1;
 		_w = -height - 30;
-		_h = Box.h;
+		_h = Box.fh;
 		
-		_x1 = Box.x;
-		_y1 = Box.y;
+		_x1 = Box.fx1;
+		_y1 = Box.fy1;
 		_x2 = Box.x+height;
-		_y2 = Box.y2;
+		_y2 = Box.fy2;
 		break;
 	case 3:
-		_x = Box.x;
-		_y = Box.y - height - 30;
-		_w = Box.w;
+		_x = Box.fx1;
+		_y = Box.fy1 - height - 30;
+		_w = Box.fw;
 		_h = -height - 30;
 		
-		_x1 = Box.x;
-		_y1 = Box.y;
-		_x2 = Box.x2;
-		_y2 = Box.y+height;
+		_x1 = Box.fx1;
+		_y1 = Box.fy1;
+		_x2 = Box.fx2;
+		_y2 = Box.fy1+height;
 		break;
 }

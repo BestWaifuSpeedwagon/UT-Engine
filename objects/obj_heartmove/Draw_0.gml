@@ -2,6 +2,10 @@
 var _rot = 0;
 switch(color)
 {
+	case AQUA:
+		draw_set_color(canMove ? c_lime : c_white);
+		draw_circle(x, y, 32, true);
+		break;
 	case BLUE:
 		_rot = -radtodeg(gravityDir)+90;
 		break;

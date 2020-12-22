@@ -1,4 +1,4 @@
-// 2020-12-21 00:16:45
+// 2020-12-22 02:25:36
 #event properties (no comments/etc. here are saved)
 parent_index = obj_attack;
 uses_physics = false;
@@ -28,6 +28,7 @@ bounding.p2.set(x+16, y+16);
 applyInsideOutside(true,
     function()
     {
+        draw_set_color(c_white);
         draw_set_font(fnt_windings);
         draw_text(x, y, letter);
     }

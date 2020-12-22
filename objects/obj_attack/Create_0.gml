@@ -7,6 +7,7 @@ collision = true; //Wether it should be collisionable, attacks fading away for e
 destroy = true; //Wether the attack will destroy itself when contacting the player
 
 color = WHITE;
+turnIntoColor = false; //Will turn heartmove into set color on collision /!\ ONLY USE WITH COLORED ATTACKS
 
 //Bounding box
 bounding = new BoundingBox();

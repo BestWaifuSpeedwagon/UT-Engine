@@ -1,6 +1,6 @@
 /// @description Collision
 #region Attacks
-if(inv == 0 || obj_soul.karma)
+if(visible && (inv == 0 || obj_soul.karma))
 {
 	var moved = (xprevious != x || yprevious != y);
 	
@@ -9,55 +9,39 @@ if(inv == 0 || obj_soul.karma)
 	{
 		var _atk = instance_find(obj_attack, i);
 	
-		if(!_atk.collision) continue;
+		if(!_atk.collision) continue; //No need to check if collision is deactivated
+		if(color == AQUA && !moved || color == ORANGE && moved) continue; //No need to check if no damage would have happened
 		
 		if(_atk.boundingAmount > 1)
 		{
 			var _colOccured = false;
-				
+			
 			//Check over every bounding box and break if a collision happen
 			for(j = 0; j < _atk.boundingAmount; j++)
 			{
-				if(_atk.bounding[j].checkPoint(x, y))
+				//Smart operators will check if color is AQUA then if it's already on, and only then for collision 
+				canMove = color != AQUA || canMove || _atk.bounding[@ j].checkCircle(x, y, 32);
+				
+				//Can't have a collision if you're not close to any
+				if(canMove && _atk.bounding[@ j].checkPoint(x, y))
 				{
-					switch(_atk.color)
-					{
-						case WHITE:
-							_colOccured = true;
-							break;
-						case AQUA:
-							if(moved) _colOccured = true;
-							break;
-						case ORANGE:
-							if(!moved) _colOccured = true;
-							break;
-					}
-						
-					if(_colOccured) break;
+					applyDamage(_atk);
+					_colOccured = true;
+					break; //Break out of bounding box loop if collision happened
 				}
 			}
-				
-			if(_colOccured)
+			
+			if(_colOccured) break; //Break out of attacks loop if collision happened
+		}
+		else
+		{
+			canMove = color != AQUA || canMove || _atk.bounding.checkCircle(x, y, 32);
+			
+			if(canMove && _atk.bounding.checkPoint(x, y))
 			{
 				applyDamage(_atk);
 				break;
 			}
-		}
-		else if(_atk.bounding.checkPoint(x, y)) //Using else if since we know there is only 1 bounding box
-		{
-			switch(_atk.color)
-			{
-				case WHITE:
-					applyDamage(_atk);
-					break;
-				case AQUA:
-					if(moved) applyDamage(_atk);
-					break;
-				case ORANGE:
-					if(!moved) applyDamage(_atk);
-					break;
-			}
-			break;
 		}
 	}
 }

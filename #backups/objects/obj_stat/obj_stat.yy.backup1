@@ -1,4 +1,4 @@
-// 2020-12-21 01:48:34
+// 2020-12-21 20:41:29
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -6,8 +6,6 @@ uses_physics = false;
 
 #event create Insérez la description ici
 #region Camera stuff
-
-var foo = keyboard_check(vk_right) ^^ keyboard_check(vk_left);
 
 shake = 0;
 

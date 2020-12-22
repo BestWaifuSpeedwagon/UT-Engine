@@ -1,4 +1,4 @@
-// 2020-12-17 20:10:04
+// 2020-12-22 13:45:55
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -12,6 +12,7 @@ collision = true; //Wether it should be collisionable, attacks fading away for e
 destroy = true; //Wether the attack will destroy itself when contacting the player
 
 color = WHITE;
+turnIntoColor = false; //Will turn heartmove into set color on collision /!\ ONLY USE WITH COLORED ATTACKS
 
 //Bounding box
 bounding = new BoundingBox();

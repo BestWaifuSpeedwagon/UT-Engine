@@ -1,4 +1,4 @@
-// 2020-12-17 20:10:02
+// 2020-12-17 20:10:04
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -31,5 +31,4 @@ if(sprite_exists(sprite_index))
 	draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, color, 1);
 	
 	shader_reset();
-	
 }

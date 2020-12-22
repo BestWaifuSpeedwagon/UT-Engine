@@ -1,4 +1,4 @@
-// 2020-12-21 00:35:41
+// 2020-12-22 02:14:01
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 sprite_index = spr_heart;
@@ -97,10 +97,41 @@ box =
 		fx1 = fx2 - fw;
 		fy1 = fy2 - fh;
 		
-		fcx = fx - fw*(o.x/2 - 1);
-		fcy = fy - fh*(o.y/2 - 1);
+		fcx = (fx1+fx2)/2;
+		fcy = (fy1+fy2)/2;
 	}
 }
+
+#region Hinting Box
+/// @hint box:x Current X position
+/// @hint box:y Current Y position
+/// @hint box:w Current width
+/// @hint box:h Current height
+/// @hint box:fw Wanted width
+/// @hint box:fh Wanted height
+/// @hint box:spdSize Speed at which the size interpolates
+/// @hint box:spdPos Speed at which the position interpolates with freePos on
+/// @hint box:freePos
+/// @hint box:fx Wanted X
+/// @hint box:fy Wanted Y
+/// @hint box:o implements Point 
+/// @hint box:cx Current center X
+/// @hint box:cy Current center Y
+/// @hint box:x2 X of bottom-right corner
+/// @hint box:y2 Y of bottom-right corner
+/// @hint box:fx1 Wanted X of top-left corner
+/// @hint box:fy1 Wanted Y of top-left corner
+/// @hint box:fx2 Wanted X of bottom-right corner
+/// @hint box:fy2 Wanted Y of bottom-right corner
+/// @hint box:fcx Wanted center X
+/// @hint box:fcy Wanted center Y
+/// @hint box:resize(w, h, ?amount)->void
+/// @hint box:move(x, y, ?amount)->void
+/// @hint box:setOrigin(x, y)->void
+/// @hint box:calculate()->void
+#endregion
+
+
 
 #region Battle Variables
 monster = ct_argument.monster; //Array of obj_monster instances

@@ -1,9 +1,10 @@
 /// @description Movement
 #region Movement
-if(visible)
+if(visible && canMove)
 {
 	switch(color)
 	{
+		case AQUA:
 		case RED:
 			var hspd = keyboard_check(vk_right) - keyboard_check(vk_left);
 			var vspd = keyboard_check(vk_down) - keyboard_check(vk_up);
@@ -43,8 +44,20 @@ if(visible)
 	}
 }
 
+switch(color)
+{
+	case AQUA:
+		canMove = false; //Reset to false
+		break;
+	default:
+		canMove = true;
+		break;
+}
+
 ///TODO : Add rotation of box
 x = clamp(x, Box.x+8, Box.x2-8); //Sprite width/height
 y = clamp(y, Box.y+8, Box.y2-8);
+
+pos.set(x, y);
 
 #endregion

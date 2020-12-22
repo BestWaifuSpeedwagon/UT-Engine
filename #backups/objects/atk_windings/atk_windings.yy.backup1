@@ -1,4 +1,4 @@
-// 2020-12-21 00:15:59
+// 2020-12-21 00:16:45
 #event properties (no comments/etc. here are saved)
 parent_index = obj_attack;
 uses_physics = false;
@@ -32,6 +32,3 @@ applyInsideOutside(true,
         draw_text(x, y, letter);
     }
 );
-
-draw_set_color(c_red);
-bounding.draw();

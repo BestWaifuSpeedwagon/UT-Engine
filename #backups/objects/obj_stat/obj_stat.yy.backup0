@@ -1,4 +1,4 @@
-// 2020-12-21 01:48:43
+// 2020-12-21 20:41:46
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -38,8 +38,8 @@ name = "shit";
 lv = 1;
 xp = 0;
 g = 0;
-hp = 20;
-maxHp = 20;
+hp = 92;
+maxHp = 92;
 atk = 1;
 def = 0;
 items = ds_list_create(); //DS list of items
