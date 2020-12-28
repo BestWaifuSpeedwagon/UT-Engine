@@ -232,11 +232,6 @@ with(box)
 	}
 	
 	calculate();
-	
-	if(keyboard_check_pressed(ord("A")))
-	{
-		move(mouse_x, mouse_y, 1);
-	}
 }
 #endregion
 #region Health / Karma

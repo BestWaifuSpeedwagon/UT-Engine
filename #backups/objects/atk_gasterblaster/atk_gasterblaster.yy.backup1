@@ -1,7 +1,7 @@
-// 2020-12-22 14:55:23
+// 2020-12-27 19:09:55
 #event properties (no comments/etc. here are saved)
 parent_index = obj_attack;
-sprite_index = spr_gaster_hand_atk;
+sprite_index = spr_gasterblaster_charge;
 uses_physics = false;
 
 #event create Creation
@@ -13,7 +13,7 @@ event_inherited();
 audio_play_sound(snd_gaster_blaster, 0, false);
 
 passthrough = true;
-damage = 10;
+damage = 1; //K A R M A
 
 collision = false; //No collision at first, and removed when fading away
 destroy = false;
@@ -21,7 +21,7 @@ destroy = false;
 wantedX = ct_argument.wantedX;
 wantedY = ct_argument.wantedY;
 wantedDir = ct_argument.wantedDir;
-image_angle = -radtodeg(wantedDir);
+image_angle = radtodeg(wantedDir); //180 degrees from wanted dir
 
 timer = ct_argument.timer; //Time before it fires
 fadeOut = ct_argument.fadeOut; //Time for it to start fading out
@@ -32,23 +32,27 @@ fadeOut = ct_argument.fadeOut; //Time for it to start fading out
 t = 0;
 
 size = 0; //Size of the blast, from 0 to 1, relative to yscale
-
-length = 0; //Length of the blas, from 0 to 1
-
 alpha = 1; //For fading away at the end
-vel = 0;
+
+vel = 0; //Accelerate when the beam is fired
 
 image_speed = 0;
 
 bounding.relative = false;
 
 #event step Decrease timer, then fire
+
+image_angle = lerp(image_angle, -radtodeg(wantedDir), .1);
+
 if(timer > 0)
 {
 	x += (wantedX-x)/10;
 	y += (wantedY-y)/10;
 	
 	timer--;
+	
+	
+	if(timer <= 40) image_index = floor(1 - timer/40)*4;
 }
 else if(timer == 0)
 {
@@ -58,24 +62,20 @@ else if(timer == 0)
 	
 	collision = true;
 	
-	x -= cos(wantedDir)*10;
-	y -= sin(wantedDir)*10;
+	sprite_index = spr_gasterblaster_fire;
+	image_speed = 0.1;
 	
 	timer = -1;
 }
 else if(timer > -fadeOut)
 {
-	size += min(1-size, 0.05);
+	size = min(size+.2, 1);
 	timer--;
-	
-	x -= cos(wantedDir)/30;
-	y -= sin(wantedDir)/30;
 }
 else
 {
-	alpha -= 1/room_speed;
+	alpha -= 4/room_speed;
 	size = sqr(alpha);
-	vel -= 0.2;
 	
 	collision = false;
 	
@@ -89,16 +89,13 @@ if(timer < 0)
 {
 	//Set bounding box
 	bounding.p1.set(x, y - 32*image_yscale*size);
-	bounding.p2.set(x+length, y + 32*image_yscale*size);
+	bounding.p2.set(x+2000, y + 32*image_yscale*size);
 	bounding.o.set(x, y);
 	bounding.theta = wantedDir;
 	//Increase size / Move
-	if(length < 2000) length += 50;
-	
-	
-	
-	if(x > -100 && y > -128*image_yscale && x < 740 && y < 480 + 128*image_yscale)
+	if(x > -sprite_width && y > -sprite_height && x < 640+sprite_width && y < 480+sprite_height)
 	{
+		vel -= 0.5;
 		x += cos(wantedDir)*vel;
 		y += sin(wantedDir)*vel;
 	}
@@ -111,18 +108,18 @@ if(size > 0)
 {
 	var oscillation = (sin(t*pi*8)+1)/2 * 0.25 + 1; //0.25 second
 	
+	var __cos = cos(wantedDir),
+		__sin = sin(wantedDir);
+	
+	var blastX = x + __cos*39*image_xscale,
+		blastY = y + __sin*39*image_xscale;
+	
+	draw_sprite_ext(spr_gasterblaster_blast, 0, blastX, blastY, image_xscale, size*image_yscale, image_angle, color, alpha);
+	
 	draw_set_alpha(alpha);
 	draw_set_color(color);
-	drawRectangleRotated(x, y-32*image_yscale*size * oscillation, x+length, y+32*image_yscale*size, x, y, wantedDir, false, false);
+	drawRectangleRotated(blastX, blastY-32*image_yscale*size * oscillation, blastX+2000, blastY+32*image_yscale*size * oscillation, blastX, blastY, wantedDir, false, false);
 	draw_set_alpha(1);
 }
 
-if(timer < 0 && timer > -5) //Flash screen when fire
-{
-	draw_set_color(c_white);
-	draw_set_alpha((timer+5)/5);
-	draw_rectangle(0, 0, 640, 480, false);
-	draw_set_alpha(1);
-}
-
-draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, color, alpha);
+draw_self();

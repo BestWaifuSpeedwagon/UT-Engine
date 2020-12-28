@@ -177,12 +177,17 @@ function AttackBonerepeat(x, y, height, boneTheta, spacing, amount, vel)
 #endregion
 #endregion
 #region Others
-function Slam(theta)
+/// @param {radians} theta
+/// @param {real} ?force
+/// @returns {void}
+function Slam(theta, force)
 {
+	if (force == undefined) force = 10;
+	
 	heart.changeColor(BLUE);
 	
 	heart.gravityDir = theta;
-	heart.velY = 10;
+	heart.velY = force;
 	heart.slam = true;
 }
 

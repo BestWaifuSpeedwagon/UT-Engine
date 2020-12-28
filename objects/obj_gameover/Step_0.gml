@@ -1,22 +1,22 @@
 /// @description Events
 switch(timer)
 {
-	case 60:
+	case 120:
 		audio_play_sound(snd_break1, 3, false);
 		break;
-	case 120:
+	case 180:
 		audio_play_sound(snd_break2, 3, false);
 		repeat(3) instance_create_depth(_hx, _hy, 0, obj_heatshards);
 		break;
-	case 200:
+	case 260:
 		audio_play_sound(mus_gameover, 3, true);
 		break;
-	case 260:
+	case 320:
 		dontGiveUp.pause = false;
 		break;
 }
 
-if(timer > 200 && timer < 280) fade += 1/80;
+if(timer > 260 && timer < 340) fade += 1/80;
 if(fadeOut) fade -= 1/80;
 
 if(fade < -.1) 

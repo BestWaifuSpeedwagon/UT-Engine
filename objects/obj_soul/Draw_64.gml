@@ -1,31 +1,8 @@
 /// @description Draw the *burp* thing
-draw_sprite(spr_fightbt, real(state == 0), 33, 431);
-draw_sprite(spr_actbt, real(state == 1), 186, 431);
-draw_sprite(spr_itembt, real(state == 2), 346, 431);
-draw_sprite(spr_sparebt, real(state == 3), 501, 431);
-
+#region Heart / Text
 draw_set_color(c_white);
 draw_set_font(fnt_dialogue);
 
-#region Surfaces
-shader_set(shd_insideOutside);
-shader_set_uniform_i(u_u.insideOutside_inside, false);
-shader_set_uniform_f(u_u.insideOutside_box, box.x, box.y, box.x2, box.y2);
-
-draw_surface(monsterSurf, 0, 0);
-
-shader_reset();
-#endregion
-
-#region Box
-draw_set_color(c_white);
-with(box)
-{
-	for(i = 0; i < 4; i++)
-		draw_rectangle(x + i, y + i, x2 - i, y2 - i, true);
-}
-#endregion
-#region Heart / Text
 if(won)
 {
 	dialogue.draw();
@@ -151,6 +128,14 @@ else if(!inBattle)
 	}
 }
 #endregion
+#region Box
+draw_set_color(c_white);
+with(box)
+{
+	for(i = 0; i < 4; i++)
+		draw_rectangle(x + i, y + i, x2 - i, y2 - i, true);
+}
+#endregion
 #region Speech
 
 if(currentSpeech != NULL)
@@ -160,6 +145,18 @@ if(currentSpeech != NULL)
 
 #endregion
 #region HUD
+//All of the hud is obscured by the box
+shader_set(shd_insideOutside);
+shader_set_uniform_i(u_u.insideOutside_inside, false);
+shader_set_uniform_f(u_u.insideOutside_box, box.x, box.y, box.x2, box.y2);
+
+draw_sprite(spr_fightbt, real(state == 0), 33, 431);
+draw_sprite(spr_actbt, real(state == 1), 186, 431);
+draw_sprite(spr_itembt, real(state == 2), 346, 431);
+draw_sprite(spr_sparebt, real(state == 3), 501, 431);
+
+draw_surface(monsterSurf, 0, 0);
+
 draw_set_color(c_white);
 draw_set_font(fnt_battle_hud);
 draw_set_valign(fa_top);
@@ -200,3 +197,5 @@ else draw_set_color(c_white);
 
 draw_text(_x, 395, string(obj_stat.hp+kr) + " / " + string(obj_stat.maxHp));
 #endregion
+
+shader_reset();

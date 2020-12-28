@@ -15,7 +15,7 @@ destroy = false;
 wantedX = ct_argument.wantedX;
 wantedY = ct_argument.wantedY;
 wantedDir = ct_argument.wantedDir;
-image_angle = -radtodeg(wantedDir);
+image_angle = radtodeg(wantedDir); //180 degrees from wanted dir
 
 timer = ct_argument.timer; //Time before it fires
 fadeOut = ct_argument.fadeOut; //Time for it to start fading out
@@ -26,10 +26,8 @@ fadeOut = ct_argument.fadeOut; //Time for it to start fading out
 t = 0;
 
 size = 0; //Size of the blast, from 0 to 1, relative to yscale
-
-length = 0; //Length of the blas, from 0 to 1
-
 alpha = 1; //For fading away at the end
+
 vel = 0; //Accelerate when the beam is fired
 
 image_speed = 0;

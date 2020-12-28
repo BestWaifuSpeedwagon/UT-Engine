@@ -1,10 +1,14 @@
 /// @description Decrease timer, then fire
+
+image_angle = lerp(image_angle, -radtodeg(wantedDir), .1);
+
 if(timer > 0)
 {
 	x += (wantedX-x)/10;
 	y += (wantedY-y)/10;
 	
 	timer--;
+	
 	
 	if(timer <= 40) image_index = floor(1 - timer/40)*4;
 }
@@ -23,7 +27,7 @@ else if(timer == 0)
 }
 else if(timer > -fadeOut)
 {
-	size += min(1-size, 0.05);
+	size = min(size+.2, 1);
 	timer--;
 }
 else
@@ -43,13 +47,11 @@ if(timer < 0)
 {
 	//Set bounding box
 	bounding.p1.set(x, y - 32*image_yscale*size);
-	bounding.p2.set(x+length, y + 32*image_yscale*size);
+	bounding.p2.set(x+2000, y + 32*image_yscale*size);
 	bounding.o.set(x, y);
 	bounding.theta = wantedDir;
 	//Increase size / Move
-	if(length < 2000) length += 50;
-	
-	if(x > -100 && y > -100 && x < 740 && y < 580)
+	if(x > -sprite_width && y > -sprite_height && x < 640+sprite_width && y < 480+sprite_height)
 	{
 		vel -= 0.5;
 		x += cos(wantedDir)*vel;

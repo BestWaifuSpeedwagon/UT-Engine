@@ -24,8 +24,8 @@ else if(timer > -fadeOut)
 	size += min(1-size, 0.05);
 	timer--;
 	
-	x -= cos(wantedDir)/40;
-	y -= sin(wantedDir)/40;
+	x -= cos(wantedDir)/30;
+	y -= sin(wantedDir)/30;
 }
 else
 {

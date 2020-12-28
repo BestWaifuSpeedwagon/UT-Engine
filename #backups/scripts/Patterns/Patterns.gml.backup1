@@ -1,4 +1,4 @@
-// 2020-12-22 01:46:50
+// 2020-12-28 03:06:19
 #region Attacks
 
 //Degrees are used, but they go in a clockwise direction, not the usual anticlockwise one !
@@ -22,7 +22,7 @@ function AttackGasterBlaster(wantedX, wantedY, angle, timeBeforeBlast, timeBefor
 		fadeOut: timeBeforeFadeOut
 	}
 	
-	_g = instance_create_layer(wantedX - cos(angle)*700, wantedY - sin(angle)*540, "Attacks", atk_gasterblaster);
+	_g = instance_create_layer(wantedX - cos(angle)*700, wantedY - sin(angle)*540, "BackgroundAttacks", atk_gasterblaster);
 	
 	_g.image_xscale = xscale;
 	_g.image_yscale = yscale;
@@ -52,7 +52,7 @@ function AttackGasterHand(wantedX, wantedY, angle, timeBeforeBlast, timeBeforeFa
 		fadeOut: timeBeforeFadeOut
 	}
 	
-	_g = instance_create_layer(wantedX - cos(angle)*700, wantedY - sin(angle)*540, "Attacks", atk_gasterhand);
+	_g = instance_create_layer(wantedX - cos(angle)*700, wantedY - sin(angle)*540, "BackgroundAttacks", atk_gasterhand);
 	
 	_g.image_yscale = size;
 	_g.color = color;
@@ -178,12 +178,16 @@ function AttackBonerepeat(x, y, height, boneTheta, spacing, amount, vel)
 #endregion
 #endregion
 #region Others
-function Slam(theta)
+/// @param {radians} theta
+/// @param {real} ?force
+function Slam(theta, force)
 {
+	force ??= 10;
+	
 	heart.changeColor(BLUE);
 	
 	heart.gravityDir = theta;
-	heart.velY = 10;
+	heart.velY = force;
 	heart.slam = true;
 }
 

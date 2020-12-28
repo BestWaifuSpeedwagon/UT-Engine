@@ -12,7 +12,7 @@ t = 0;
 
 function createMiss()
 {
-	ct_argument = { damage: damage, monster: monster };
+	ct_argument = { damage: -1, monster: monster };
 	instance_create_layer(mon.x, mon.y - mon.height/2, "Instances", obj_dmgnum);
 	
 	ct_argument = undefined;

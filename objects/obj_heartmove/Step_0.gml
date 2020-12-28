@@ -1,16 +1,12 @@
 /// @description Collision
-#region Attacks
-if(visible && (inv == 0 || obj_soul.karma))
+if(visible && (inv <= 0 || obj_soul.karma))
 {
-	var moved = (xprevious != x || yprevious != y);
-	
 	var _atkCount = instance_number(obj_attack);
 	for(i = 0; i < _atkCount; i++)
 	{
 		var _atk = instance_find(obj_attack, i);
 	
 		if(!_atk.collision) continue; //No need to check if collision is deactivated
-		if(color == AQUA && !moved || color == ORANGE && moved) continue; //No need to check if no damage would have happened
 		
 		if(_atk.boundingAmount > 1)
 		{
@@ -46,5 +42,3 @@ if(visible && (inv == 0 || obj_soul.karma))
 	}
 }
 else inv--;
-
-#endregion

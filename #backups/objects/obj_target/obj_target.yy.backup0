@@ -1,0 +1,92 @@
+// 2020-12-28 02:49:27
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+sprite_index = spr_target;
+uses_physics = false;
+
+#event create Set up variables
+x = Box.cx;
+y = Box.cy;
+
+barX = 32.5;
+moving = true;
+
+monster = ct_argument.monster;
+mon = obj_soul.monster[monster];
+
+t = 0;
+
+function createMiss()
+{
+	ct_argument = { damage: -1, monster: monster };
+	instance_create_layer(mon.x, mon.y - mon.height/2, "Instances", obj_dmgnum);
+	
+	ct_argument = undefined;
+}
+
+function createSlice(damage)
+{
+	ct_argument = { damage: damage, monster: monster };
+	instance_create_layer(mon.x, mon.y - mon.height, "Instances", obj_slice);
+	
+	ct_argument = undefined;
+}
+
+#event step Move bar and calculate damage
+if(keyboard_check_pressed(ord("Z")) && moving)
+{
+	moving = false;
+	
+	if(mon.dodge)
+	{
+		mon.dodging = -1;
+		createSlice(-1);
+	}
+	else
+	{
+		_dstFromCenter = abs(barX - 320);
+		var damage;
+	
+		if(_dstFromCenter <= 12) damage = round((obj_stat.atk - mon.def + random(2)) * 2.2);
+		else damage = round((obj_stat.atk - mon.def + random(2)) * (1 - _dstFromCenter/575) * 2);
+		
+		createSlice(damage);
+	}
+}
+
+t++;
+
+if(moving)
+{
+	barX += 7;
+	if(barX > Box.x2)
+	{
+		createMiss();
+		moving = false;
+	}
+}
+
+//Destroyed by obj_dmgnum
+
+#event draw Draw myself + target
+draw_self();
+
+var _h = (Box.h - 16)/2;
+
+if(moving)
+{
+	
+	draw_set_color(c_black);
+	draw_rectangle(barX-4, y - _h, barX+4, y + _h, false);
+	draw_set_color(c_white);
+	draw_rectangle(barX-2, y - _h+2, barX+2, y + _h-2, false);
+}
+else
+{
+	var _col = ( t % 30 < 15 ? c_white : c_black );
+	
+	draw_set_color(_col);
+	draw_rectangle(barX-4, y - _h, barX+4, y + _h, false);
+	draw_set_color(c_white - _col);
+	draw_rectangle(barX-2, y - _h+2, barX+2, y + _h-2, false);
+}

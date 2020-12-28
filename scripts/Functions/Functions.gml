@@ -1,146 +1,232 @@
-#region GMEdit Stuff
-#endregion
+/// @param {float} a
+/// @param {float} b
+/// @returns {float}
+function fmod(a, b)
+{
+	return frac(a/b)*b;
+}
+
 #region Geometry
-/// @param {real} x1
-/// @param {real} y1
-/// @param {real} x2
-/// @param {real} y2
-/// @returns {radians} Angle in radians
-function pointDirection(x1, y1, x2, y2)
-{
-	return arctan2(y2 - y1, x2 - x1);
-}
-
-/// @param {radians} src
-/// @param {radians} dest
-/// @returns {radians} Difference between the two
-function angleDifference(src, dest)
-{
-	var phi = abs(dest - src) % 360;       // This is either the distance or 360 - distance
-    var distance = phi > 180 ? 360 - phi : phi;
-    
-    var s = (src - dest >= 0 && src - dest <= 180) || (src - dest <= -180 && src - dest>= -360) ? 1 : -1;
-    
-    return distance*s;
-}
-
-/// @param {real}    px       Point X
-/// @param {real}    py       Point Y
-/// @param {real}    x1       Left side of rectangle
-/// @param {real}    y1       Top side of rectangle
-/// @param {real}    x2       Right side of rectangle
-/// @param {real}    y2       Bottom side of rectangle
-/// @param {real}    ox       Origin of the rectangle
-/// @param {real}    oy       Origin of the rectangle
-/// @param {radians} theta    Angle of rectanle (clockwise)
-/// @param {bool}    relative Wether the origin is relative to x1/y1
-/// @returns {bool} If the point is in the rectangle
-function pointInRectangleRotated(px, py, x1, y1, x2, y2, ox, oy, theta, relative)
-{
-	/* 
-		Checking if a point is inside a rotated rectangle is the same as
-		rotating both backwards, then checking if the point is inside the
-		normal rectangle.
-		We already have the normal rectangle, so we only rotate the point backwards
-	*/
-	
-	//Add the base coordonates if the origin is relative
-	var _ox = ox + (relative ? x1 : 0), 
-		_oy = oy + (relative ? y1 : 0);
-	
-	var p = new Point(px, py);
-	
-	p.rotate(_ox, _oy, -theta); //Rotate the point backwards
-	
-	return p.inside("rectangle", x1, y1, x2, y2); //Normal collision check
-}
-
-/// @param {Point}    pc      Center of circle
-/// @param {real}     radius  Radius of circle
-/// @param {Point}    p1      Top-left corner of rectangle
-/// @param {Point}    p2      Bottom-right corner of rectangle
-/// @param {Point}    po      Origin of rectangle
-/// @param {radians} theta    Angle of rectanle (clockwise)
-/// @param {bool}    relative If the origin is relative to p1
-/// @returns {bool}           If the circle and the rectangle intersects
-function circleIntersectsRectangleRotated(pc, radius, p1, p2, po, theta, relative)
-{
-	//Add the base coordonates if the origin is relative
-	var _ox = ox + (relative ? x1 : 0), 
-		_oy = oy + (relative ? y1 : 0);
-	
-	pc.rotate(_ox, _oy, -theta); //Make the circle relative to the non-rotated rectangle
-	
-	//Find most closest point
-	var _x = clamp(pc.x, p1.x, p2.x),
-		_y = clamp(pc.y, p1.y, p2.y);
-		
-	return sqr(pc.x-_x)+sqr(pc.y-_y) > sqr(radius);
-}
-
-function getRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative)
-{
-	// p1 o---------o p2
-	//	  |			|
-	//	  |		 	|
-	//	  |			|
-	// p3 o---------o p4
-	
-	//Add the base coordonates if the origin is relative
-	var _ox = ox + (relative ? x1 : 0), 
-		_oy = oy + (relative ? y1 : 0);
-	
-	var p1 = new Point(x1, y1),
-		p2 = new Point(x2, y1),
-		p3 = new Point(x1, y2),
-		p4 = new Point(x2, y2);
-		
-	p1.rotate(_ox, _oy, theta);
-	p2.rotate(_ox, _oy, theta);
-	p3.rotate(_ox, _oy, theta);
-	p4.rotate(_ox, _oy, theta);
-	
-	return {
-		p1: p1,
-		p2: p2,
-		p3: p3,
-		p4: p4
-	}
-}
-
-/// @param {real} x1
-/// @param {real} y1
-/// @param {real} x2
-/// @param {real} y2
-/// @param {real} ox
-/// @param {real} oy
-/// @param {radians} theta
-/// @param {boolean} relative
-/// @param {boolean | real} outline
-/// @returns {void}
-function drawRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative, outline)
-{
-	var points = getRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative);
-	
-	if(outline > 0)
+	#region Angles
+	/// @param {real} x1
+	/// @param {real} y1
+	/// @param {real} x2
+	/// @param {real} y2
+	/// @returns {radians} Angle in radians
+	function pointDirection(x1, y1, x2, y2)
 	{
-		draw_line_width(points.p1.x, points.p1.y, points.p2.x, points.p2.y, outline);
-		draw_line_width(points.p2.x, points.p2.y, points.p4.x, points.p4.y, outline);
-		draw_line_width(points.p4.x, points.p4.y, points.p3.x, points.p3.y, outline);
-		draw_line_width(points.p3.x, points.p3.y, points.p1.x, points.p1.y, outline);
+		return arctan2(y2 - y1, x2 - x1);
 	}
-	else
+	
+	/// @param {radians} src
+	/// @param {radians} dest
+	/// @returns {radians} Difference between the two
+	function angleDifference(src, dest)
 	{
-		draw_primitive_begin(pr_trianglestrip);
-		
-		draw_vertex(points.p1.x, points.p1.y);
-		draw_vertex(points.p2.x, points.p2.y);
-		draw_vertex(points.p3.x, points.p3.y);
-		draw_vertex(points.p4.x, points.p4.y);
-		
-		draw_primitive_end();
+		var phi = abs(dest - src) % 360;       // This is either the distance or 360 - distance
+	    var distance = phi > 180 ? 360 - phi : phi;
+	    
+	    var s = (src - dest >= 0 && src - dest <= 180) || (src - dest <= -180 && src - dest>= -360) ? 1 : -1;
+	    
+	    return distance*s;
 	}
-}
+	
+	/// @param {radians} theta
+	/// @return {radians}
+	function sanitizeAngle(theta)
+	{
+		return fmod( fmod( theta, pi*2 ) + pi*2, pi*2);
+		//((n mod 360) + 360) mod 360
+	}
+	#endregion
+	#region Lines/Rectangle
+	/// @param   {real} p1x Line 1
+	/// @param   {real} p1y Line 1
+	/// @param   {real} p2x Line 1
+	/// @param   {real} p2y Line 1
+	/// @param   {real} p3x Line 2
+	/// @param   {real} p3y Line 2
+	/// @param   {real} p4x Line 2
+	/// @param   {real} p4y Line 2
+	/// @returns {bool}
+	function line_intersects_line(p1x, p1y, p2x, p2y, p3x, p3y, p4x, p4y)
+	{
+		/*
+		get_line_intersection(float p0_x, float p0_y, float p1_x, float p1_y, 
+	    					  float p2_x, float p2_y, float p3_x, float p3_y, float *i_x, float *i_y)
+		{
+		    float s1_x, s1_y, s2_x, s2_y;
+		    s1_x = p1_x - p0_x;     s1_y = p1_y - p0_y;
+		    s2_x = p3_x - p2_x;     s2_y = p3_y - p2_y;
+		
+		    float s, t;
+		    s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y);
+		    t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y);
+		
+		    if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
+		    {
+		        // Collision detected
+		        if (i_x != NULL)
+		            *i_x = p0_x + (t * s1_x);
+		        if (i_y != NULL)
+		            *i_y = p0_y + (t * s1_y);
+		        return 1;
+		    }
+		
+		    return 0; // No collision
+		}
+		*/
+		
+		var s1x, s1y, s2x, s2y;
+		s1x = p2x - p1x;
+		s1y = p2y - p1y;
+		s2x = p4x - p3x;
+		s2y = p4y - p3y;
+		
+		var s, t;
+		s = (-s1y * (p1x - p3x) + s1x * (p1y - p3y)) / (-s2x * s1y + s1x * s2y);
+		t = (s2x * (p1y - p3y) - s2y * (p1x - p3x)) / (-s2x * s1y + s1x * s2y);
+		
+		return (s >= 0 && s <= 1 && t >= 0 && t <= 1);
+	}
+	
+	/// @param   {real} p1x Line
+	/// @param   {real} p1y Line
+	/// @param   {real} p2x Line
+	/// @param   {real} p2y Line
+	/// @param   {real} x1  Corners
+	/// @param   {real} y1  Corners
+	/// @param   {real} x2  Corners
+	/// @param   {real} y2  Corners
+	/// @returns {bool}
+	function line_intersects_rectangle(p1x, p1y, p2x, p2y, x1, y1, x2, y2)
+	{
+		return line_intersects_line(p1x, p1y, p2x, p2y, x1, y1, x2, y1) ||
+			   line_intersects_line(p1x, p1y, p2x, p2y, x2, y1, x2, y2) ||
+			   line_intersects_line(p1x, p1y, p2x, p2y, x2, y2, x1, y2) ||
+			   line_intersects_line(p1x, p1y, p2x, p2y, x1, y2, x1, y1);
+	}
+	
+	#endregion
+	#region Rotated Rectangle
+	/// @param {real}    px       Point X
+	/// @param {real}    py       Point Y
+	/// @param {real}    x1       Left side of rectangle
+	/// @param {real}    y1       Top side of rectangle
+	/// @param {real}    x2       Right side of rectangle
+	/// @param {real}    y2       Bottom side of rectangle
+	/// @param {real}    ox       Origin of the rectangle
+	/// @param {real}    oy       Origin of the rectangle
+	/// @param {radians} theta    Angle of rectanle (clockwise)
+	/// @param {bool}    relative Wether the origin is relative to x1/y1
+	/// @returns {bool} If the point is in the rectangle
+	function pointInRectangleRotated(px, py, x1, y1, x2, y2, ox, oy, theta, relative)
+	{
+		/* 
+			Checking if a point is inside a rotated rectangle is the same as
+			rotating both backwards, then checking if the point is inside the
+			normal rectangle.
+			We already have the normal rectangle, so we only rotate the point backwards
+		*/
+		
+		//Add the base coordonates if the origin is relative
+		var _ox = ox + (relative ? x1 : 0), 
+			_oy = oy + (relative ? y1 : 0);
+		
+		var p = new Point(px, py);
+		
+		p.rotate(_ox, _oy, -theta); //Rotate the point backwards
+		
+		return p.inside("rectangle", x1, y1, x2, y2); //Normal collision check
+	}
+	
+	/// @param {Point}    pc      Center of circle
+	/// @param {real}     radius  Radius of circle
+	/// @param {Point}    p1      Top-left corner of rectangle
+	/// @param {Point}    p2      Bottom-right corner of rectangle
+	/// @param {Point}    po      Origin of rectangle
+	/// @param {radians} theta    Angle of rectanle (clockwise)
+	/// @param {bool}    relative If the origin is relative to p1
+	/// @returns {bool}           If the circle and the rectangle intersects
+	function circleIntersectsRectangleRotated(pc, radius, p1, p2, po, theta, relative)
+	{
+		//Add the base coordonates if the origin is relative
+		var _ox = po.x + (relative ? p1.y : 0), 
+			_oy = po.y + (relative ? p1.x : 0);
+		
+		pc.rotate(_ox, _oy, -theta); //Make the circle relative to the non-rotated rectangle
+		
+		//Find most closest point
+		var _x = clamp(pc.x, p1.x, p2.x),
+			_y = clamp(pc.y, p1.y, p2.y);
+			
+		return sqr(pc.x-_x)+sqr(pc.y-_y) > sqr(radius);
+	}
+	
+	function getRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative)
+	{
+		// p1 o---------o p2
+		//	  |			|
+		//	  |		 	|
+		//	  |			|
+		// p3 o---------o p4
+		
+		//Add the base coordonates if the origin is relative
+		var _ox = ox + (relative ? x1 : 0), 
+			_oy = oy + (relative ? y1 : 0);
+		
+		var p1 = new Point(x1, y1),
+			p2 = new Point(x2, y1),
+			p3 = new Point(x1, y2),
+			p4 = new Point(x2, y2);
+			
+		p1.rotate(_ox, _oy, theta);
+		p2.rotate(_ox, _oy, theta);
+		p3.rotate(_ox, _oy, theta);
+		p4.rotate(_ox, _oy, theta);
+		
+		return {
+			p1: p1,
+			p2: p2,
+			p3: p3,
+			p4: p4
+		}
+	}
+	
+	/// @param {real} x1
+	/// @param {real} y1
+	/// @param {real} x2
+	/// @param {real} y2
+	/// @param {real} ox
+	/// @param {real} oy
+	/// @param {radians} theta
+	/// @param {boolean} relative
+	/// @param {boolean | real} outline
+	/// @returns {void}
+	function drawRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative, outline)
+	{
+		var points = getRectangleRotated(x1, y1, x2, y2, ox, oy, theta, relative);
+		
+		if(outline > 0)
+		{
+			draw_line_width(points.p1.x, points.p1.y, points.p2.x, points.p2.y, outline);
+			draw_line_width(points.p2.x, points.p2.y, points.p4.x, points.p4.y, outline);
+			draw_line_width(points.p4.x, points.p4.y, points.p3.x, points.p3.y, outline);
+			draw_line_width(points.p3.x, points.p3.y, points.p1.x, points.p1.y, outline);
+		}
+		else
+		{
+			draw_primitive_begin(pr_trianglestrip);
+			
+			draw_vertex(points.p1.x, points.p1.y);
+			draw_vertex(points.p2.x, points.p2.y);
+			draw_vertex(points.p3.x, points.p3.y);
+			draw_vertex(points.p4.x, points.p4.y);
+			
+			draw_primitive_end();
+		}
+	}
+	#endregion
 #endregion
 #region Camera
 function screenShake(_power)
