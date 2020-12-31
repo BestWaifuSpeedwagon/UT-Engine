@@ -1,4 +1,4 @@
-// 2020-12-27 22:58:38
+// 2020-12-27 22:59:05
 /// @param {float} a
 /// @param {float} b
 /// @returns {float}
@@ -50,7 +50,7 @@ function fmod(a, b)
 	/// @param   {real} p4x Line 2
 	/// @param   {real} p4y Line 2
 	/// @returns {bool}
-	function line_in_line(p1x, p1y, p2x, p2y, p3x, p3y, p4x, p4y)
+	function line_intersects_line(p1x, p1y, p2x, p2y, p3x, p3y, p4x, p4y)
 	{
 		/*
 		get_line_intersection(float p0_x, float p0_y, float p1_x, float p1_y, 
@@ -100,12 +100,12 @@ function fmod(a, b)
 	/// @param   {real} x2  Corners
 	/// @param   {real} y2  Corners
 	/// @returns {bool}
-	function line_in_rectangle(p1x, p1y, p2x, p2y, x1, y1, x2, y2)
+	function line_intersects_rectangle(p1x, p1y, p2x, p2y, x1, y1, x2, y2)
 	{
-		return line_in_line(p1x, p1y, p2x, p2y, x1, y1, x2, y1) ||
-			   line_in_line(p1x, p1y, p2x, p2y, x2, y1, x2, y2) ||
-			   line_in_line(p1x, p1y, p2x, p2y, x2, y2, x1, y2) ||
-			   line_in_line(p1x, p1y, p2x, p2y, x1, y2, x1, y1);
+		return line_intersects_line(p1x, p1y, p2x, p2y, x1, y1, x2, y1) ||
+			   line_intersects_line(p1x, p1y, p2x, p2y, x2, y1, x2, y2) ||
+			   line_intersects_line(p1x, p1y, p2x, p2y, x2, y2, x1, y2) ||
+			   line_intersects_line(p1x, p1y, p2x, p2y, x1, y2, x1, y1);
 	}
 	
 	#endregion

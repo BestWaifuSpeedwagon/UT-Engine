@@ -1,4 +1,4 @@
-// 2020-12-21 22:36:33
+// 2020-12-21 22:39:35
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -85,7 +85,7 @@ else if(time > -30)
 	boneArea.x = lerp(boneArea.x, _x - cos( dir/4 * pi * 2 )*_w, 0.2);
 	boneArea.y = lerp(boneArea.y, _y - sin( dir/4 * pi * 2 )*_h, 0.2);
 }
-else if(time > -destroy)
+else if(time > -destroy-30)
 {
 	boneArea.x = lerp(boneArea.x, _x, 0.2);
 	boneArea.y = lerp(boneArea.y, _y, 0.2);
@@ -93,7 +93,7 @@ else if(time > -destroy)
 	time--;
 }
 
-if(time < -destroy)
+if(time < -destroy-30)
 {
 	instance_destroy(boneArea);
 	instance_destroy();

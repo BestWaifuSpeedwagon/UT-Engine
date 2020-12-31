@@ -275,3 +275,8 @@ draw_clear_alpha(c_black, 0);
 surface_reset_target();
 
 #endregion
+
+if(mouse_check_button_pressed(mb_left))
+{
+	attack_sans_gaster_blaster(mouse_x, mouse_y, -point_direction(mouse_x, mouse_y, 320, 240), 60, 30, 1, 1);
+}

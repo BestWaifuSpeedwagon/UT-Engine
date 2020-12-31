@@ -1,10 +1,10 @@
-// 2020-12-20 17:35:44
+// 2020-12-31 12:47:01
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
 
 #event create
-Box.resize(100, 100, 0);
+Box.resize(100, 100);
 
 mon_gaster.hand1.go(Box.fx1 - 50, Box.fy1-30, 30, 2);
 mon_gaster.hand2.go(Box.fx2 + 50, Box.fy1-30, 30, 2);
@@ -13,6 +13,9 @@ timer = array_create(3);
 creating = false;
 
 #event step
+#import attack_sans_* as s
+#import attack_gaster_*
+
 switch(mon_gaster.hand1.state)
 {
     case 0:
@@ -24,7 +27,10 @@ switch(mon_gaster.hand1.state)
         mon_gaster.hand2.go(Box.fx2 + 50, Box.fy2+10, 180, 3);
         break;
     case 3:
-        creating = false;
+        mon_gaster.hand1.go(50, Box.fy1, 180, 4);
+        mon_gaster.hand2.go(590, Box.fy1, 180, 4);
+        break;
+    case 4:
         mon_gaster.resetHandPos();
         break;
 }

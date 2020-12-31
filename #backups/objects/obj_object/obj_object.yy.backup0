@@ -1,0 +1,7 @@
+// 2020-12-30 22:03:36
+#event properties
+parent_index = -1;
+uses_physics = false;
+
+#event step_end Determines all overworld objects depth
+// depth =  layer_get_depth() - y;

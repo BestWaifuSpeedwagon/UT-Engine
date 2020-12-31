@@ -1,4 +1,4 @@
-// 2020-12-28 02:45:35
+// 2020-12-31 13:55:54
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -20,6 +20,7 @@ view_visible = true;
 view_camera = camera_create_view(0, 0, width, height);
 
 application_surface_draw_enable(false);
+surface_resize(application_surface, width*2, height*2);
 
 window_set_size(width*2, height*2);
 window_set_position(display_get_width()/2 - width, display_get_height()/2 - height);
@@ -110,7 +111,7 @@ if(keyboard_check_pressed(vk_f4))
 
 if(keyboard_check_pressed(ord("U")))
 {
-	startBattle([ mon_gaster ], false, mus_gasterMegalovania);
+	startBattle([ mon_sans ], true, mus_megalovania, atkp_sansIntro);
 }
 
 #event other_room_start Insérez la description ici
@@ -126,9 +127,6 @@ else
 	camera_set_view_size(view_camera, width, height);
 }
 
-#event draw_end Draw application surface
-
-///TODO: 
 
 #event draw_gui_begin Set target for gui surface
 draw_surface(application_surface, random_range(-shake, shake), random_range(-shake, shake));
@@ -139,6 +137,6 @@ draw_clear_alpha(c_white, 0);
 #event draw_gui_end Draw gui surface and reset target
 surface_reset_target();
 
-draw_surface(guiSurf, random_range(-shake, shake), random_range(-shake, shake));
+draw_surface_stretched(guiSurf, random_range(-shake, shake), random_range(-shake, shake), 640, 480);
 
 if(flick > 0) draw_clear(c_black);

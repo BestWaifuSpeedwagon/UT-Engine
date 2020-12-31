@@ -14,6 +14,7 @@ view_visible = true;
 view_camera = camera_create_view(0, 0, width, height);
 
 application_surface_draw_enable(false);
+surface_resize(application_surface, width*2, height*2);
 
 window_set_size(width*2, height*2);
 window_set_position(display_get_width()/2 - width, display_get_height()/2 - height);

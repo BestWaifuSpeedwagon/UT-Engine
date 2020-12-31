@@ -27,5 +27,5 @@ if(keyboard_check_pressed(vk_f4))
 
 if(keyboard_check_pressed(ord("U")))
 {
-	startBattle([ mon_gaster ], false, mus_gasterMegalovania);
+	startBattle([ mon_sans ], true, mus_megalovania, atkp_sansIntro);
 }

@@ -1,0 +1,110 @@
+// 2020-12-30 23:23:04
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+persistent = true;
+uses_physics = false;
+
+#event create Start values
+timer = 0;
+
+monster = ct_argument.monster;
+karma = ct_argument.karma;
+music = ct_argument.music;
+originalRoom = ct_argument.originalRoom;
+startAttack = ct_argument.startAttack;
+
+if(instance_exists(obj_player))
+{
+	sx = obj_player.x + 12;
+	sy = obj_player.y;
+	
+	obj_player.hold = true;
+}
+else
+{
+	sx = 160;
+	sy = 120;
+}
+
+x = sx;
+y = sy;
+
+audio_play_sound(snd_b, 1, false);
+
+#event step Timer thingy
+switch(timer)
+{
+	case 60:
+		room = rm_battle;
+		//Voluntarely no break
+	case 70:
+	case 80:
+		audio_play_sound(snd_noise, 1, false);
+		break;
+	case 100:
+		audio_play_sound(snd_battlefall, 3, false);
+		break;
+	case 140:
+		var _l = array_length(monster);
+		var _monsterInstances = [];
+		for(i = 0; i < _l; i++)
+		{
+			_monsterInstances[i] = instance_create_depth((i+1)/(_l+1) * 640, 60, 10, monster[i]);
+		}
+		
+		ct_argument = 
+		{
+			karma: karma,
+			monster: _monsterInstances,
+			originalRoom: originalRoom
+		}
+		
+		instance_create_depth(0, 0, 0, obj_soul);
+		
+		ct_argument = undefined;
+		
+		if(startAttack == NULL) audio_play_sound(music, 3, true);
+		else
+		{
+			obj_heartmove.visible = true;
+			obj_heartmove.x = Box.cx;
+			obj_heartmove.y = Box.cy;
+			
+			obj_soul.inBattle = true;
+			obj_soul.currentAttack = instance_create_depth(0, 0, 0, startAttack);
+		}
+		
+		instance_destroy();
+		instance_destroy();
+		instance_destroy();
+		break;
+}
+
+timer++;
+
+if(timer >= 100 && timer < 135)
+{
+	x = lerp(sx, 33+16, (timer-100)/35);
+	y = lerp(sy, 453, (timer-100)/35);
+}
+
+
+#event draw Draw things
+if(timer < 60)
+{
+	draw_sprite(spr_exc, 0, x, y);
+}
+else if(timer <= 80)
+{
+	if(timer % 10 > 2) draw_sprite_ext(spr_heart, 0, x, y, 1, 1, 0, c_red, 1);
+}
+else
+{
+	draw_sprite_ext(spr_heart, 0, x, y, 1, 1, 0, c_red, 1);
+}
+
+if(debug_mode)
+{
+	draw_set_color(c_yellow);
+	draw_circle(sx, sy, 5, false);
+}

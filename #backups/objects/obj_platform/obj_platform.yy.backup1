@@ -1,0 +1,38 @@
+// 2020-12-16 19:33:34
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+uses_physics = false;
+
+#event create Create
+velX = 0;
+velY = 0;
+
+size = 50; //Built in size
+
+#event step Move, and take the heart with you
+x += velX;
+
+if(obj_heartmove.x+8 > x && obj_heartmove.x-8 < x+size) //In range
+{
+	if(obj_heartmove.y+15 <= y && obj_heartmove.y+17+obj_heartmove.velY >= y) //Intersection
+	{
+		obj_heartmove.y = y-16;
+		obj_heartmove.velY = 0;
+		obj_heartmove.x += velX;
+		
+		obj_heartmove.onGround = true;
+	}
+}
+
+#event draw Draw myself
+shader_set(shd_insideOutside);
+shader_set_uniform_i(u_u.insideOutside_inside, true);
+shader_set_uniform_f(u_u.insideOutside_box, Box.x, Box.y, Box.x2, Box.y2);
+
+draw_set_color(c_white);
+draw_rectangle(x, y+3, x + size, y+8, true);
+
+draw_set_color(c_green);
+draw_rectangle(x, y, x + size, y+5, true);
+
+shader_reset();

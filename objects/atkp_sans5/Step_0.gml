@@ -1,4 +1,5 @@
 /// @description Spawn attacks
+//!#import attack.sans.*
 switch(timer)
 {
 	case 30:
@@ -16,7 +17,7 @@ switch(timer)
 		break;
 	case 40:
 		audio_play_sound(snd_bell, 3, false);
-		AttackGasterBlaster(Box.x + 70, Box.y - 40, 90, 60, 30, 1, 1);
+		attack_sans_gaster_blaster(Box.x + 70, Box.y - 40, 90, 60, 30, 1, 1);
 		break;
 	case 80:
 		Box.setOrigin(0, 0.5);
@@ -32,22 +33,21 @@ switch(timer)
 		
 		for(i = 0; i < 6; i++)
 		{
-			AttackBonerepeat(Box.fx2 - 300*(i+1)/7, Box.fy-70 - i*10 + sin(i*2)*20, 40, 0, 40, 8 - floor(i/2), 0, 2);
+			attack_sans_bonerepeat(Box.fx2 - 300*(i+1)/7, Box.fy-70 - i*10 + sin(i*2)*20, 40, 0, 40, 8 - floor(i/2), 0, 2);
 		}
 		break;
 	case 260:
-		AttackGasterBlaster(Box.fx2, Box.fy-40, 90, 90, 60, 1, 1);
+		attack_sans_gaster_blaster(Box.fx2, Box.fy-40, 90, 90, 60, 1, 1);
 		break;
 	case 290:
-		AttackGasterBlaster(Box.fx2 - 84, Box.fy-40, 90, 90, 60, 1, 1);
+		attack_sans_gaster_blaster(Box.fx2 - 84, Box.fy-40, 90, 90, 60, 1, 1);
 		break;
 	case 320:
-		AttackGasterBlaster(Box.fx2 - 168, Box.fy-40, 90, 90, 60, 1, 1);
+		attack_sans_gaster_blaster(Box.fx2 - 168, Box.fy-40, 90, 90, 60, 1, 1);
 		break;
 	case 350:
-		AttackGasterBlaster(Box.fx2 - 252, Box.fy-40, 90, 90, 60, 1, 1);
+		attack_sans_gaster_blaster(Box.fx2 - 252, Box.fy-40, 90, 90, 60, 1, 1);
 		break;
 }
-///TODO: How about
 
 timer++;

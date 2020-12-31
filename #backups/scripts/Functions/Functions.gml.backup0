@@ -1,4 +1,4 @@
-// 2020-12-27 22:59:05
+// 2020-12-30 21:44:47
 /// @param {float} a
 /// @param {float} b
 /// @returns {float}
@@ -269,8 +269,6 @@ function startBattle(monster, karma, music, startAttack)
 		originalRoom: room,
 		startAttack: startAttack
 	};
-	
-	room = rm_battle;
 	
 	instance_create_depth(0, 0, 0, obj_battlestart);
 	

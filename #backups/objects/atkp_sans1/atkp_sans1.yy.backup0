@@ -1,0 +1,29 @@
+// 2020-12-31 12:41:49
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+uses_physics = false;
+
+#event create Timer
+Box.fw = 375;
+
+obj_heartmove.changeColor(BLUE);
+
+timer = 30;
+num = 0;
+
+#event step
+#import attack.sans.*
+
+if(timer > 0) timer--;
+else if(timer == 0)
+{
+	s.bonegap(Box.x-10, Box.y2, Box.h, pi, 20, 14, 3, 0);
+	s.bonegap(Box.x2+10, Box.y2, Box.h, pi, 20, 14, -3, 0);
+	
+	timer = 40;
+	
+	num++;
+	if(num >= 8) timer = -121;
+}
+else if(timer == -1) instance_destroy();
+else timer++;

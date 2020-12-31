@@ -1,0 +1,6 @@
+// 2020-12-30 21:31:25
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+uses_physics = false;
+sprite_index = spr_solid;
+visible = false;

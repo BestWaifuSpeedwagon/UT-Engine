@@ -1,0 +1,12 @@
+// 2020-12-30 23:18:27
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+sprite_index = spr_solid;
+visible = false;
+uses_physics = false;
+
+#event create
+if(debug_mode)
+{
+    visible = true;
+}

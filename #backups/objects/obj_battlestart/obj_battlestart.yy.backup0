@@ -1,4 +1,4 @@
-// 2020-12-20 17:18:52
+// 2020-12-30 23:25:41
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -13,16 +13,10 @@ music = ct_argument.music;
 originalRoom = ct_argument.originalRoom;
 startAttack = ct_argument.startAttack;
 
-if(instance_exists(obj_player))
-{
-	sx = obj_player.x;
-	sy = obj_player.y;
-}
-else
-{
-	sx = 160;
-	sy = 120;
-}
+sx = obj_player.x + 12;
+sy = obj_player.y;
+
+obj_player.hold = true;
 
 x = sx;
 y = sy;
@@ -33,6 +27,8 @@ audio_play_sound(snd_b, 1, false);
 switch(timer)
 {
 	case 60:
+		room = rm_battle;
+		//Voluntarely no break
 	case 70:
 	case 80:
 		audio_play_sound(snd_noise, 1, false);
@@ -71,6 +67,8 @@ switch(timer)
 		}
 		
 		instance_destroy();
+		instance_destroy();
+		instance_destroy();
 		break;
 }
 
@@ -82,10 +80,11 @@ if(timer >= 100 && timer < 135)
 	y = lerp(sy, 453, (timer-100)/35);
 }
 
+
 #event draw Draw things
-if(timer < room_speed)
+if(timer < 60)
 {
-	draw_sprite(spr_exc, 0, x, y-5);
+	draw_sprite(spr_exc, 0, x, y);
 }
 else if(timer <= 80)
 {
@@ -94,4 +93,10 @@ else if(timer <= 80)
 else
 {
 	draw_sprite_ext(spr_heart, 0, x, y, 1, 1, 0, c_red, 1);
+}
+
+if(debug_mode)
+{
+	draw_set_color(c_yellow);
+	draw_circle(sx, sy, 5, false);
 }

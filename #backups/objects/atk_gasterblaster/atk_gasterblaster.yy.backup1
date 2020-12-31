@@ -1,4 +1,4 @@
-// 2020-12-27 19:09:55
+// 2020-12-31 13:12:51
 #event properties (no comments/etc. here are saved)
 parent_index = obj_attack;
 sprite_index = spr_gasterblaster_charge;
@@ -58,7 +58,7 @@ else if(timer == 0)
 {
 	audio_play_sound(snd_gaster_blast, 0, false);
 	
-	screenShake(max(image_xscale*image_yscale, 5));
+	screenShake(10);
 	
 	collision = true;
 	
@@ -69,7 +69,8 @@ else if(timer == 0)
 }
 else if(timer > -fadeOut)
 {
-	size = min(size+.2, 1);
+	size = min(size+.0625, 1);
+	
 	timer--;
 }
 else
@@ -106,15 +107,20 @@ t += 1/room_speed;
 #event draw Draw myself (not affected by shaders)
 if(size > 0)
 {
-	var oscillation = (sin(t*pi*8)+1)/2 * 0.25 + 1; //0.25 second
+	var oscillation = 1;
+	
+	if(timer < -16) oscillation = (sin(t*pi*8)+1)/2 * 0.2 + .9; //Between .9 and 1.1
 	
 	var __cos = cos(wantedDir),
 		__sin = sin(wantedDir);
 	
-	var blastX = x + __cos*39*image_xscale,
-		blastY = y + __sin*39*image_xscale;
+	var blastX = x + __cos*30*image_xscale,
+		blastY = y + __sin*30*image_xscale;
 	
 	draw_sprite_ext(spr_gasterblaster_blast, 0, blastX, blastY, image_xscale, size*image_yscale, image_angle, color, alpha);
+	
+	blastX += __cos*20*image_xscale;
+	blastY += __sin*20*image_xscale;
 	
 	draw_set_alpha(alpha);
 	draw_set_color(color);

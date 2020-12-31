@@ -1,4 +1,5 @@
-///@description Get those bones
+//!#import attack_sans.*
+
 if(currentSpeech != NULL)
 {
 	if(currentSpeech.dialogue.update())
@@ -36,14 +37,14 @@ else
 			audio_play_sound(snd_gaster_blaster, 3, false);
 			break;
 		case 20:
-			Slam(pi/2);
+			attack_sans_slam(pi/2, 20);
 			break;
 		case 50:
 			mon_sans.changeSprite("head", spr_sansb_face, 5);
 			mon_sans.changeSprite("body", spr_sansb_handup, 0);
 			mon_sans.bodySprite = spr_sansb_handup;
 			
-			AttackBonestab(1, 54, 10);
+			attack_sans_bonestab(1, 54, 10);
 			break;
 		case 92:
 			mon_sans.changeSprite("body", spr_sansb_handright, 0);
@@ -56,30 +57,31 @@ else
 		case 140:
 			for(i = 0; i < 20; i++)
 			{
-				AttackBonegap(Box.x - i*24, Box.y, Box.h, 0, sin(i/3)*20 + 40, 40, 6, 0);
+				attack_sans_bonegap(Box.x - i*24, Box.y, Box.h, 0, sin(i/3)*20 + 40, 40, 6, 0);
 			}
 			break;
 		case 206:
-			AttackGasterBlaster(Box.x-60 ,Box.y    ,0  , 51, 50, 1, 1);
-			AttackGasterBlaster(Box.x    ,Box.y-60 ,90 , 51, 50, 1, 1);
-			AttackGasterBlaster(Box.x2+60,Box.y2   ,180, 51, 50, 1, 1);
-			AttackGasterBlaster(Box.x2   ,Box.y2+60,270, 51, 50, 1, 1);
+			attack_sans_gaster_blaster(Box.x-60 ,Box.y    ,0  , 51, 50, 1, 1);
+			attack_sans_gaster_blaster(Box.x    ,Box.y-60 ,90 , 51, 50, 1, 1);
+			attack_sans_gaster_blaster(Box.x2+60,Box.y2   ,180, 51, 50, 1, 1);
+			attack_sans_gaster_blaster(Box.x2   ,Box.y2+60,270, 51, 50, 1, 1);
 			break;
 		case 260:
-			AttackGasterBlaster(Box.x-30 , Box.y-30 , 45 , 51, 50, 1, 1);
-			AttackGasterBlaster(Box.x2+30, Box.y-30 , 135, 51, 50, 1, 1);
-			AttackGasterBlaster(Box.x2+30, Box.y2+30, 225, 51, 50, 1, 1);
-			AttackGasterBlaster(Box.x-30 , Box.y2+30, 315, 51, 50, 1, 1);
+			attack_sans_gaster_blaster(Box.x-30 , Box.y-30 , 45 , 51, 50, 1, 1);
+			attack_sans_gaster_blaster(Box.x2+30, Box.y-30 , 135, 51, 50, 1, 1);
+			attack_sans_gaster_blaster(Box.x2+30, Box.y2+30, 225, 51, 50, 1, 1);
+			attack_sans_gaster_blaster(Box.x-30 , Box.y2+30, 315, 51, 50, 1, 1);
 			break;
 		case 314:
-			AttackGasterBlaster(Box.x-60 ,Box.y    ,0  , 51, 50, 1, 1);
-			AttackGasterBlaster(Box.x    ,Box.y-60 ,90 , 51, 50, 1, 1);
-			AttackGasterBlaster(Box.x2+60,Box.y2   ,180, 51, 50, 1, 1);
-			AttackGasterBlaster(Box.x2   ,Box.y2+60,270, 51, 50, 1, 1);
+			attack_sans_gaster_blaster(Box.x-60 ,Box.y    ,0  , 51, 50, 1, 1);
+			attack_sans_gaster_blaster(Box.x    ,Box.y-60 ,90 , 51, 50, 1, 1);
+			attack_sans_gaster_blaster(Box.x2+60,Box.y2   ,180, 51, 50, 1, 1);
+			attack_sans_gaster_blaster(Box.x2   ,Box.y2+60,270, 51, 50, 1, 1);
 			break;
 		case 356:
-			AttackGasterBlaster(Box.x-50  ,Box.cy ,0  , 70, 180, 2, 2);
-			AttackGasterBlaster(Box.x2+50 ,Box.cy ,180, 70, 180, 2, 2);
+			attack_sans_gaster_blaster(Box.x-50  ,Box.cy ,0  , 70, 180, 2, 2);
+			attack_sans_gaster_blaster(Box.x2+50 ,Box.cy ,180, 70, 180, 2, 2);
+			break;
 		case 600:
 			mon_sans.changeSprite("head", spr_sansb_face, 0);
 			currentSpeech = new Speech(

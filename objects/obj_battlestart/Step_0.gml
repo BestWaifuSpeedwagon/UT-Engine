@@ -2,6 +2,8 @@
 switch(timer)
 {
 	case 60:
+		room = rm_battle;
+		//Voluntarely no break
 	case 70:
 	case 80:
 		audio_play_sound(snd_noise, 1, false);
@@ -39,6 +41,8 @@ switch(timer)
 			obj_soul.currentAttack = instance_create_depth(0, 0, 0, startAttack);
 		}
 		
+		instance_destroy();
+		instance_destroy();
 		instance_destroy();
 		break;
 }

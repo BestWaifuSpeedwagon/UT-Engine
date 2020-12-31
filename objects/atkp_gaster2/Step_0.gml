@@ -1,4 +1,6 @@
 //!#import audio.*
+//!#import attack_sans_* as s
+//!#import attack_gaster_*
 
 switch(timer)
 {
@@ -20,7 +22,7 @@ switch(timer)
         
         Slam(pi);
         
-        AttackGasterBlaster(Box.fx1 + 15, Box.fy1 - 80, 90, 45, 30, 1, .5);
+        attack_sans_gaster_blaster(Box.fx1 + 15, Box.fy1 - 80, 90, 45, 30, 1, .5);
         break;
     case 87:
         mon_gaster.sans.changeSprite("body", spr_sansb_handdown, 0);
@@ -43,7 +45,7 @@ switch(timer)
         {
             var _diff = (sin(i/4 + 1)+1)/2 * (Box.fw-50);
             
-            array_push(attacks, AttackBonegap(Box.fx1, Box.fy1 - i*18, Box.fw, pi/2*3, _diff, 30, 0, 5));
+            array_push(attacks, attack_sans_bonegap(Box.fx1, Box.fy1 - i*18, Box.fw, pi/2*3, _diff, 30, 0, 5));
         }
         break;
     case 250:
@@ -62,7 +64,7 @@ switch(timer)
 
         for(i = 0; i < 12; i++)
         {
-            var b = AttackBone(Box.fx1 - 30 - i*50, Box.fy1, Box.fh, 0, 3, 0);
+            var b = attack_sans_bone(Box.fx1 - 30 - i*50, Box.fy1, Box.fh, 0, 3, 0);
             b.color = random(1) < .25 ? AQUA : ORANGE;
         }
         break;
@@ -72,7 +74,7 @@ switch(timer)
     case 350:
         var _x = (timer-350)/30 * 64 + 32;
         
-        AttackGasterBlaster(480 - _x, Box.fy1 - 100, 90, 60, 30, 1, 1);
+        attack_sans_gaster_blaster(480 - _x, Box.fy1 - 100, 90, 60, 30, 1, 1);
         break;
     case 540:
         audio_play_sound(snd_spearrise, 3, false);
@@ -103,28 +105,28 @@ switch(timer)
 	    heart.slam = true;
         break;
     case 930:
-        array_push(attacks, AttackGasterBlaster(320-120, 240, 0, 1000, 1, 1, 1));
+        array_push(attacks, attack_sans_gaster_blaster(320-120, 240, 0, 1000, 1, 1, 1));
         break;
     case 940:
-        array_push(attacks, AttackGasterBlaster(320 - cos(pi/4)*120, 240 - sin(pi/4)*120, 45, 1000, 1, 1, 1));
+        array_push(attacks, attack_sans_gaster_blaster(320 - cos(pi/4)*120, 240 - sin(pi/4)*120, 45, 1000, 1, 1, 1));
         break;
     case 950:
-        array_push(attacks, AttackGasterBlaster(320, 240-120, 90, 1000, 1, 1, 1));
+        array_push(attacks, attack_sans_gaster_blaster(320, 240-120, 90, 1000, 1, 1, 1));
         break;
     case 960:
-        array_push(attacks, AttackGasterBlaster(320 + cos(pi/4)*120, 240 - sin(pi/4)*120, 135, 1000, 1, 1, 1));
+        array_push(attacks, attack_sans_gaster_blaster(320 + cos(pi/4)*120, 240 - sin(pi/4)*120, 135, 1000, 1, 1, 1));
         break;
     case 970:
-        array_push(attacks, AttackGasterBlaster(320 + 120, 240, 180, 1000, 1, 1, 1));
+        array_push(attacks, attack_sans_gaster_blaster(320 + 120, 240, 180, 1000, 1, 1, 1));
         break;
     case 980:
-        array_push(attacks, AttackGasterBlaster(320 + cos(pi/4)*120, 240 + sin(pi/4)*120, 225, 1000, 1, 1, 1));
+        array_push(attacks, attack_sans_gaster_blaster(320 + cos(pi/4)*120, 240 + sin(pi/4)*120, 225, 1000, 1, 1, 1));
         break;
     case 990:
-        array_push(attacks, AttackGasterBlaster(320, 240 + 120, 270, 1000, 1, 1, 1));
+        array_push(attacks, attack_sans_gaster_blaster(320, 240 + 120, 270, 1000, 1, 1, 1));
         break;
     case 1000:
-        array_push(attacks, AttackGasterBlaster(320 - cos(pi/4)*120, 240 + sin(pi/4)*120, 315, 1000, 1, 1, 1));
+        array_push(attacks, attack_sans_gaster_blaster(320 - cos(pi/4)*120, 240 + sin(pi/4)*120, 315, 1000, 1, 1, 1));
         break;
     case 1060:
         flicker(10);
@@ -140,7 +142,7 @@ switch(timer)
         mon_gaster.sans.changeSprite("body", spr_sansb_handdown, 0);
         
         Slam(pi/2);
-        AttackBonestab(1, 40, 30, 25);
+        attack_sans_bonestab(1, 40, 30, 25);
         break;
     // case 770:
     //     stop_sound(mus_megalovania);
@@ -173,21 +175,16 @@ if(timer >= 560 && timer <= 660)
 	        
         var __dir = -point_direction(__p.x, __p.y, heart.x, heart.y);
         
-        AttackGasterBlaster(__p.x, __p.y, __dir, 60, 30, .5, .5);
+        attack_sans_gaster_blaster(__p.x, __p.y, __dir, 60, 30, .5, .5);
 	}
 }
 else if(timer >= 720 && timer <= 860)
 {
 	if(timer % 40 == 0)
 	{
-		AttackBonegap(Box.x2, Box.y-10, Box.w, pi/2, 20, 14, 0, 3);
-		AttackBonegap(Box.x2, Box.y2+10, Box.w, pi/2, 20, 14, 0, -3);
+		attack_sans_bonegap(Box.fx2, Box.fy-10, Box.fw, pi/2, 20, 14, 0, 3);
+		attack_sans_bonegap(Box.fx2, Box.fy2+10, Box.fw, pi/2, 20, 14, 0, -3);
 	}
 }
-
-if(keyboard_check(ord("A"))) Slam(pi    , 30);
-if(keyboard_check(ord("Z"))) Slam(pi*1.5, 30);
-if(keyboard_check(ord("D"))) Slam(0     , 30);
-if(keyboard_check(ord("S"))) Slam(pi/2  , 30);
 
 timer++;

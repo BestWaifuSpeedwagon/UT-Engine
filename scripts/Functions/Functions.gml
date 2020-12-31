@@ -269,8 +269,6 @@ function startBattle(monster, karma, music, startAttack)
 		startAttack: startAttack
 	};
 	
-	room = rm_battle;
-	
 	instance_create_depth(0, 0, 0, obj_battlestart);
 	
 	ct_argument = undefined;

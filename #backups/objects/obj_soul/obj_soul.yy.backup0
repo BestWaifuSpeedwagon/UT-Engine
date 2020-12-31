@@ -1,4 +1,4 @@
-// 2020-12-28 02:57:12
+// 2020-12-31 12:51:53
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 sprite_index = spr_heart;
@@ -501,6 +501,11 @@ surface_reset_target();
 
 #endregion
 
+if(mouse_check_button_pressed(mb_left))
+{
+	attack_sans_gaster_blaster(mouse_x, mouse_y, -point_direction(mouse_x, mouse_y, 320, 240), 60, 30, 1, 1);
+}
+
 #event draw_gui Draw the *burp* thing
 #region Heart / Text
 draw_set_color(c_white);
@@ -637,6 +642,21 @@ with(box)
 {
 	for(i = 0; i < 4; i++)
 		draw_rectangle(x + i, y + i, x2 - i, y2 - i, true);
+	
+	if(debug_mode)
+	{
+		draw_set_color(c_yellow);
+		draw_circle(x , y , 4, false);
+		draw_circle(x2, y , 4, false);
+		draw_circle(x , y2, 4, false);
+		draw_circle(x2, y2, 4, false);
+		
+		draw_set_color(c_red);
+		draw_circle(fx1, fy1, 4, false);
+		draw_circle(fx2, fy1, 4, false);
+		draw_circle(fx1, fy2, 4, false);
+		draw_circle(fx2, fy2, 4, false);
+	}
 }
 #endregion
 #region Speech

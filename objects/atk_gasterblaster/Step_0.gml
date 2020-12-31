@@ -16,7 +16,7 @@ else if(timer == 0)
 {
 	audio_play_sound(snd_gaster_blast, 0, false);
 	
-	screenShake(max(image_xscale*image_yscale, 5));
+	screenShake(10);
 	
 	collision = true;
 	
@@ -27,7 +27,8 @@ else if(timer == 0)
 }
 else if(timer > -fadeOut)
 {
-	size = min(size+.2, 1);
+	size = min(size+.0625, 1);
+	
 	timer--;
 }
 else

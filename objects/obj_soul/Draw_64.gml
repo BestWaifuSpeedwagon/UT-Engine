@@ -134,6 +134,21 @@ with(box)
 {
 	for(i = 0; i < 4; i++)
 		draw_rectangle(x + i, y + i, x2 - i, y2 - i, true);
+	
+	if(debug_mode)
+	{
+		draw_set_color(c_yellow);
+		draw_circle(x , y , 4, false);
+		draw_circle(x2, y , 4, false);
+		draw_circle(x , y2, 4, false);
+		draw_circle(x2, y2, 4, false);
+		
+		draw_set_color(c_red);
+		draw_circle(fx1, fy1, 4, false);
+		draw_circle(fx2, fy1, 4, false);
+		draw_circle(fx1, fy2, 4, false);
+		draw_circle(fx2, fy2, 4, false);
+	}
 }
 #endregion
 #region Speech

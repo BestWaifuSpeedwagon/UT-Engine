@@ -1,4 +1,4 @@
-// 2020-12-21 22:39:35
+// 2020-12-31 12:57:38
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -78,7 +78,7 @@ if(time > 0){}
 else if(time == 0)
 {
 	audio_play_sound(snd_spearrise, 3, false);
-	boneArea = AttackBonearea(_x, _y, _w, _h, new Vector(0, 0));
+	boneArea = attack_sans_bonearea(_x, _y, _w, _h, new Vector(0, 0));
 }
 else if(time > -30)
 {

@@ -1,7 +1,9 @@
 /// @description Draw myself (not affected by shaders)
 if(size > 0)
 {
-	var oscillation = (sin(t*pi*8)+1)/2 * 0.25 + 1; //0.25 second
+	var oscillation = 1;
+	
+	if(timer < -16) oscillation = (sin(t*pi*8 - pi*.0522)+1)/2 * 0.2 + .9; //Between .9 and 1.1
 	
 	var __cos = cos(wantedDir),
 		__sin = sin(wantedDir);
@@ -11,8 +13,8 @@ if(size > 0)
 	
 	draw_sprite_ext(spr_gasterblaster_blast, 0, blastX, blastY, image_xscale, size*image_yscale, image_angle, color, alpha);
 	
-	blastX += __cos*20*image_xscale;
-	blastY += __sin*20*image_xscale;
+	blastX += __cos*14*image_xscale;
+	blastY += __sin*14*image_xscale;
 	
 	draw_set_alpha(alpha);
 	draw_set_color(color);
